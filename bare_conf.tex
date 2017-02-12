@@ -317,7 +317,8 @@
 % correct bad hyphenation here
 \hyphenation{op-tical net-works semi-conduc-tor}
 
-
+\usepackage{graphicx}
+\usepackage{todonotes}
 \begin{document}
 %
 % paper title
@@ -334,10 +335,12 @@
 % affiliations
 \author{\IEEEauthorblockN{Martin Puse}
 \IEEEauthorblockA{
-Matr. #853001}
+853001}
 \and
 \IEEEauthorblockN{Marcel Pillich}
-\IEEEauthorblockA{Matr. #863121}}
+\IEEEauthorblockA{863121}
+}
+
 
 % conference papers do not typically use \thanks and this command
 % is locked out in conference mode. If really needed, such as for
@@ -376,7 +379,13 @@ Matr. #853001}
 % As a general rule, do not put math, special symbols or citations
 % in the abstract
 \begin{abstract}
-The abstract goes here.
+Die vorliegende Arbeit enth\"alt eine detaillierte Beschreibung einer Java-Applikation f\"ur des Spiels "Mensch \"argere Dich nicht",
+welche f\"ur Spieleprogrammierer und Spieledesigner gleicherma\ss en geeignet ist. Ziel war es, dass der Programmierer
+sich um Erscheinungsbild und Regeln des Spiels k\"ummern kann, ohne selber Spielfelder designen zu m\"ussen, wohingegen der Designer keine
+Programmierkenntnisse ben\"otigt, um neue Spielfelder hinzuzuf\"ugen und zu testen. Zu diesem Zweck wurden eine Grammatik f\"ur die Spielfelder
+und ein Generator, welcher die Grammatiken verarbeitet und automatisiert Code erzeugt, erstellt. Die dahinterliegende Idee, die Spielfelder
+nicht auf Positions-, sondern Knoteninformationen zu basieren, wird ausf\"uhrlich dargestellt.
+Schlussendlich werden Weiterentwicklungsm\"oglichkeiten des Prototyps pr\"asentiert.
 \end{abstract}
 
 % no keywords
@@ -396,9 +405,24 @@ The abstract goes here.
 
 
 
-\section{Einleitung/Zielsetzung}
+\section{Einleitung}
 % no \IEEEPARstart
-Ziel war es, ein "Mensch \"argere Dich nicht" zu Implementieren, das mittels einer DSL variable Spielfelder erzeugen kann. Im verlauf der Architekturdokumentation wird sowohl auf die Besonderheiten der Implementierung, als auch auf die verwendeten Design-Patterns und den Code-Generierungsansatz eingegangen. Abschlie\ss end wird ein Fazit formuliert, das die Erfahrungen und Ergebnisse zusammenfasst.
+"Mensch \"argere Dich nicht" ist ein Brettspiel f\"ur bis zu 4 Personen. Es z\"ahlt zu den Klassikern im deutschsprachigen Raum und wurde 1907/1908 von Josef Friedrich Schmidt in Anlehnung an das englische Spiel Ludo erfunden, die Urspr\"unge finden sich jedoch im indischen Spiel Pachisi. Erstmals 1910 erschienen,
+ging es 1904 in Serie. 
+\begin{figure}[]
+    \centering
+    \fbox{\includegraphics[width=0.4\textwidth]{images/pachisi.jpg}}
+    \caption{Pachisi}
+\end{figure}
+Mittlerweile existieren auch viele Abk\"ommlinge und Varianten mit ver\"anderten Regeln oder Spielfeldern. Allen Varianten ist jedoch gemein,
+da\ss sie ein symmetrisches Spielfeld besitzen und analog entwickelt wurden. Man kann vermuten, dass mit asymmetrischen Spielfeldern experimentiert, dies jedoch
+nicht weiter verfolgt wurde, da es ungleich schwieriger ist, eine asymmetrische Konfiguration zu finden bei der die Chancengleichheit und somit der ausgewogene
+Spielspa\ss f\"ur alle Spieler gegeben ist. Dennoch ist der Reiz dieses Szenarios nicht zu verachten, da die Freiheit bei der Gestaltung asymmetrische Spielfelder
+\"au\ss erst fruchtbar f\"ur die Entwicklung interessanter Spielvarianten, welche sich nicht in das relativ starre klassische Korsett einpassen m\"ussen, ist. Die gr\"o\ss te
+H\"urde in diesem Bereich ist also die m\"uhelose Erstellung eines experimentellen Spielfeldes, um dieses unmittelbar auf seine Spielspa\ss eigenschaften zu testen.
+
+Zu diesem Zweck wurde eine Java-Applikation entwickelt, welche einen Spielfeldgenerator implementiert, der mittels einer DSL variable Spielfelder erzeugen kann. Im verlauf der Architekturdokumentation wird sowohl auf die Besonderheiten der Implementierung, als auch auf die verwendeten Design-Patterns und den Code-Generierungsansatz eingegangen. Abschlie\ss end wird ein Fazit formuliert, das die Erfahrungen und Ergebnisse zusammenfasst.
+
 
 % An example of a floating figure using the graphicx package.
 % Note that \label must occur AFTER (or within) \caption.
@@ -494,21 +518,95 @@ Ziel war es, ein "Mensch \"argere Dich nicht" zu Implementieren, das mittels ein
 % footnotes above bottom floats. This can be corrected via the
 % \fnbelowfloat command of the stfloats package.
 
-
+
+
 
 \section{Anforderungen an die Applikation}
 
+- os unabhängig lauffähig
+- trotz development dauerhaft lauffähiger zustand (für designer)
+- keine programmierkenntnisse, um neue spielfelder zu erzeugen und zu testen
+- erweiterbarkeit der regeln
+- erweiterbarkeit für künstliche spieler
+- einfachste bedienung (nur maus + linke maustaste)
+
 
 \section{Implementierung}
+  parallele entwicklung (2er team)
+  Applikation
+  Generator
+  einfache und konfigurationslose Verknüpfung (generierte Spielfelddatei: fester platz und name in projektstruktur (model GENPlayfieldCreator.java)
+
+  usage für designer: entwickele spielfeld, starte generator, starte applikation,
+    vorschläge an den programmierer zur weiterentwicklung
+  usage für programmierer:
+    entwickele view 
+    erweitere regeln (controller: businesslogic, model: neue datenfelder)
+    erweitere generator/grammatik
+    nach implementierung designer neue version zur verfügung stellen
+
+  knotenbasierte spielfeldelemente
+    -erzeugt eleganten regel code durch tiletypen und lookahead function
+    -einfache erweiterung neuer tiletypen und regeln
+    -natürlich abbildung der regeln in code
+
+    beispiele zeigen:
+    if (tile.TILETYPE == START \&\& tile.hasPiece())) // cant move to start, its not free
+
 
 \section{Genutzte Design Pattern}
 \subsection{MVC}
+  für die abbildung eines brettspiels in digitaler form bietet sich das klassische mvc pattern an.
+
+  dabei ist zu beachten, das die dreickbeziehung zwischen mvc nicht symmetrisch (führt zu spagetticode, unklare verantwortlichkeiten)
+  sondern hierarchisch implementiert wird.
+  konkret: controller kennt model und view
+    dh controller darf veränderungen im model vornehmen und bekommt events der view mitgeteilt
+    view kennt model, darf aber nur lesen, um eigenen zusatnd upzudaten
+    model kennt niemanden, stellt aber api für lese/schreibzugriffe bereit
+
+  das spielfeld und der aktuelle spielzustand sind im model festgehalten, die view präsentiert das spielfeld und erwartet interaktion vom benutzer,
+  der controller verarbeitet die eingaben des nutzers oder steuert die künstlichen spieler.
+
+
 \subsection{Singleton}
 
+Die Applikation soll stets ein lauffähiges Menschärgeredichnicht Spiel repräsentieren, welche ohne komplizierte Laufzeutinstellungen auskommt oder mit commandlineparametern zu starten sein muß (designer requirement). Es ist also nicht erwünscht, das mehrer Instanzen der Hauptklassen erzeugbar sind, da dies zu
+kompliziertem Initialisierungscode in den toplevelschichten führen würde (main). Im code wird dies dadurch reflektiert,
+dass die Hauptklassen von Model/View/Controller als Singletons implementiert sind.
+Die Eleganz dieser Variante zeigt sich in der übersichtlichen Mainklasse, in der nur noch die Singletons instanziiert und miteinander verknüpft werden. Sämtliche
+Weiterentwicklung des Programms kann innerhalb der MVC-Komponenten erfolgen, ohne das die Main angepasst werden muß. Dadurch ist ein Initialisierungsprozess
+der App festgehalten.
+
+
 \section{Code-Generierung}
+2-stufiger parser
+
+
+meta parser:
+ liest spielfelddatei und ermittelt metadaten, also daten das ganze spielfeld betreffend und positionsunabhängig
+ - spieleranzahl
+ - ein startfeld pro spieler
+ - gleiche anzahl an home und goal feldern pro spieler
+ - höhe, breite der spielfeldmatrix
+ - daten werden als getter im genierten code bereitgestellt
+
+semantic parser
+ - liest die einzelnen felder
+ - verknüpft die knoten
+ - generiert den erzeugungscode des spielfeldes
+
 
 \section{Fazit}
 
+knoten ansatz sehr gut geeignet für erweiterung/generalisierung der spielfeldgenerierung
+einsatz passender pattern an den richtigen stellen für weiterentwicklung der software
+(ki subclass, spielregeln)
+
+grammatik zeilen/spalten gebunden (keine planar frei plazierbare tiles ohne x, y beschränkung)
+aber möglich, tiles nur knotengebunden, dh
+zusätzlicher editor für graphisches design von csv-vorlagen möglich
+verschieben von graphischen elementen hat keinen einfluß auf knotenverknüpfungen
 
 % conference papers do not normally have an appendix
 
