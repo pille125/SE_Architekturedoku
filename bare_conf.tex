@@ -530,13 +530,6 @@ Zu diesem Zweck wurde eine Java-Applikation entwickelt, welche einen Spielfeldge
 - erweiterbarkeit für künstliche spieler
 - einfachste bedienung (nur maus + linke maustaste)
 
-
-\section{Implementierung}
-  parallele entwicklung (2er team)
-  Applikation
-  Generator
-  einfache und konfigurationslose Verknüpfung (generierte Spielfelddatei: fester platz und name in projektstruktur (model GENPlayfieldCreator.java)
-
   usage für designer: entwickele spielfeld, starte generator, starte applikation,
     vorschläge an den programmierer zur weiterentwicklung
   usage für programmierer:
@@ -545,10 +538,61 @@ Zu diesem Zweck wurde eine Java-Applikation entwickelt, welche einen Spielfeldge
     erweitere generator/grammatik
     nach implementierung designer neue version zur verfügung stellen
 
-  knotenbasierte spielfeldelemente
+
+\section{Implementierung}
+  parallele entwicklung (2er team)
+
+  tech stack:
+    java
+    antlr
+    beliebiger texteditor für csv
+
+
+  projekte:
+    Applikation (MenschAergerDichNicht)
+    Generator (MADPlayfieldGenerator)
+    
+  einfache und konfigurationslose Verknüpfung (generierte Spielfelddatei: fester platz und name in projektstruktur (model GENPlayfieldCreator.java)
+
+
+
+  Klassen:
+
+  Controller:
+
+    Game (HauptController)
+      hauptschleife
+
+      PlayerController (UnterController)
+        kapselung für player objekte
+
+  View: 
+    GUI
+       -verantwortlich für den Rahmen, fenstergröße usw
+    PlayfieldPanel
+        - rendering des spielfeldes (tiles, pieces)
+
+  Model:
+    Playfield
+      - alle tiles
+    Tile 
+      - knoteninformationen
+      - referenzinformation über pieces
+    Player
+      - enthält seine pieces
+      Ableitungen: KIPlayer/HumanPlayer
+
+
+
+  implementierungsvorteile durch knotenbasierte spielfeldelemente
+
+
     -erzeugt eleganten regel code durch tiletypen und lookahead function
     -einfache erweiterung neuer tiletypen und regeln
     -natürlich abbildung der regeln in code
+
+
+    Typendefinitionen: tileType
 
     beispiele zeigen:
     if (tile.TILETYPE == START \&\& tile.hasPiece())) // cant move to start, its not free
@@ -581,6 +625,8 @@ der App festgehalten.
 
 \section{Code-Generierung}
 2-stufiger parser
+
+antlr setup, usage
 
 
 meta parser:
