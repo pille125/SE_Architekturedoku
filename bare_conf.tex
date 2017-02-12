@@ -523,6 +523,23 @@ Zu diesem Zweck wurde eine Java-Applikation entwickelt, welche einen Spielfeldge
 
 \section{Anforderungen an die Applikation}
 
+Grundlegend an die Anforderungen ist die Tatsache, dass das Programm für Programmierer und Designer gleicherma\ss en benutzbar sein mu\ss.
+Während der Designer sich vollständig auf die Entwicklung interessanter Spielfelder konzentrieren können mu\ss, d.h. man kann und darf
+keine Programmierkenntnisse vom ihm verlangen, darf die den Programmierer nicht daran hindern, die Applikation weiter zu entwickeln, also
+in den Bereichen grafisches Erscheinungsbild, Regeln, Künstliche Intelligenz und Spielfeld Veränderungen vorzunehmen. Aus diesen Gedanken
+heraus haben sich die grundlegenden Anforderungen gebildet.
+Die Applikation sollte möglichst unabhängig vom Betriebssystem lauffähig sein. Da eine starke Eigenschaft von Java die Portabilität und
+Lauffähigkeit auf vielen unterschiedlichen Geräten ist, wurde diese als Entwicklungsprogrammiersprache gewählt. Dadurch lassen sich auch Abkömmlinge
+des Prototypen (exemplarisch MobileApp) gut planen und umsetzen. Die verbindende Technologie zwischen Programmierer und Designer ist das ausgereifte
+Codegenerierungs-Tool Antlr, welches das .csv Dateiformat von Haus aus beherrscht und für die programmierkenntnislose Erstellung von Spielfeldern
+geeignet ist. Diese Aufstellung des Technologiestacks erlaubt einen wechselseitigen Workflow ohne große Unterbrechungen. Der Designer kann
+mit der aktuellen Version neue Spielfelder erzeugen oder bereits designte testen und Vorschläge zum Regelwerk machen. Der Programmierer
+kann solche Feature-Requests umsetzen und einspielen, woraushin der Designer wieder iterieren kann. Beide kommunizieren also vorrangig
+über die Grammatik des Spiels und sind nicht primär an technische Beschränkungen gebunden. Weiter kann der Programmierer kann unabhängig vom Designer
+an der graphischen Erscheinung der View und dem Verhalten der künstlichen Spieler arbeiten. Für den Designer ist eine einfache Bedienung
+wichtig, d.h. es wird nur von ihm verlangt mit der View zu kommunizieren und neue Spielfelder zu erzeugen.
+
+
 - os unabhängig lauffähig
 - trotz development dauerhaft lauffähiger zustand (für designer)
 - keine programmierkenntnisse, um neue spielfelder zu erzeugen und zu testen
