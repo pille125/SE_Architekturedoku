@@ -523,37 +523,37 @@ Zu diesem Zweck wurde eine Java-Applikation entwickelt, welche einen Spielfeldge
 
 \section{Anforderungen an die Applikation}
 
-Grundlegend an die Anforderungen ist die Tatsache, dass das Programm für Programmierer und Designer gleicherma\ss en benutzbar sein mu\ss.
-Während der Designer sich vollständig auf die Entwicklung interessanter Spielfelder konzentrieren können mu\ss, d.h. man kann und darf
+Grundlegend an die Anforderungen ist die Tatsache, dass das Programm f\"ur Programmierer und Designer gleicherma\ss en benutzbar sein mu\ss.
+W\"ahrend der Designer sich vollst\"andig auf die Entwicklung interessanter Spielfelder konzentrieren k\"onnen mu\ss, d.h. man kann und darf
 keine Programmierkenntnisse vom ihm verlangen, darf die den Programmierer nicht daran hindern, die Applikation weiter zu entwickeln, also
-in den Bereichen grafisches Erscheinungsbild, Regeln, Künstliche Intelligenz und Spielfeld Veränderungen vorzunehmen. Aus diesen Gedanken
+in den Bereichen grafisches Erscheinungsbild, Regeln, K\"unstliche Intelligenz und Spielfeld Ver\"anderungen vorzunehmen. Aus diesen Gedanken
 heraus haben sich die grundlegenden Anforderungen gebildet.
-Die Applikation sollte möglichst unabhängig vom Betriebssystem lauffähig sein. Da eine starke Eigenschaft von Java die Portabilität und
-Lauffähigkeit auf vielen unterschiedlichen Geräten ist, wurde diese als Entwicklungsprogrammiersprache gewählt. Dadurch lassen sich auch Abkömmlinge
+Die Applikation sollte m\"oglichst unabh\"angig vom Betriebssystem lauff\"ahig sein. Da eine starke Eigenschaft von Java die Portabilit\"at und
+Lauff\"ahigkeit auf vielen unterschiedlichen Ger\"aten ist, wurde diese als Entwicklungsprogrammiersprache gew\"ahlt. Dadurch lassen sich auch Abk\"ommlinge
 des Prototypen (exemplarisch MobileApp) gut planen und umsetzen. Die verbindende Technologie zwischen Programmierer und Designer ist das ausgereifte
-Codegenerierungs-Tool Antlr, welches das .csv Dateiformat von Haus aus beherrscht und für die programmierkenntnislose Erstellung von Spielfeldern
+Codegenerierungs-Tool Antlr, welches das .csv Dateiformat von Haus aus beherrscht und f\"ur die programmierkenntnislose Erstellung von Spielfeldern
 geeignet ist. Diese Aufstellung des Technologiestacks erlaubt einen wechselseitigen Workflow ohne große Unterbrechungen. Der Designer kann
-mit der aktuellen Version neue Spielfelder erzeugen oder bereits designte testen und Vorschläge zum Regelwerk machen. Der Programmierer
+mit der aktuellen Version neue Spielfelder erzeugen oder bereits designte testen und Vorschl\"age zum Regelwerk machen. Der Programmierer
 kann solche Feature-Requests umsetzen und einspielen, woraushin der Designer wieder iterieren kann. Beide kommunizieren also vorrangig
-über die Grammatik des Spiels und sind nicht primär an technische Beschränkungen gebunden. Weiter kann der Programmierer kann unabhängig vom Designer
-an der graphischen Erscheinung der View und dem Verhalten der künstlichen Spieler arbeiten. Für den Designer ist eine einfache Bedienung
+\"uber die Grammatik des Spiels und sind nicht prim\"ar an technische Beschr\"ankungen gebunden. Weiter kann der Programmierer kann unabh\"angig vom Designer
+an der graphischen Erscheinung der View und dem Verhalten der k\"unstlichen Spieler arbeiten. F\"ur den Designer ist eine einfache Bedienung
 wichtig, d.h. es wird nur von ihm verlangt mit der View zu kommunizieren und neue Spielfelder zu erzeugen.
 
 
-- os unabhängig lauffähig
-- trotz development dauerhaft lauffähiger zustand (für designer)
+- os unabh\"angig lauff\"ahig
+- trotz development dauerhaft lauff\"ahiger zustand (f\"ur designer)
 - keine programmierkenntnisse, um neue spielfelder zu erzeugen und zu testen
 - erweiterbarkeit der regeln
-- erweiterbarkeit für künstliche spieler
+- erweiterbarkeit f\"ur k\"unstliche spieler
 - einfachste bedienung (nur maus + linke maustaste)
 
-  usage für designer: entwickele spielfeld, starte generator, starte applikation,
-    vorschläge an den programmierer zur weiterentwicklung
-  usage für programmierer:
+  usage f\"ur designer: entwickele spielfeld, starte generator, starte applikation,
+    vorschl\"age an den programmierer zur weiterentwicklung
+  usage f\"ur programmierer:
     entwickele view 
     erweitere regeln (controller: businesslogic, model: neue datenfelder)
     erweitere generator/grammatik
-    nach implementierung designer neue version zur verfügung stellen
+    nach implementierung designer neue version zur verf\"ugung stellen
 
 
 \section{Implementierung}
@@ -562,30 +562,59 @@ wichtig, d.h. es wird nur von ihm verlangt mit der View zu kommunizieren und neu
   tech stack:
     java
     antlr
-    beliebiger texteditor für csv
+    beliebiger texteditor f\"ur csv
 
 
   projekte:
     Applikation (MenschAergerDichNicht)
     Generator (MADPlayfieldGenerator)
     
-  einfache und konfigurationslose Verknüpfung (generierte Spielfelddatei: fester platz und name in projektstruktur (model GENPlayfieldCreator.java)
+  einfache und konfigurationslose Verkn\"upfung (generierte Spielfelddatei: fester platz und name in projektstruktur (model GENPlayfieldCreator.java)
 
 
 
   Klassen:
 
   Controller:
+  \texttt{Game}
 
-    Game (HauptController)
-      hauptschleife
+    Die Klasse \texttt{game} ist das Herz der Applikation. Als Haupt-Controller h\"alt er Referenzen zum Subcontroller \texttt{PlayerController}, zur View \texttt{GUI} zum Model \texttt{Playfield}. In der \texttt{Main}-Methode wird die Applikation \"uber
+      
+      \texttt{
+        Game game = Game.getInstance();
+        game.init(playerController, playfield, gui);
+      }
+
+      zusammengesetzt.
+
+      Im \texttt{Game}-Controller finden sich Methoden zur Eingabebehandlung:
+    mit \texttt{onStartButtonClicked} kann ein neues Spiel begonnen werden. Mit
+    \texttt{onRollDiceButtonClicked} wird W\"urfeln der menschlichen Spieler verarbeitet und mit
+    \texttt{onMouseClicked} werden Klicks auf das Spielfeld verarbeitet. Dabei handelt es sich um Spielfigurbewegungen der menschlichen Spieler.
+
+    Zum Steuern des Spielablaufs existieren die Methoden
+\texttt{startGame}, mit der ein neues Spiel initialisiert wird.
+\texttt{checkForWin} pr\"uft nach jedem Spielzug, ob ein Sieger feststeht und beendet gegebenenfalls das Spiel durch
+\texttt{endGame}.
+\texttt{turn} leitet einen Spielzug ein. Im Falle eines menschlichen Spielers wird anschließend auf Eingaben gewartet, bei einem k\"unstlichen Spieler wird das W\"urfeln automatisch ausgef\"uhrt und die KI \"uber \texttt{turnKI} zur Spielfigurenbewegung angesteuert. F\"ur die Logik innerhalb des Spielablaufs existieren die Methoden
+\texttt{prepareBonusRoll}, welche gesondert nach einer gew\"urfelten 6 angesteuert wird und im Falle einer anderen gew\"urfelten Zahl
+\texttt{prepareNextPlayer}, wenn der entsprechende Spieler seinen Zug abgeschlossen hat.
+
+Die zentrale Methode \texttt{tryMove} wird angesteuert, wenn eine Spielfigur von einem -gleichg\"ultig ob menschlich oder k\"unstlich- Spieler bewegt werden soll. In ihr werden die Regeln zur validen Bewegung der Spielfigur \"uberpr\"uft, der Zug wenn m\"oglich ausgef\"uhrt (wodurch sich das Model \"andert) und die Validit\"at als \texttt{boolean} Wert zur\"uckgegeben. Durch den R\"uckgabewert wird gesteuert, ob im Falle einer KI eine andere Spielfigur bewegt oder wieder auf Mauseingaben des Benutzer gewartet werden soll. War der Zug valide, wird zum n\"achsten Spieler im Spielverlauf weitergegangen. Unterfunktionen von \texttt{tryMove} sind
+\texttt{rollDice}, in welcher der nächste zufallsgenerierte Wurf ermittelt wird, \texttt{cantMoveOut} welche die Zwangsregel, dass man eine Spielfigur -wenn möglich- heraussetzen muss, implementiert und
+\texttt{isValidTarget}, welche überprüft, ob das Zielfeld einer Spielfigur ein valide Position darstellt. Auf die letztgenannte Methode soll genauer eingegangen werden, da sich in ihr die Vorteile des knotenbasierten Spielfeldes zeigen. Zum Ermitteln eines legales Spielzugs der Spielfigur wird zuerst das Feld, auf dem die Spielfigur sich befindet, referenziert und nachfolgende die Methode \texttt{getTargetTile} auf dem referenzierten Spielfeld aufgerufen, dessen Implementierung in Abbildung \ref{ code} zu sehen ist.
+
+
 
       PlayerController (UnterController)
-        kapselung für player objekte
+
+        Der PlayerController
+        kapselung f\"ur player objekte
+        ansteuerung der ki
 
   View: 
     GUI
-       -verantwortlich für den Rahmen, fenstergröße usw
+       -verantwortlich f\"ur den Rahmen, fenstergr\"oße usw
     PlayfieldPanel
         - rendering des spielfeldes (tiles, pieces)
 
@@ -594,9 +623,9 @@ wichtig, d.h. es wird nur von ihm verlangt mit der View zu kommunizieren und neu
       - alle tiles
     Tile 
       - knoteninformationen
-      - referenzinformation über pieces
+      - referenzinformation \"uber pieces
     Player
-      - enthält seine pieces
+      - enth\"alt seine pieces
       Ableitungen: KIPlayer/HumanPlayer
 
 
@@ -606,7 +635,7 @@ wichtig, d.h. es wird nur von ihm verlangt mit der View zu kommunizieren und neu
 
     -erzeugt eleganten regel code durch tiletypen und lookahead function
     -einfache erweiterung neuer tiletypen und regeln
-    -natürlich abbildung der regeln in code
+    -nat\"urlich abbildung der regeln in code
 
 
     Typendefinitionen: tileType
@@ -617,25 +646,25 @@ wichtig, d.h. es wird nur von ihm verlangt mit der View zu kommunizieren und neu
 
 \section{Genutzte Design Pattern}
 \subsection{MVC}
-  für die abbildung eines brettspiels in digitaler form bietet sich das klassische mvc pattern an.
+  f\"ur die abbildung eines brettspiels in digitaler form bietet sich das klassische mvc pattern an.
 
-  dabei ist zu beachten, das die dreickbeziehung zwischen mvc nicht symmetrisch (führt zu spagetticode, unklare verantwortlichkeiten)
+  dabei ist zu beachten, das die dreickbeziehung zwischen mvc nicht symmetrisch (f\"uhrt zu spagetticode, unklare verantwortlichkeiten)
   sondern hierarchisch implementiert wird.
   konkret: controller kennt model und view
-    dh controller darf veränderungen im model vornehmen und bekommt events der view mitgeteilt
+    dh controller darf ver\"anderungen im model vornehmen und bekommt events der view mitgeteilt
     view kennt model, darf aber nur lesen, um eigenen zusatnd upzudaten
-    model kennt niemanden, stellt aber api für lese/schreibzugriffe bereit
+    model kennt niemanden, stellt aber api f\"ur lese/schreibzugriffe bereit
 
-  das spielfeld und der aktuelle spielzustand sind im model festgehalten, die view präsentiert das spielfeld und erwartet interaktion vom benutzer,
-  der controller verarbeitet die eingaben des nutzers oder steuert die künstlichen spieler.
+  das spielfeld und der aktuelle spielzustand sind im model festgehalten, die view pr\"asentiert das spielfeld und erwartet interaktion vom benutzer,
+  der controller verarbeitet die eingaben des nutzers oder steuert die k\"unstlichen spieler.
 
 
 \subsection{Singleton}
 
-Die Applikation soll stets ein lauffähiges Menschärgeredichnicht Spiel repräsentieren, welche ohne komplizierte Laufzeutinstellungen auskommt oder mit commandlineparametern zu starten sein muß (designer requirement). Es ist also nicht erwünscht, das mehrer Instanzen der Hauptklassen erzeugbar sind, da dies zu
-kompliziertem Initialisierungscode in den toplevelschichten führen würde (main). Im code wird dies dadurch reflektiert,
+Die Applikation soll stets ein lauff\"ahiges Mensch\"argeredichnicht Spiel repr\"asentieren, welche ohne komplizierte Laufzeutinstellungen auskommt oder mit commandlineparametern zu starten sein muß (designer requirement). Es ist also nicht erw\"unscht, das mehrer Instanzen der Hauptklassen erzeugbar sind, da dies zu
+kompliziertem Initialisierungscode in den toplevelschichten f\"uhren w\"urde (main). Im code wird dies dadurch reflektiert,
 dass die Hauptklassen von Model/View/Controller als Singletons implementiert sind.
-Die Eleganz dieser Variante zeigt sich in der übersichtlichen Mainklasse, in der nur noch die Singletons instanziiert und miteinander verknüpft werden. Sämtliche
+Die Eleganz dieser Variante zeigt sich in der \"ubersichtlichen Mainklasse, in der nur noch die Singletons instanziiert und miteinander verkn\"upft werden. S\"amtliche
 Weiterentwicklung des Programms kann innerhalb der MVC-Komponenten erfolgen, ohne das die Main angepasst werden muß. Dadurch ist ein Initialisierungsprozess
 der App festgehalten.
 
@@ -647,29 +676,29 @@ antlr setup, usage
 
 
 meta parser:
- liest spielfelddatei und ermittelt metadaten, also daten das ganze spielfeld betreffend und positionsunabhängig
+ liest spielfelddatei und ermittelt metadaten, also daten das ganze spielfeld betreffend und positionsunabh\"angig
  - spieleranzahl
  - ein startfeld pro spieler
  - gleiche anzahl an home und goal feldern pro spieler
- - höhe, breite der spielfeldmatrix
+ - h\"ohe, breite der spielfeldmatrix
  - daten werden als getter im genierten code bereitgestellt
 
 semantic parser
  - liest die einzelnen felder
- - verknüpft die knoten
+ - verkn\"upft die knoten
  - generiert den erzeugungscode des spielfeldes
 
 
 \section{Fazit}
 
-knoten ansatz sehr gut geeignet für erweiterung/generalisierung der spielfeldgenerierung
-einsatz passender pattern an den richtigen stellen für weiterentwicklung der software
+knoten ansatz sehr gut geeignet f\"ur erweiterung/generalisierung der spielfeldgenerierung
+einsatz passender pattern an den richtigen stellen f\"ur weiterentwicklung der software
 (ki subclass, spielregeln)
 
-grammatik zeilen/spalten gebunden (keine planar frei plazierbare tiles ohne x, y beschränkung)
-aber möglich, tiles nur knotengebunden, dh
-zusätzlicher editor für graphisches design von csv-vorlagen möglich
-verschieben von graphischen elementen hat keinen einfluß auf knotenverknüpfungen
+grammatik zeilen/spalten gebunden (keine planar frei plazierbare tiles ohne x, y beschr\"ankung)
+aber m\"oglich, tiles nur knotengebunden, dh
+zus\"atzlicher editor f\"ur graphisches design von csv-vorlagen m\"oglich
+verschieben von graphischen elementen hat keinen einfluß auf knotenverkn\"upfungen
 
 % conference papers do not normally have an appendix
 
