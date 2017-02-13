@@ -421,7 +421,7 @@ Spielspa\ss f\"ur alle Spieler gegeben ist. Dennoch ist der Reiz dieses Szenario
 \"au\ss erst fruchtbar f\"ur die Entwicklung interessanter Spielvarianten, welche sich nicht in das relativ starre klassische Korsett einpassen m\"ussen, ist. Die gr\"o\ss te
 H\"urde in diesem Bereich ist also die m\"uhelose Erstellung eines experimentellen Spielfeldes, um dieses unmittelbar auf seine Spielspa\ss eigenschaften zu testen.
 
-Zu diesem Zweck wurde eine Java-Applikation entwickelt, welche einen Spielfeldgenerator implementiert, der mittels einer DSL variable Spielfelder erzeugen kann. Im verlauf der Architekturdokumentation wird sowohl auf die Besonderheiten der Implementierung, als auch auf die verwendeten Design-Patterns und den Code-Generierungsansatz eingegangen. Abschlie\ss end wird ein Fazit formuliert, das die Erfahrungen und Ergebnisse zusammenfasst.
+Zu diesem Zweck wurde eine Java-Applikation entwickelt, welche einen Spielfeldgenerator implementiert, der mittels einer DSL variable Spielfelder erzeugen kann. Im Verlauf der Architekturdokumentation wird sowohl auf die Besonderheiten der Implementierung, als auch auf die verwendeten Design-Patterns und den Code-Generierungsansatz eingegangen. Abschlie\ss end wird ein Fazit formuliert, das die Erfahrungen und Ergebnisse zusammenfasst.
 
 
 % An example of a floating figure using the graphicx package.
@@ -525,19 +525,19 @@ Zu diesem Zweck wurde eine Java-Applikation entwickelt, welche einen Spielfeldge
 
 Grundlegend an die Anforderungen ist die Tatsache, dass das Programm f\"ur Programmierer und Designer gleicherma\ss en benutzbar sein mu\ss.
 W\"ahrend der Designer sich vollst\"andig auf die Entwicklung interessanter Spielfelder konzentrieren k\"onnen mu\ss, d.h. man kann und darf
-keine Programmierkenntnisse vom ihm verlangen, darf die den Programmierer nicht daran hindern, die Applikation weiter zu entwickeln, also
+keine Programmierkenntnisse vom ihm verlangen, darf dies den Programmierer nicht daran hindern, die Applikation weiter zu entwickeln, also
 in den Bereichen grafisches Erscheinungsbild, Regeln, K\"unstliche Intelligenz und Spielfeld Ver\"anderungen vorzunehmen. Aus diesen Gedanken
 heraus haben sich die grundlegenden Anforderungen gebildet.
 Die Applikation sollte m\"oglichst unabh\"angig vom Betriebssystem lauff\"ahig sein. Da eine starke Eigenschaft von Java die Portabilit\"at und
 Lauff\"ahigkeit auf vielen unterschiedlichen Ger\"aten ist, wurde diese als Entwicklungsprogrammiersprache gew\"ahlt. Dadurch lassen sich auch Abk\"ommlinge
 des Prototypen (exemplarisch MobileApp) gut planen und umsetzen. Die verbindende Technologie zwischen Programmierer und Designer ist das ausgereifte
 Codegenerierungs-Tool Antlr, welches das .csv Dateiformat von Haus aus beherrscht und f\"ur die programmierkenntnislose Erstellung von Spielfeldern
-geeignet ist. Diese Aufstellung des Technologiestacks erlaubt einen wechselseitigen Workflow ohne große Unterbrechungen. Der Designer kann
+geeignet ist. Diese Aufstellung des Technologiestacks erlaubt einen wechselseitigen Workflow ohne gro\ss e Unterbrechungen. Der Designer kann
 mit der aktuellen Version neue Spielfelder erzeugen oder bereits designte testen und Vorschl\"age zum Regelwerk machen. Der Programmierer
 kann solche Feature-Requests umsetzen und einspielen, woraushin der Designer wieder iterieren kann. Beide kommunizieren also vorrangig
 \"uber die Grammatik des Spiels und sind nicht prim\"ar an technische Beschr\"ankungen gebunden. Weiter kann der Programmierer kann unabh\"angig vom Designer
 an der graphischen Erscheinung der View und dem Verhalten der k\"unstlichen Spieler arbeiten. F\"ur den Designer ist eine einfache Bedienung
-wichtig, d.h. es wird nur von ihm verlangt mit der View zu kommunizieren und neue Spielfelder zu erzeugen.
+wichtig, d.h. es wird nur von ihm verlangt mit der View zu kommunizieren und neue Spielfelder zu erzeugen, aber keine weiteren Deploy-Prozesse zu beachten.
 
 
 - os unabh\"angig lauff\"ahig
@@ -557,12 +557,33 @@ wichtig, d.h. es wird nur von ihm verlangt mit der View zu kommunizieren und neu
 
 
 \section{Implementierung}
-  parallele entwicklung (2er team)
+  Die Applikation wurde in einem 2er-Team entwickelt. Als erstes wurde die Grammatik definiert, damit dann parallel
+  ein Grundgerüst der Applikation entworfen und der Generator geschrieben werden konnte. Nachdem beide Projekte minimal
+  lauffähig waren, haben sich die Entwicklungsrollen iterativ vermischt, bis der Prototyp ausreichend angereichert und getestet
+  war.
 
-  tech stack:
-    java
-    antlr
-    beliebiger texteditor f\"ur csv
+  \subsection{Grammatik/DSL}
+    Die Grammatik des Spiels enthält Symbole für alle möglichen Spielfeldtypen und deren Verknüpfungen zum Nachfolgefeld.
+    Es können Spielfelder für 2 bis 4 Spieler definiert werden. Das reichte für den Prototyp aus und kann ohne besondere
+    Schwierigkeiten erweitert werden.
+    Die Spielfeldtypen eines klassischen Mensch-ärger-dich-nicht-Spiels sind wie folgt im Code und in der DSL definiert:
+      \todo{tabelle}
+
+
+      def im code   def in DSL
+    HOME              Hp
+    START             Sp
+    GOAL              Gpn
+    WAY               Wn
+    TOGOAL            WnGn   
+    NONE              NO
+
+    Das Kürzel $n$ steht für die Knoteninformation, welches Feld dem betreffenden folgt, dies kann eine der 4 Himmelrichtungen $N$,$S$,$W$,$E$ sein. Das andere Kürzel $p$ hingegen enthält die Spielernummer 1-4.
+
+    Da das .csv-Format zeilenbasiert ist, wurde für den Prototypen entschieden, nur matrixartige Spielfelddefinitionen zuzulassen. Dies wird im später erklärten \texttt{MetaListener} überprüft.
+
+  \subsection{Generator}
+  \subsection{Applikation}
 
 
   projekte:
@@ -596,7 +617,7 @@ wichtig, d.h. es wird nur von ihm verlangt mit der View zu kommunizieren und neu
 \texttt{startGame}, mit der ein neues Spiel initialisiert wird.
 \texttt{checkForWin} pr\"uft nach jedem Spielzug, ob ein Sieger feststeht und beendet gegebenenfalls das Spiel durch
 \texttt{endGame}.
-\texttt{turn} leitet einen Spielzug ein. Im Falle eines menschlichen Spielers wird anschließend auf Eingaben gewartet, bei einem k\"unstlichen Spieler wird das W\"urfeln automatisch ausgef\"uhrt und die KI \"uber \texttt{turnKI} zur Spielfigurenbewegung angesteuert. F\"ur die Logik innerhalb des Spielablaufs existieren die Methoden
+\texttt{turn} leitet einen Spielzug ein. Im Falle eines menschlichen Spielers wird anschlie\ss end auf Eingaben gewartet, bei einem k\"unstlichen Spieler wird das W\"urfeln automatisch ausgef\"uhrt und die KI \"uber \texttt{turnKI} zur Spielfigurenbewegung angesteuert. F\"ur die Logik innerhalb des Spielablaufs existieren die Methoden
 \texttt{prepareBonusRoll}, welche gesondert nach einer gew\"urfelten 6 angesteuert wird und im Falle einer anderen gew\"urfelten Zahl
 \texttt{prepareNextPlayer}, wenn der entsprechende Spieler seinen Zug abgeschlossen hat.
 
@@ -614,7 +635,7 @@ Die zentrale Methode \texttt{tryMove} wird angesteuert, wenn eine Spielfigur von
 
   View: 
     GUI
-       -verantwortlich f\"ur den Rahmen, fenstergr\"oße usw
+       -verantwortlich f\"ur den Rahmen, fenstergr\"o\ss e usw
     PlayfieldPanel
         - rendering des spielfeldes (tiles, pieces)
 
@@ -661,11 +682,11 @@ Die zentrale Methode \texttt{tryMove} wird angesteuert, wenn eine Spielfigur von
 
 \subsection{Singleton}
 
-Die Applikation soll stets ein lauff\"ahiges Mensch\"argeredichnicht Spiel repr\"asentieren, welche ohne komplizierte Laufzeutinstellungen auskommt oder mit commandlineparametern zu starten sein muß (designer requirement). Es ist also nicht erw\"unscht, das mehrer Instanzen der Hauptklassen erzeugbar sind, da dies zu
+Die Applikation soll stets ein lauff\"ahiges Mensch\"argeredichnicht Spiel repr\"asentieren, welche ohne komplizierte Laufzeutinstellungen auskommt oder mit commandlineparametern zu starten sein mu\ss  (designer requirement). Es ist also nicht erw\"unscht, das mehrer Instanzen der Hauptklassen erzeugbar sind, da dies zu
 kompliziertem Initialisierungscode in den toplevelschichten f\"uhren w\"urde (main). Im code wird dies dadurch reflektiert,
 dass die Hauptklassen von Model/View/Controller als Singletons implementiert sind.
 Die Eleganz dieser Variante zeigt sich in der \"ubersichtlichen Mainklasse, in der nur noch die Singletons instanziiert und miteinander verkn\"upft werden. S\"amtliche
-Weiterentwicklung des Programms kann innerhalb der MVC-Komponenten erfolgen, ohne das die Main angepasst werden muß. Dadurch ist ein Initialisierungsprozess
+Weiterentwicklung des Programms kann innerhalb der MVC-Komponenten erfolgen, ohne das die Main angepasst werden mu\ss . Dadurch ist ein Initialisierungsprozess
 der App festgehalten.
 
 
@@ -698,7 +719,7 @@ einsatz passender pattern an den richtigen stellen f\"ur weiterentwicklung der s
 grammatik zeilen/spalten gebunden (keine planar frei plazierbare tiles ohne x, y beschr\"ankung)
 aber m\"oglich, tiles nur knotengebunden, dh
 zus\"atzlicher editor f\"ur graphisches design von csv-vorlagen m\"oglich
-verschieben von graphischen elementen hat keinen einfluß auf knotenverkn\"upfungen
+verschieben von graphischen elementen hat keinen einflu\ss  auf knotenverkn\"upfungen
 
 % conference papers do not normally have an appendix
 
