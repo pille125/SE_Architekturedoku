@@ -112,8 +112,8 @@ wichtig, d.h. es wird nur von ihm verlangt mit der View zu kommunizieren und neu
   F\"ur die Abbildung eines Brettspiels in digitaler Form bietet sich das klassische Model-View-Controller Pattern an.
 
   Dabei ist zu beachten, das die Dreieckbeziehung im MVC nicht symmetrisch, sondern hierarchisch implementiert wird, da sonst die Verantwortlichkeiten
-  von Model, View und Controller aufgeweicht werden und feste Kopplungen sowie Spaghetti-Code begünstigt werden. Konkret bedeutet das, das der Controller das Model und die View kennt, die View jedoch nur, um seine Callbacks auf asynchrone Events (z.B. Benutzereingaben) der View anzumelden. Als Controller darf er im Zuge des Spielablaufs im Model Veränderungen vornehmen. Die View kennt das Model, darf aber nur daraus lesen, um sich selbst, d.h. die grafische Darstellung der Applikation auf dem aktuellsten Stand zu halten. Das Model als Datenhalter kennt niemanden, stellt aber Lese- und Schreibfunktionen zur Verfügung. Diese Aufteilung ist noch weiter ausbaufähig, bei zunehmender Komplexität wäre es sinnvoll für die
-  Einhaltung der Verantwortlichkeiten EventDispatcher-Pattern hinzuzufügen. Dadurch können das Model und die View Events bei Eingabeereignissen oder Datenveränderungen senden, ohne dass die lose Kopplung verlorengeht. Im Prototypen wurde sich dagegen entschieden, da ein einzelner Aufruf für die GUI-Aktualisierung pro Spielzug und die Anmeldung zweier Callbacks den Mehraufwand nicht rechtfertigten.
+  von Model, View und Controller aufgeweicht werden und feste Kopplungen sowie Spaghetti-Code beg\"unstigt werden. Konkret bedeutet das, das der Controller das Model und die View kennt, die View jedoch nur, um seine Callbacks auf asynchrone Events (z.B. Benutzereingaben) der View anzumelden. Als Controller darf er im Zuge des Spielablaufs im Model Ver\"anderungen vornehmen. Die View kennt das Model, darf aber nur daraus lesen, um sich selbst, d.h. die grafische Darstellung der Applikation auf dem aktuellsten Stand zu halten. Das Model als Datenhalter kennt niemanden, stellt aber Lese- und Schreibfunktionen zur Verf\"ugung. Diese Aufteilung ist noch weiter ausbauf\"ahig, bei zunehmender Komplexit\"at w\"are es sinnvoll f\"ur die
+  Einhaltung der Verantwortlichkeiten EventDispatcher-Pattern hinzuzuf\"ugen. Dadurch k\"onnen das Model und die View Events bei Eingabeereignissen oder Datenver\"anderungen senden, ohne dass die lose Kopplung verlorengeht. Im Prototypen wurde sich dagegen entschieden, da ein einzelner Aufruf f\"ur die GUI-Aktualisierung pro Spielzug und die Anmeldung zweier Callbacks den Mehraufwand nicht rechtfertigten.
 
 \subsection{Singleton}
 
@@ -125,7 +125,7 @@ Die Applikation wurde in einem 2er-Team entwickelt. Als erstes wurde die Grammat
 ein Grundger\"ust der Applikation $MenschAergerDichNicht$ entworfen und der Generator $MADPlayfieldGenerator$ geschrieben werden konnte. Nachdem beide Projekte minimal lauff\"ahig waren, haben sich die Entwicklungsrollen iterativ vermischt, bis der Prototyp ausreichend angereichert und getestet
 war.
 
-Für die einfache und konfigurationslose Verknüfpung der beiden Projekte wurde ein relativer Pfad, welcher lediglich verlangt, dass sich beide Projekte nebeneinander in einem Ordner befinden und ein fester Name $GEN\_PlayfieldCreator.java$ für die erzeugte Quellcodedatei gewählt. Dadurch konnte die Code-Generierung mit einem einzigen Befehl�permanent angewendet werden.
+F\"ur die einfache und konfigurationslose Verkn\"ufpung der beiden Projekte wurde ein relativer Pfad, welcher lediglich verlangt, dass sich beide Projekte nebeneinander in einem Ordner befinden und ein fester Name $GEN\_PlayfieldCreator.java$ f\"ur die erzeugte Quellcodedatei gew\"ahlt. Dadurch konnte die Code-Generierung mit einem einzigen Befehl�permanent angewendet werden.
 
 \subsection{Grammatik/DSL}
   Die Grammatik des Spiels enth\"alt Symbole f\"ur alle m\"oglichen Spielfeldtypen und deren Verkn\"upfungen zum Nachfolgefeld.
@@ -151,7 +151,7 @@ Für die einfache und konfigurationslose Verknüfpung der beiden Projekte wurde 
   \end{tabular}
 \end{table}
 
-Das K\"urzel $n$ steht f\"ur die Knoteninformation, welches Feld dem betreffenden folgt, dies kann eine der 4 Himmelrichtungen $N$,$S$,$W$,$E$ sein. Das andere K\"urzel $p$ hingegen enth\"alt die Spielernummer 1-4. Einen kleinen Spezialfall stellt der Typ $TOGOAL$ dar, das dies ein Spielfeldtyp ist, welcher zwei Nachfolgeknoten enthält. Der zweite ist die Abzweigung in die Zielfelder des jeweils passenden Spielers. Durch die knotenbasierte Definition
+Das K\"urzel $n$ steht f\"ur die Knoteninformation, welches Feld dem betreffenden folgt, dies kann eine der 4 Himmelrichtungen $N$,$S$,$W$,$E$ sein. Das andere K\"urzel $p$ hingegen enth\"alt die Spielernummer 1-4. Einen kleinen Spezialfall stellt der Typ $TOGOAL$ dar, das dies ein Spielfeldtyp ist, welcher zwei Nachfolgeknoten enth\"alt. Der zweite ist die Abzweigung in die Zielfelder des jeweils passenden Spielers. Durch die knotenbasierte Definition
 der Spielfelder ist dies jedoch problemslos implementierbar (siehe \ref{code}) und auch erweiterbar.
 Da das $.csv$-Format zeilenbasiert ist, wurde f\"ur den Prototypen entschieden, nur matrixartige Spielfelddefinitionen zuzulassen. Dies wird im sp\"ater erkl\"arten \texttt{MetaListener} \"uberpr\"uft.
 
@@ -187,20 +187,20 @@ Die Klasse \texttt{Game} ist das Herz der Applikation. Als Hauptcontroller h\"al
 Zum Steuern des Spielablaufs existieren die Methoden \texttt{startGame}, mit der ein neues Spiel initialisiert wird.
 \texttt{checkForWin} pr\"uft nach jedem Spielzug, ob ein Sieger feststeht und beendet gegebenenfalls das Spiel durch
 \texttt{endGame}.
-\texttt{turn} leitet einen Spielzug ein. Im Falle eines menschlichen Spielers wird anschlie\ss end auf Eingaben gewartet, bei einem k\"unstlichen Spieler wird das W\"urfeln automatisch ausgef\"uhrt und die KI \"uber \texttt{turnKI} zur Spielfigurenbewegung angesteuert. Die zufallsgenerierten Würfelwerte
-werden von \texttt{rollDice} zurückgegeben. F\"ur die Logik innerhalb des Spielablaufs existieren die Methoden
+\texttt{turn} leitet einen Spielzug ein. Im Falle eines menschlichen Spielers wird anschlie\ss end auf Eingaben gewartet, bei einem k\"unstlichen Spieler wird das W\"urfeln automatisch ausgef\"uhrt und die KI \"uber \texttt{turnKI} zur Spielfigurenbewegung angesteuert. Die zufallsgenerierten W\"urfelwerte
+werden von \texttt{rollDice} zur\"uckgegeben. F\"ur die Logik innerhalb des Spielablaufs existieren die Methoden
 \texttt{prepareBonusRoll}, welche gesondert nach einer gew\"urfelten 6 angesteuert wird und im Falle einer anderen gew\"urfelten Zahl
 \texttt{prepareNextPlayer}, wenn der entsprechende Spieler seinen Zug abgeschlossen hat.
 
 Die zentrale Methode \texttt{tryMove} wird angesteuert, wenn eine Spielfigur von einem -gleichg\"ultig ob menschlich oder k\"unstlich- Spieler bewegt werden soll. In ihr werden die Regeln zur validen Bewegung der Spielfigur \"uberpr\"uft, der Zug wenn m\"oglich ausgef\"uhrt (wodurch sich das Model \"andert) und die Validit\"at als \texttt{boolean} Wert zur\"uckgegeben. Durch den R\"uckgabewert wird gesteuert, ob im Falle einer KI eine andere Spielfigur bewegt oder wieder auf Mauseingaben des Benutzer gewartet werden soll. War der Zug valide, wird zum n\"achsten Spieler im Spielverlauf weitergegangen. Unterfunktionen von \texttt{tryMove} sind \texttt{cantMoveOut}, welche die Zwangsregel, dass man eine Spielfigur -wenn m\"oglich- heraussetzen muss und
-\texttt{isValidTarget}, welche \"uberpr\"uft, ob das Zielfeld einer Spielfigur ein valide Position darstellt. Auf die letztgenannte Methode soll kurz genauer eingegangen werden, da sich in ihr die Vorteile des knotenbasierten Spielfeldes zeigen. Zum Ermitteln eines legales Spielzugs der Spielfigur wird zuerst das Feld, auf dem die Spielfigur sich befindet, referenziert und nachfolgende die Methode \texttt{getTargetTile} auf dem referenzierten Spielfeld aufgerufen, dessen Implementierung in Abbildung \ref{ code} zu sehen ist. Mithilfe der Nachfolgeknoteninformation wird solange der nächste Knoten referenziert, bis entweder kein Nachfolgeknoten existiert (im Falle des letzten Zielfeldes eines Spielers) oder die gewürfelte Schrittweite erreicht ist.
-Zu beachten ist, da\ss keinerlei planaren Positionsinformationen benötigt werden. Dadurch ist es möglich, Wege durch völlig frei gestaltete Spielfelder
-zu suchen. Weiterhin lassen sich zwanglos neue Spielfeldtypen für exotischere Spielvarianten hinzufügen.
+\texttt{isValidTarget}, welche \"uberpr\"uft, ob das Zielfeld einer Spielfigur ein valide Position darstellt. Auf die letztgenannte Methode soll kurz genauer eingegangen werden, da sich in ihr die Vorteile des knotenbasierten Spielfeldes zeigen. Zum Ermitteln eines legales Spielzugs der Spielfigur wird zuerst das Feld, auf dem die Spielfigur sich befindet, referenziert und nachfolgende die Methode \texttt{getTargetTile} auf dem referenzierten Spielfeld aufgerufen, dessen Implementierung in Abbildung \ref{ code} zu sehen ist. Mithilfe der Nachfolgeknoteninformation wird solange der n\"achste Knoten referenziert, bis entweder kein Nachfolgeknoten existiert (im Falle des letzten Zielfeldes eines Spielers) oder die gew\"urfelte Schrittweite erreicht ist.
+Zu beachten ist, da\ss keinerlei planaren Positionsinformationen ben\"otigt werden. Dadurch ist es m\"oglich, Wege durch v\"ollig frei gestaltete Spielfelder
+zu suchen. Weiterhin lassen sich zwanglos neue Spielfeldtypen f\"ur exotischere Spielvarianten hinzuf\"ugen.
 
 \subsubsection{PlayerController}
      
-Der \texttt{PlayerController} dient lediglich der Verwaltung der Spieler. Durch diese zusätzliche Kapselung wird jedoch der \texttt{Game}-Controller
-nicht unnötig mit spielablauffremden Methoden aufgebläht, wenn die Spielerverwaltung durch erweiterte Spielmodi komplizierter wird. Dazu gehört beispielsweise die Anmeldung der Spieler (menschlich oder künstlich) beim Spielstart und die spätere Abmeldung für Spielmodi mit mehreren Siegerplätzen.
+Der \texttt{PlayerController} dient lediglich der Verwaltung der Spieler. Durch diese zus\"atzliche Kapselung wird jedoch der \texttt{Game}-Controller
+nicht unn\"otig mit spielablauffremden Methoden aufgebl\"aht, wenn die Spielerverwaltung durch erweiterte Spielmodi komplizierter wird. Dazu geh\"ort beispielsweise die Anmeldung der Spieler (menschlich oder k\"unstlich) beim Spielstart und die sp\"atere Abmeldung f\"ur Spielmodi mit mehreren Siegerpl\"atzen.
 
   View: 
     GUI
