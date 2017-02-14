@@ -1,325 +1,21 @@
-
-%% bare_conf.tex
-%% V1.4a
-%% 2014/09/17
-%% by Michael Shell
-%% See:
-%% http://www.michaelshell.org/
-%% for current contact information.
-%%
-%% This is a skeleton file demonstrating the use of IEEEtran.cls
-%% (requires IEEEtran.cls version 1.8a or later) with an IEEE
-%% conference paper.
-%%
-%% Support sites:
-%% http://www.michaelshell.org/tex/ieeetran/
-%% http://www.ctan.org/tex-archive/macros/latex/contrib/IEEEtran/
-%% and
-%% http://www.ieee.org/
-
-%%*************************************************************************
-%% Legal Notice:
-%% This code is offered as-is without any warranty either expressed or
-%% implied; without even the implied warranty of MERCHANTABILITY or
-%% FITNESS FOR A PARTICULAR PURPOSE! 
-%% User assumes all risk.
-%% In no event shall IEEE or any contributor to this code be liable for
-%% any damages or losses, including, but not limited to, incidental,
-%% consequential, or any other damages, resulting from the use or misuse
-%% of any information contained here.
-%%
-%% All comments are the opinions of their respective authors and are not
-%% necessarily endorsed by the IEEE.
-%%
-%% This work is distributed under the LaTeX Project Public License (LPPL)
-%% ( http://www.latex-project.org/ ) version 1.3, and may be freely used,
-%% distributed and modified. A copy of the LPPL, version 1.3, is included
-%% in the base LaTeX documentation of all distributions of LaTeX released
-%% 2003/12/01 or later.
-%% Retain all contribution notices and credits.
-%% ** Modified files should be clearly indicated as such, including  **
-%% ** renaming them and changing author support contact information. **
-%%
-%% File list of work: IEEEtran.cls, IEEEtran_HOWTO.pdf, bare_adv.tex,
-%%                    bare_conf.tex, bare_jrnl.tex, bare_conf_compsoc.tex,
-%%                    bare_jrnl_compsoc.tex, bare_jrnl_transmag.tex
-%%*************************************************************************
-
-
-% *** Authors should verify (and, if needed, correct) their LaTeX system  ***
-% *** with the testflow diagnostic prior to trusting their LaTeX platform ***
-% *** with production work. IEEE's font choices and paper sizes can       ***
-% *** trigger bugs that do not appear when using other class files.       ***                          ***
-% The testflow support page is at:
-% http://www.michaelshell.org/tex/testflow/
-
-
-
 \documentclass[conference]{IEEEtran}
-% Some Computer Society conferences also require the compsoc mode option,
-% but others use the standard conference format.
-%
-% If IEEEtran.cls has not been installed into the LaTeX system files,
-% manually specify the path to it like:
-% \documentclass[conference]{../sty/IEEEtran}
 
-
-
-
-
-% Some very useful LaTeX packages include:
-% (uncomment the ones you want to load)
-
-
-% *** MISC UTILITY PACKAGES ***
-%
-%\usepackage{ifpdf}
-% Heiko Oberdiek's ifpdf.sty is very useful if you need conditional
-% compilation based on whether the output is pdf or dvi.
-% usage:
-% \ifpdf
-%   % pdf code
-% \else
-%   % dvi code
-% \fi
-% The latest version of ifpdf.sty can be obtained from:
-% http://www.ctan.org/tex-archive/macros/latex/contrib/oberdiek/
-% Also, note that IEEEtran.cls V1.7 and later provides a builtin
-% \ifCLASSINFOpdf conditional that works the same way.
-% When switching from latex to pdflatex and vice-versa, the compiler may
-% have to be run twice to clear warning/error messages.
-
-
-
-
-
-
-% *** CITATION PACKAGES ***
-%
-%\usepackage{cite}
-% cite.sty was written by Donald Arseneau
-% V1.6 and later of IEEEtran pre-defines the format of the cite.sty package
-% \cite{} output to follow that of IEEE. Loading the cite package will
-% result in citation numbers being automatically sorted and properly
-% "compressed/ranged". e.g., [1], [9], [2], [7], [5], [6] without using
-% cite.sty will become [1], [2], [5]--[7], [9] using cite.sty. cite.sty's
-% \cite will automatically add leading space, if needed. Use cite.sty's
-% noadjust option (cite.sty V3.8 and later) if you want to turn this off
-% such as if a citation ever needs to be enclosed in parenthesis.
-% cite.sty is already installed on most LaTeX systems. Be sure and use
-% version 5.0 (2009-03-20) and later if using hyperref.sty.
-% The latest version can be obtained at:
-% http://www.ctan.org/tex-archive/macros/latex/contrib/cite/
-% The documentation is contained in the cite.sty file itself.
-
-
-
-
-
-
-% *** GRAPHICS RELATED PACKAGES ***
-%
 \ifCLASSINFOpdf
-  % \usepackage[pdftex]{graphicx}
-  % declare the path(s) where your graphic files are
-  % \graphicspath{{../pdf/}{../jpeg/}}
-  % and their extensions so you won't have to specify these with
-  % every instance of \includegraphics
-  % \DeclareGraphicsExtensions{.pdf,.jpeg,.png}
+
 \else
-  % or other class option (dvipsone, dvipdf, if not using dvips). graphicx
-  % will default to the driver specified in the system graphics.cfg if no
-  % driver is specified.
-  % \usepackage[dvips]{graphicx}
-  % declare the path(s) where your graphic files are
-  % \graphicspath{{../eps/}}
-  % and their extensions so you won't have to specify these with
-  % every instance of \includegraphics
-  % \DeclareGraphicsExtensions{.eps}
+
 \fi
-% graphicx was written by David Carlisle and Sebastian Rahtz. It is
-% required if you want graphics, photos, etc. graphicx.sty is already
-% installed on most LaTeX systems. The latest version and documentation
-% can be obtained at: 
-% http://www.ctan.org/tex-archive/macros/latex/required/graphics/
-% Another good source of documentation is "Using Imported Graphics in
-% LaTeX2e" by Keith Reckdahl which can be found at:
-% http://www.ctan.org/tex-archive/info/epslatex/
-%
-% latex, and pdflatex in dvi mode, support graphics in encapsulated
-% postscript (.eps) format. pdflatex in pdf mode supports graphics
-% in .pdf, .jpeg, .png and .mps (metapost) formats. Users should ensure
-% that all non-photo figures use a vector format (.eps, .pdf, .mps) and
-% not a bitmapped formats (.jpeg, .png). IEEE frowns on bitmapped formats
-% which can result in "jaggedy"/blurry rendering of lines and letters as
-% well as large increases in file sizes.
-%
-% You can find documentation about the pdfTeX application at:
-% http://www.tug.org/applications/pdftex
-
-
-
-
-
-% *** MATH PACKAGES ***
-%
-%\usepackage[cmex10]{amsmath}
-% A popular package from the American Mathematical Society that provides
-% many useful and powerful commands for dealing with mathematics. If using
-% it, be sure to load this package with the cmex10 option to ensure that
-% only type 1 fonts will utilized at all point sizes. Without this option,
-% it is possible that some math symbols, particularly those within
-% footnotes, will be rendered in bitmap form which will result in a
-% document that can not be IEEE Xplore compliant!
-%
-% Also, note that the amsmath package sets \interdisplaylinepenalty to 10000
-% thus preventing page breaks from occurring within multiline equations. Use:
-%\interdisplaylinepenalty=2500
-% after loading amsmath to restore such page breaks as IEEEtran.cls normally
-% does. amsmath.sty is already installed on most LaTeX systems. The latest
-% version and documentation can be obtained at:
-% http://www.ctan.org/tex-archive/macros/latex/required/amslatex/math/
-
-
-
-
-
-% *** SPECIALIZED LIST PACKAGES ***
-%
-%\usepackage{algorithmic}
-% algorithmic.sty was written by Peter Williams and Rogerio Brito.
-% This package provides an algorithmic environment fo describing algorithms.
-% You can use the algorithmic environment in-text or within a figure
-% environment to provide for a floating algorithm. Do NOT use the algorithm
-% floating environment provided by algorithm.sty (by the same authors) or
-% algorithm2e.sty (by Christophe Fiorio) as IEEE does not use dedicated
-% algorithm float types and packages that provide these will not provide
-% correct IEEE style captions. The latest version and documentation of
-% algorithmic.sty can be obtained at:
-% http://www.ctan.org/tex-archive/macros/latex/contrib/algorithms/
-% There is also a support site at:
-% http://algorithms.berlios.de/index.html
-% Also of interest may be the (relatively newer and more customizable)
-% algorithmicx.sty package by Szasz Janos:
-% http://www.ctan.org/tex-archive/macros/latex/contrib/algorithmicx/
-
-
-
-
-% *** ALIGNMENT PACKAGES ***
-%
-%\usepackage{array}
-% Frank Mittelbach's and David Carlisle's array.sty patches and improves
-% the standard LaTeX2e array and tabular environments to provide better
-% appearance and additional user controls. As the default LaTeX2e table
-% generation code is lacking to the point of almost being broken with
-% respect to the quality of the end results, all users are strongly
-% advised to use an enhanced (at the very least that provided by array.sty)
-% set of table tools. array.sty is already installed on most systems. The
-% latest version and documentation can be obtained at:
-% http://www.ctan.org/tex-archive/macros/latex/required/tools/
-
-
-% IEEEtran contains the IEEEeqnarray family of commands that can be used to
-% generate multiline equations as well as matrices, tables, etc., of high
-% quality.
-
-
-
-
-% *** SUBFIGURE PACKAGES ***
-%\ifCLASSOPTIONcompsoc
-%  \usepackage[caption=false,font=normalsize,labelfont=sf,textfont=sf]{subfig}
-%\else
-%  \usepackage[caption=false,font=footnotesize]{subfig}
-%\fi
-% subfig.sty, written by Steven Douglas Cochran, is the modern replacement
-% for subfigure.sty, the latter of which is no longer maintained and is
-% incompatible with some LaTeX packages including fixltx2e. However,
-% subfig.sty requires and automatically loads Axel Sommerfeldt's caption.sty
-% which will override IEEEtran.cls' handling of captions and this will result
-% in non-IEEE style figure/table captions. To prevent this problem, be sure
-% and invoke subfig.sty's "caption=false" package option (available since
-% subfig.sty version 1.3, 2005/06/28) as this is will preserve IEEEtran.cls
-% handling of captions.
-% Note that the Computer Society format requires a larger sans serif font
-% than the serif footnote size font used in traditional IEEE formatting
-% and thus the need to invoke different subfig.sty package options depending
-% on whether compsoc mode has been enabled.
-%
-% The latest version and documentation of subfig.sty can be obtained at:
-% http://www.ctan.org/tex-archive/macros/latex/contrib/subfig/
-
-
-
-
-% *** FLOAT PACKAGES ***
-%
-%\usepackage{fixltx2e}
-% fixltx2e, the successor to the earlier fix2col.sty, was written by
-% Frank Mittelbach and David Carlisle. This package corrects a few problems
-% in the LaTeX2e kernel, the most notable of which is that in current
-% LaTeX2e releases, the ordering of single and double column floats is not
-% guaranteed to be preserved. Thus, an unpatched LaTeX2e can allow a
-% single column figure to be placed prior to an earlier double column
-% figure. The latest version and documentation can be found at:
-% http://www.ctan.org/tex-archive/macros/latex/base/
-
-
-%\usepackage{stfloats}
-% stfloats.sty was written by Sigitas Tolusis. This package gives LaTeX2e
-% the ability to do double column floats at the bottom of the page as well
-% as the top. (e.g., "\begin{figure*}[!b]" is not normally possible in
-% LaTeX2e). It also provides a command:
-%\fnbelowfloat
-% to enable the placement of footnotes below bottom floats (the standard
-% LaTeX2e kernel puts them above bottom floats). This is an invasive package
-% which rewrites many portions of the LaTeX2e float routines. It may not work
-% with other packages that modify the LaTeX2e float routines. The latest
-% version and documentation can be obtained at:
-% http://www.ctan.org/tex-archive/macros/latex/contrib/sttools/
-% Do not use the stfloats baselinefloat ability as IEEE does not allow
-% \baselineskip to stretch. Authors submitting work to the IEEE should note
-% that IEEE rarely uses double column equations and that authors should try
-% to avoid such use. Do not be tempted to use the cuted.sty or midfloat.sty
-% packages (also by Sigitas Tolusis) as IEEE does not format its papers in
-% such ways.
-% Do not attempt to use stfloats with fixltx2e as they are incompatible.
-% Instead, use Morten Hogholm'a dblfloatfix which combines the features
-% of both fixltx2e and stfloats:
-%
-% \usepackage{dblfloatfix}
-% The latest version can be found at:
-% http://www.ctan.org/tex-archive/macros/latex/contrib/dblfloatfix/
-
-
-
-
-% *** PDF, URL AND HYPERLINK PACKAGES ***
-%
-%\usepackage{url}
-% url.sty was written by Donald Arseneau. It provides better support for
-% handling and breaking URLs. url.sty is already installed on most LaTeX
-% systems. The latest version and documentation can be obtained at:
-% http://www.ctan.org/tex-archive/macros/latex/contrib/url/
-% Basically, \url{my_url_here}.
-
-
-
-
-% *** Do not adjust lengths that control margins, column widths, etc. ***
-% *** Do not use packages that alter fonts (such as pslatex).         ***
-% There should be no need to do such things with IEEEtran.cls V1.6 and later.
-% (Unless specifically asked to do so by the journal or conference you plan
-% to submit to, of course. )
-
 
 % correct bad hyphenation here
 \hyphenation{op-tical net-works semi-conduc-tor}
 
 \usepackage{graphicx}
 \usepackage{todonotes}
+\usepackage{booktabs}
+
+
 \begin{document}
+
 %
 % paper title
 % Titles are generally capitalized except for words such as a, an, and, as,
@@ -327,7 +23,7 @@
 % not capitalized unless they are the first or last word of the title.
 % Linebreaks \\ can be used within to get better formatting as desired.
 % Do not put math or special symbols in the title.
-\title{Semesterprojekt: Architekturdokumentation\\Mensch \"argere Dich nicht!}
+\title{Architekturdokumentation\\Mensch \"argere Dich nicht!}
 
 
 % author names and affiliations
@@ -340,38 +36,6 @@
 \IEEEauthorblockN{Marcel Pillich}
 \IEEEauthorblockA{863121}
 }
-
-
-% conference papers do not typically use \thanks and this command
-% is locked out in conference mode. If really needed, such as for
-% the acknowledgment of grants, issue a \IEEEoverridecommandlockouts
-% after \documentclass
-
-% for over three affiliations, or if they all won't fit within the width
-% of the page, use this alternative format:
-% 
-%\author{\IEEEauthorblockN{Michael Shell\IEEEauthorrefmark{1},
-%Homer Simpson\IEEEauthorrefmark{2},
-%James Kirk\IEEEauthorrefmark{3}, 
-%Montgomery Scott\IEEEauthorrefmark{3} and
-%Eldon Tyrell\IEEEauthorrefmark{4}}
-%\IEEEauthorblockA{\IEEEauthorrefmark{1}School of Electrical and Computer Engineering\\
-%Georgia Institute of Technology,
-%Atlanta, Georgia 30332--0250\\ Email: see http://www.michaelshell.org/contact.html}
-%\IEEEauthorblockA{\IEEEauthorrefmark{2}Twentieth Century Fox, Springfield, USA\\
-%Email: homer@thesimpsons.com}
-%\IEEEauthorblockA{\IEEEauthorrefmark{3}Starfleet Academy, San Francisco, California 96678-2391\\
-%Telephone: (800) 555--1212, Fax: (888) 555--1212}
-%\IEEEauthorblockA{\IEEEauthorrefmark{4}Tyrell Inc., 123 Replicant Street, Los Angeles, California 90210--4321}}
-
-
-
-
-% use for special paper notices
-%\IEEEspecialpapernotice{(Invited Paper)}
-
-
-
 
 % make the title area
 \maketitle
@@ -388,150 +52,36 @@ nicht auf Positions-, sondern Knoteninformationen zu basieren, wird ausf\"uhrlic
 Schlussendlich werden Weiterentwicklungsm\"oglichkeiten des Prototyps pr\"asentiert.
 \end{abstract}
 
-% no keywords
-
-
-
-
-% For peer review papers, you can put extra information on the cover
-% page as needed:
-% \ifCLASSOPTIONpeerreview
-% \begin{center} \bfseries EDICS Category: 3-BBND \end{center}
-% \fi
-%
-% For peerreview papers, this IEEEtran command inserts a page break and
-% creates the second title. It will be ignored for other modes.
 \IEEEpeerreviewmaketitle
 
 
 
 \section{Einleitung}
 % no \IEEEPARstart
-"Mensch \"argere Dich nicht" ist ein Brettspiel f\"ur bis zu 4 Personen. Es z\"ahlt zu den Klassikern im deutschsprachigen Raum und wurde 1907/1908 von Josef Friedrich Schmidt in Anlehnung an das englische Spiel Ludo erfunden, die Urspr\"unge finden sich jedoch im indischen Spiel Pachisi. Erstmals 1910 erschienen,
-ging es 1904 in Serie. 
+"Mensch \"argere Dich nicht" ist ein Brettspiel f\"ur bis zu 4 Personen. Es z\"ahlt zu den Klassikern im deutschsprachigen Raum und wurde 1907/1908 von Josef Friedrich Schmidt in Anlehnung an das englische Spiel Ludo erfunden, die Urspr\"unge finden sich jedoch im indischen Spiel Pachisi. Erstmals 1910 erschienen, ging es 1904 in Serie. 
 \begin{figure}[]
     \centering
     \fbox{\includegraphics[width=0.4\textwidth]{images/pachisi.jpg}}
     \caption{Pachisi}
 \end{figure}
-Mittlerweile existieren auch viele Abk\"ommlinge und Varianten mit ver\"anderten Regeln oder Spielfeldern. Allen Varianten ist jedoch gemein,
-da\ss sie ein symmetrisches Spielfeld besitzen und analog entwickelt wurden. Man kann vermuten, dass mit asymmetrischen Spielfeldern experimentiert, dies jedoch
+Mittlerweile existieren auch viele Abk\"ommlinge und Varianten mit ver\"anderten Regeln oder Spielfeldern. Allen Varianten ist jedoch gemein, da\ss sie ein symmetrisches Spielfeld besitzen und analog entwickelt wurden. Man kann vermuten, dass mit asymmetrischen Spielfeldern experimentiert, dies jedoch
 nicht weiter verfolgt wurde, da es ungleich schwieriger ist, eine asymmetrische Konfiguration zu finden bei der die Chancengleichheit und somit der ausgewogene
-Spielspa\ss f\"ur alle Spieler gegeben ist. Dennoch ist der Reiz dieses Szenarios nicht zu verachten, da die Freiheit bei der Gestaltung asymmetrische Spielfelder
+Spielspass f\"ur alle Spieler gegeben ist. Dennoch ist der Reiz dieses Szenarios nicht zu verachten, da die Freiheit bei der Gestaltung asymmetrische Spielfelder
 \"au\ss erst fruchtbar f\"ur die Entwicklung interessanter Spielvarianten, welche sich nicht in das relativ starre klassische Korsett einpassen m\"ussen, ist. Die gr\"o\ss te
 H\"urde in diesem Bereich ist also die m\"uhelose Erstellung eines experimentellen Spielfeldes, um dieses unmittelbar auf seine Spielspa\ss eigenschaften zu testen.
 
 Zu diesem Zweck wurde eine Java-Applikation entwickelt, welche einen Spielfeldgenerator implementiert, der mittels einer DSL variable Spielfelder erzeugen kann. Im Verlauf der Architekturdokumentation wird sowohl auf die Besonderheiten der Implementierung, als auch auf die verwendeten Design-Patterns und den Code-Generierungsansatz eingegangen. Abschlie\ss end wird ein Fazit formuliert, das die Erfahrungen und Ergebnisse zusammenfasst.
 
 
-% An example of a floating figure using the graphicx package.
-% Note that \label must occur AFTER (or within) \caption.
-% For figures, \caption should occur after the \includegraphics.
-% Note that IEEEtran v1.7 and later has special internal code that
-% is designed to preserve the operation of \label within \caption
-% even when the captionsoff option is in effect. However, because
-% of issues like this, it may be the safest practice to put all your
-% \label just after \caption rather than within \caption{}.
-%
-% Reminder: the "draftcls" or "draftclsnofoot", not "draft", class
-% option should be used if it is desired that the figures are to be
-% displayed while in draft mode.
-%
-%\begin{figure}[!t]
-%\centering
-%\includegraphics[width=2.5in]{myfigure}
-% where an .eps filename suffix will be assumed under latex, 
-% and a .pdf suffix will be assumed for pdflatex; or what has been declared
-% via \DeclareGraphicsExtensions.
-%\caption{Simulation results for the network.}
-%\label{fig_sim}
-%\end{figure}
-
-% Note that IEEE typically puts floats only at the top, even when this
-% results in a large percentage of a column being occupied by floats.
-
-
-% An example of a double column floating figure using two subfigures.
-% (The subfig.sty package must be loaded for this to work.)
-% The subfigure \label commands are set within each subfloat command,
-% and the \label for the overall figure must come after \caption.
-% \hfil is used as a separator to get equal spacing.
-% Watch out that the combined width of all the subfigures on a 
-% line do not exceed the text width or a line break will occur.
-%
-%\begin{figure*}[!t]
-%\centering
-%\subfloat[Case I]{\includegraphics[width=2.5in]{box}%
-%\label{fig_first_case}}
-%\hfil
-%\subfloat[Case II]{\includegraphics[width=2.5in]{box}%
-%\label{fig_second_case}}
-%\caption{Simulation results for the network.}
-%\label{fig_sim}
-%\end{figure*}
-%
-% Note that often IEEE papers with subfigures do not employ subfigure
-% captions (using the optional argument to \subfloat[]), but instead will
-% reference/describe all of them (a), (b), etc., within the main caption.
-% Be aware that for subfig.sty to generate the (a), (b), etc., subfigure
-% labels, the optional argument to \subfloat must be present. If a
-% subcaption is not desired, just leave its contents blank,
-% e.g., \subfloat[].
-
-
-% An example of a floating table. Note that, for IEEE style tables, the
-% \caption command should come BEFORE the table and, given that table
-% captions serve much like titles, are usually capitalized except for words
-% such as a, an, and, as, at, but, by, for, in, nor, of, on, or, the, to
-% and up, which are usually not capitalized unless they are the first or
-% last word of the caption. Table text will default to \footnotesize as
-% IEEE normally uses this smaller font for tables.
-% The \label must come after \caption as always.
-%
-%\begin{table}[!t]
-%% increase table row spacing, adjust to taste
-%\renewcommand{\arraystretch}{1.3}
-% if using array.sty, it might be a good idea to tweak the value of
-% \extrarowheight as needed to properly center the text within the cells
-%\caption{An Example of a Table}
-%\label{table_example}
-%\centering
-%% Some packages, such as MDW tools, offer better commands for making tables
-%% than the plain LaTeX2e tabular which is used here.
-%\begin{tabular}{|c||c|}
-%\hline
-%One & Two\\
-%\hline
-%Three & Four\\
-%\hline
-%\end{tabular}
-%\end{table}
-
-
-% Note that the IEEE does not put floats in the very first column
-% - or typically anywhere on the first page for that matter. Also,
-% in-text middle ("here") positioning is typically not used, but it
-% is allowed and encouraged for Computer Society conferences (but
-% not Computer Society journals). Most IEEE journals/conferences use
-% top floats exclusively. 
-% Note that, LaTeX2e, unlike IEEE journals/conferences, places
-% footnotes above bottom floats. This can be corrected via the
-% \fnbelowfloat command of the stfloats package.
-
-
-
-
 \section{Anforderungen an die Applikation}
 
-Grundlegend an die Anforderungen ist die Tatsache, dass das Programm f\"ur Programmierer und Designer gleicherma\ss en benutzbar sein mu\ss.
-W\"ahrend der Designer sich vollst\"andig auf die Entwicklung interessanter Spielfelder konzentrieren k\"onnen mu\ss, d.h. man kann und darf
-keine Programmierkenntnisse vom ihm verlangen, darf dies den Programmierer nicht daran hindern, die Applikation weiter zu entwickeln, also
+Grundlegend an die Anforderungen ist die Tatsache, dass das Programm f\"ur Programmierer und Designer gleicherma\ss en benutzbar sein mu\ss. W\"ahrend der Designer sich vollst\"andig auf die Entwicklung interessanter Spielfelder konzentrieren k\"onnen mu\ss, d.h. man kann keine Programmierkenntnisse vom ihm verlangen, darf dies den Programmierer nicht daran hindern, die Applikation weiter zu entwickeln, also
 in den Bereichen grafisches Erscheinungsbild, Regeln, K\"unstliche Intelligenz und Spielfeld Ver\"anderungen vorzunehmen. Aus diesen Gedanken
 heraus haben sich die grundlegenden Anforderungen gebildet.
 Die Applikation sollte m\"oglichst unabh\"angig vom Betriebssystem lauff\"ahig sein. Da eine starke Eigenschaft von Java die Portabilit\"at und
 Lauff\"ahigkeit auf vielen unterschiedlichen Ger\"aten ist, wurde diese als Entwicklungsprogrammiersprache gew\"ahlt. Dadurch lassen sich auch Abk\"ommlinge
 des Prototypen (exemplarisch MobileApp) gut planen und umsetzen. Die verbindende Technologie zwischen Programmierer und Designer ist das ausgereifte
-Codegenerierungs-Tool Antlr, welches das .csv Dateiformat von Haus aus beherrscht und f\"ur die programmierkenntnislose Erstellung von Spielfeldern
+Codegenerierungs-Tool Antlr, welches das $.csv$-Dateiformat von Haus aus beherrscht und f\"ur die programmierkenntnislose Erstellung von Spielfeldern
 geeignet ist. Diese Aufstellung des Technologiestacks erlaubt einen wechselseitigen Workflow ohne gro\ss e Unterbrechungen. Der Designer kann
 mit der aktuellen Version neue Spielfelder erzeugen oder bereits designte testen und Vorschl\"age zum Regelwerk machen. Der Programmierer
 kann solche Feature-Requests umsetzen und einspielen, woraushin der Designer wieder iterieren kann. Beide kommunizieren also vorrangig
@@ -556,82 +106,101 @@ wichtig, d.h. es wird nur von ihm verlangt mit der View zu kommunizieren und neu
     nach implementierung designer neue version zur verf\"ugung stellen
 
 
+
+\section{Genutzte Design Pattern}
+\subsection{MVC}
+  F\"ur die Abbildung eines Brettspiels in digitaler Form bietet sich das klassische Model-View-Controller Pattern an.
+
+  Dabei ist zu beachten, das die Dreieckbeziehung im MVC nicht symmetrisch, sondern hierarchisch implementiert wird, da sonst die Verantwortlichkeiten
+  von Model, View und Controller aufgeweicht werden und feste Kopplungen sowie Spaghetti-Code begünstigt werden. Konkret bedeutet das, das der Controller das Model und die View kennt, die View jedoch nur, um seine Callbacks auf asynchrone Events (z.B. Benutzereingaben) der View anzumelden. Als Controller darf er im Zuge des Spielablaufs im Model Veränderungen vornehmen. Die View kennt das Model, darf aber nur daraus lesen, um sich selbst, d.h. die grafische Darstellung der Applikation auf dem aktuellsten Stand zu halten. Das Model als Datenhalter kennt niemanden, stellt aber Lese- und Schreibfunktionen zur Verfügung. Diese Aufteilung ist noch weiter ausbaufähig, bei zunehmender Komplexität wäre es sinnvoll für die
+  Einhaltung der Verantwortlichkeiten EventDispatcher-Pattern hinzuzufügen. Dadurch können das Model und die View Events bei Eingabeereignissen oder Datenveränderungen senden, ohne dass die lose Kopplung verlorengeht. Im Prototypen wurde sich dagegen entschieden, da ein einzelner Aufruf für die GUI-Aktualisierung pro Spielzug und die Anmeldung zweier Callbacks den Mehraufwand nicht rechtfertigten.
+
+\subsection{Singleton}
+
+Die Applikation soll stets ein lauff\"ahiges Mensch-\"arger-dich-nicht-Spiel repr\"asentieren, welche aufgrund des Designeraspekts ohne komplizierte Laufzeiteinstellungen auskommen oder Kommandozeilenparametern zu starten sein mu\ss. Es ist also nicht erw\"unscht, das mehrere Instanzen der Hauptklassen erzeugbar sind, da dies zu kompliziertem Initialisierungscode mit entsprechend notwendigen Konfigurationen von au\ss en in den Toplevelschichten f\"uhren w\"urde. Im Code wird dies dadurch reflektiert, dass die Hauptklassen von Model, View und Controller als Singletons implementiert sind.
+Die Eleganz dieser Variante zeigt sich in der \"ubersichtlichen \texttt{Main}-Klasse, in der nur noch die Singletons instanziiert und miteinander verkn\"upft werden. S\"amtliche Weiterentwicklung des Programms kann innerhalb der MVC-Komponenten erfolgen, ohne das die \texttt{Main} angepasst werden mu\ss .
+
 \section{Implementierung}
-  Die Applikation wurde in einem 2er-Team entwickelt. Als erstes wurde die Grammatik definiert, damit dann parallel
-  ein Grundgerüst der Applikation entworfen und der Generator geschrieben werden konnte. Nachdem beide Projekte minimal
-  lauffähig waren, haben sich die Entwicklungsrollen iterativ vermischt, bis der Prototyp ausreichend angereichert und getestet
-  war.
+Die Applikation wurde in einem 2er-Team entwickelt. Als erstes wurde die Grammatik definiert, damit dann parallel
+ein Grundger\"ust der Applikation $MenschAergerDichNicht$ entworfen und der Generator $MADPlayfieldGenerator$ geschrieben werden konnte. Nachdem beide Projekte minimal lauff\"ahig waren, haben sich die Entwicklungsrollen iterativ vermischt, bis der Prototyp ausreichend angereichert und getestet
+war.
 
-  \subsection{Grammatik/DSL}
-    Die Grammatik des Spiels enthält Symbole für alle möglichen Spielfeldtypen und deren Verknüpfungen zum Nachfolgefeld.
-    Es können Spielfelder für 2 bis 4 Spieler definiert werden. Das reichte für den Prototyp aus und kann ohne besondere
-    Schwierigkeiten erweitert werden.
-    Die Spielfeldtypen eines klassischen Mensch-ärger-dich-nicht-Spiels sind wie folgt im Code und in der DSL definiert:
-      \todo{tabelle}
+Für die einfache und konfigurationslose Verknüfpung der beiden Projekte wurde ein relativer Pfad, welcher lediglich verlangt, dass sich beide Projekte nebeneinander in einem Ordner befinden und ein fester Name $GEN_PlayfieldCreator.java$ für die erzeugte Quellcodedatei gewählt. Dadurch konnte die Code-Generierung mit einem einzigen Befehl permanent angewendet werden.
+
+\subsection{Grammatik/DSL}
+  Die Grammatik des Spiels enth\"alt Symbole f\"ur alle m\"oglichen Spielfeldtypen und deren Verkn\"upfungen zum Nachfolgefeld.
+  Es k\"onnen Spielfelder f\"ur 2 bis 4 Spieler definiert werden. Das reichte f\"ur den Prototyp aus und kann ohne besondere
+  Schwierigkeiten erweitert werden.
+  Die Spielfeldtypen eines klassischen Mensch-\"arger-dich-nicht-Spiels sind wie folgt im Code und in der DSL realisiert:
+
+\begin{table}[h!]
+  \centering
+  \caption{Caption for the table.}
+  \label{tab:table1}
+  \begin{tabular}{ccc}
+    \toprule
+    Java & DSL\\
+    \midrule
+    HOME & H[p]\\
+    START & S[p]\\
+    GOAL & G[pn] \\
+    WAY & W[n] \\
+    TOGOAL & W[n]G[n] \\
+    NONE & NO \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+Das K\"urzel $n$ steht f\"ur die Knoteninformation, welches Feld dem betreffenden folgt, dies kann eine der 4 Himmelrichtungen $N$,$S$,$W$,$E$ sein. Das andere K\"urzel $p$ hingegen enth\"alt die Spielernummer 1-4. Einen kleinen Spezialfall stellt der Typ $TOGOAL$ dar, das dies ein Spielfeldtyp ist, welcher zwei Nachfolgeknoten enthält. Der zweite ist die Abzweigung in die Zielfelder des jeweils passenden Spielers. Durch die knotenbasierte Definition
+der Spielfelder ist dies jedoch problemslos implementierbar (siehe \ref{code}) und auch erweiterbar.
+Da das $.csv$-Format zeilenbasiert ist, wurde f\"ur den Prototypen entschieden, nur matrixartige Spielfelddefinitionen zuzulassen. Dies wird im sp\"ater erkl\"arten \texttt{MetaListener} \"uberpr\"uft.
+
+\subsection{Generator}
+
+Um aus den $.csv$-Dateien eine $.java$-Datei zu erzeugen, musst ein zweistufiger Parser geschrieben werden. Der erste Parser \texttt{PlayFieldMetaListener} ermittelt Metadaten des Spielfeldes, die der zweite Parser \texttt{PlayFieldSemanticListener} ben�tigt, um den spielfelderzeugenden Code generieren zu k�nnen.
+
+meta parser:
+ liest spielfelddatei und ermittelt metadaten, also daten das ganze spielfeld betreffend und positionsunabh\"angig
+ - spieleranzahl
+ - ein startfeld pro spieler
+ - gleiche anzahl an home und goal feldern pro spieler
+ - h\"ohe, breite der spielfeldmatrix
+ - daten werden als getter im genierten code bereitgestellt
+
+semantic parser
+ - liest die einzelnen felder
+ - verkn\"upft die knoten
+ - generiert den erzeugungscode des spielfeldes
+
+Die so generierte Datei enth�lt die Methoden \texttt{getNumRows}, \texttt{getNumColumns}, \texttt{getNumPlayers} und \texttt{getNumPiecesPerPlayer} mit den ermittelten Daten des Meta-Parsers
+sowie die Methode \texttt{createPlayfield} des Semantic-Parsers, welcher eine zu bef�llende \texttt{Playfield} Instanz �bergeben wird.
 
 
-      def im code   def in DSL
-    HOME              Hp
-    START             Sp
-    GOAL              Gpn
-    WAY               Wn
-    TOGOAL            WnGn   
-    NONE              NO
 
-    Das Kürzel $n$ steht für die Knoteninformation, welches Feld dem betreffenden folgt, dies kann eine der 4 Himmelrichtungen $N$,$S$,$W$,$E$ sein. Das andere Kürzel $p$ hingegen enthält die Spielernummer 1-4.
-
-    Da das .csv-Format zeilenbasiert ist, wurde für den Prototypen entschieden, nur matrixartige Spielfelddefinitionen zuzulassen. Dies wird im später erklärten \texttt{MetaListener} überprüft.
-
-  \subsection{Generator}
   \subsection{Applikation}
 
+  Im folgenden werden die einzelnen Klassen der Applikation vorgestellt.
 
-  projekte:
-    Applikation (MenschAergerDichNicht)
-    Generator (MADPlayfieldGenerator)
-    
-  einfache und konfigurationslose Verkn\"upfung (generierte Spielfelddatei: fester platz und name in projektstruktur (model GENPlayfieldCreator.java)
+\subsubsection{Game}
 
-
-
-  Klassen:
-
-  Controller:
-  \texttt{Game}
-
-    Die Klasse \texttt{game} ist das Herz der Applikation. Als Haupt-Controller h\"alt er Referenzen zum Subcontroller \texttt{PlayerController}, zur View \texttt{GUI} zum Model \texttt{Playfield}. In der \texttt{Main}-Methode wird die Applikation \"uber
-      
-      \texttt{
-        Game game = Game.getInstance();
-        game.init(playerController, playfield, gui);
-      }
-
-      zusammengesetzt.
-
-      Im \texttt{Game}-Controller finden sich Methoden zur Eingabebehandlung:
-    mit \texttt{onStartButtonClicked} kann ein neues Spiel begonnen werden. Mit
-    \texttt{onRollDiceButtonClicked} wird W\"urfeln der menschlichen Spieler verarbeitet und mit
-    \texttt{onMouseClicked} werden Klicks auf das Spielfeld verarbeitet. Dabei handelt es sich um Spielfigurbewegungen der menschlichen Spieler.
-
-    Zum Steuern des Spielablaufs existieren die Methoden
-\texttt{startGame}, mit der ein neues Spiel initialisiert wird.
+Die Klasse \texttt{Game} ist das Herz der Applikation. Als Hauptcontroller h\"alt er Referenzen zum Subcontroller \texttt{PlayerController}, zur View \texttt{GUI} zum Model \texttt{Playfield}. In der \texttt{Main}-Methode wird die Applikation \"uber \texttt{ Game game = Game.getInstance(); game.init(playerController, playfield, gui);} zusammengesetzt. Im \texttt{Game}-Controller finden sich Methoden zur Eingabebehandlung: mit \texttt{onStartButtonClicked} kann ein neues Spiel begonnen werden. Mit \texttt{onRollDiceButtonClicked} wird W\"urfeln der menschlichen Spieler verarbeitet und mit \texttt{onMouseClicked} werden Klicks auf das Spielfeld verarbeitet. Dabei handelt es sich um Spielfigurbewegungen der menschlichen Spieler.
+Zum Steuern des Spielablaufs existieren die Methoden \texttt{startGame}, mit der ein neues Spiel initialisiert wird.
 \texttt{checkForWin} pr\"uft nach jedem Spielzug, ob ein Sieger feststeht und beendet gegebenenfalls das Spiel durch
 \texttt{endGame}.
-\texttt{turn} leitet einen Spielzug ein. Im Falle eines menschlichen Spielers wird anschlie\ss end auf Eingaben gewartet, bei einem k\"unstlichen Spieler wird das W\"urfeln automatisch ausgef\"uhrt und die KI \"uber \texttt{turnKI} zur Spielfigurenbewegung angesteuert. F\"ur die Logik innerhalb des Spielablaufs existieren die Methoden
+\texttt{turn} leitet einen Spielzug ein. Im Falle eines menschlichen Spielers wird anschlie\ss end auf Eingaben gewartet, bei einem k\"unstlichen Spieler wird das W\"urfeln automatisch ausgef\"uhrt und die KI \"uber \texttt{turnKI} zur Spielfigurenbewegung angesteuert. Die zufallsgenerierten Würfelwerte
+werden von \texttt{rollDice} zurückgegeben. F\"ur die Logik innerhalb des Spielablaufs existieren die Methoden
 \texttt{prepareBonusRoll}, welche gesondert nach einer gew\"urfelten 6 angesteuert wird und im Falle einer anderen gew\"urfelten Zahl
 \texttt{prepareNextPlayer}, wenn der entsprechende Spieler seinen Zug abgeschlossen hat.
 
-Die zentrale Methode \texttt{tryMove} wird angesteuert, wenn eine Spielfigur von einem -gleichg\"ultig ob menschlich oder k\"unstlich- Spieler bewegt werden soll. In ihr werden die Regeln zur validen Bewegung der Spielfigur \"uberpr\"uft, der Zug wenn m\"oglich ausgef\"uhrt (wodurch sich das Model \"andert) und die Validit\"at als \texttt{boolean} Wert zur\"uckgegeben. Durch den R\"uckgabewert wird gesteuert, ob im Falle einer KI eine andere Spielfigur bewegt oder wieder auf Mauseingaben des Benutzer gewartet werden soll. War der Zug valide, wird zum n\"achsten Spieler im Spielverlauf weitergegangen. Unterfunktionen von \texttt{tryMove} sind
-\texttt{rollDice}, in welcher der nächste zufallsgenerierte Wurf ermittelt wird, \texttt{cantMoveOut} welche die Zwangsregel, dass man eine Spielfigur -wenn möglich- heraussetzen muss, implementiert und
-\texttt{isValidTarget}, welche überprüft, ob das Zielfeld einer Spielfigur ein valide Position darstellt. Auf die letztgenannte Methode soll genauer eingegangen werden, da sich in ihr die Vorteile des knotenbasierten Spielfeldes zeigen. Zum Ermitteln eines legales Spielzugs der Spielfigur wird zuerst das Feld, auf dem die Spielfigur sich befindet, referenziert und nachfolgende die Methode \texttt{getTargetTile} auf dem referenzierten Spielfeld aufgerufen, dessen Implementierung in Abbildung \ref{ code} zu sehen ist.
+Die zentrale Methode \texttt{tryMove} wird angesteuert, wenn eine Spielfigur von einem -gleichg\"ultig ob menschlich oder k\"unstlich- Spieler bewegt werden soll. In ihr werden die Regeln zur validen Bewegung der Spielfigur \"uberpr\"uft, der Zug wenn m\"oglich ausgef\"uhrt (wodurch sich das Model \"andert) und die Validit\"at als \texttt{boolean} Wert zur\"uckgegeben. Durch den R\"uckgabewert wird gesteuert, ob im Falle einer KI eine andere Spielfigur bewegt oder wieder auf Mauseingaben des Benutzer gewartet werden soll. War der Zug valide, wird zum n\"achsten Spieler im Spielverlauf weitergegangen. Unterfunktionen von \texttt{tryMove} sind \texttt{cantMoveOut}, welche die Zwangsregel, dass man eine Spielfigur -wenn m\"oglich- heraussetzen muss und
+\texttt{isValidTarget}, welche \"uberpr\"uft, ob das Zielfeld einer Spielfigur ein valide Position darstellt. Auf die letztgenannte Methode soll kurz genauer eingegangen werden, da sich in ihr die Vorteile des knotenbasierten Spielfeldes zeigen. Zum Ermitteln eines legales Spielzugs der Spielfigur wird zuerst das Feld, auf dem die Spielfigur sich befindet, referenziert und nachfolgende die Methode \texttt{getTargetTile} auf dem referenzierten Spielfeld aufgerufen, dessen Implementierung in Abbildung \ref{ code} zu sehen ist. Mithilfe der Nachfolgeknoteninformation wird solange der nächste Knoten referenziert, bis entweder kein Nachfolgeknoten existiert (im Falle des letzten Zielfeldes eines Spielers) oder die gewürfelte Schrittweite erreicht ist.
+Zu beachten ist, da\ss keinerlei planaren Positionsinformationen benötigt werden. Dadurch ist es möglich, Wege durch völlig frei gestaltete Spielfelder
+zu suchen. Weiterhin lassen sich zwanglos neue Spielfeldtypen für exotischere Spielvarianten hinzufügen.
 
-
-
-      PlayerController (UnterController)
-
-        Der PlayerController
-        kapselung f\"ur player objekte
-        ansteuerung der ki
+\subsubsection{PlayerController}
+     
+Der \texttt{PlayerController} dient lediglich der Verwaltung der Spieler. Durch diese zusätzliche Kapselung wird jedoch der \texttt{Game}-Controller
+nicht unnötig mit spielablauffremden Methoden aufgebläht, wenn die Spielerverwaltung durch erweiterte Spielmodi komplizierter wird. Dazu gehört beispielsweise die Anmeldung der Spieler (menschlich oder künstlich) beim Spielstart und die spätere Abmeldung für Spielmodi mit mehreren Siegerplätzen.
 
   View: 
     GUI
@@ -665,51 +234,6 @@ Die zentrale Methode \texttt{tryMove} wird angesteuert, wenn eine Spielfigur von
     if (tile.TILETYPE == START \&\& tile.hasPiece())) // cant move to start, its not free
 
 
-\section{Genutzte Design Pattern}
-\subsection{MVC}
-  f\"ur die abbildung eines brettspiels in digitaler form bietet sich das klassische mvc pattern an.
-
-  dabei ist zu beachten, das die dreickbeziehung zwischen mvc nicht symmetrisch (f\"uhrt zu spagetticode, unklare verantwortlichkeiten)
-  sondern hierarchisch implementiert wird.
-  konkret: controller kennt model und view
-    dh controller darf ver\"anderungen im model vornehmen und bekommt events der view mitgeteilt
-    view kennt model, darf aber nur lesen, um eigenen zusatnd upzudaten
-    model kennt niemanden, stellt aber api f\"ur lese/schreibzugriffe bereit
-
-  das spielfeld und der aktuelle spielzustand sind im model festgehalten, die view pr\"asentiert das spielfeld und erwartet interaktion vom benutzer,
-  der controller verarbeitet die eingaben des nutzers oder steuert die k\"unstlichen spieler.
-
-
-\subsection{Singleton}
-
-Die Applikation soll stets ein lauff\"ahiges Mensch\"argeredichnicht Spiel repr\"asentieren, welche ohne komplizierte Laufzeutinstellungen auskommt oder mit commandlineparametern zu starten sein mu\ss  (designer requirement). Es ist also nicht erw\"unscht, das mehrer Instanzen der Hauptklassen erzeugbar sind, da dies zu
-kompliziertem Initialisierungscode in den toplevelschichten f\"uhren w\"urde (main). Im code wird dies dadurch reflektiert,
-dass die Hauptklassen von Model/View/Controller als Singletons implementiert sind.
-Die Eleganz dieser Variante zeigt sich in der \"ubersichtlichen Mainklasse, in der nur noch die Singletons instanziiert und miteinander verkn\"upft werden. S\"amtliche
-Weiterentwicklung des Programms kann innerhalb der MVC-Komponenten erfolgen, ohne das die Main angepasst werden mu\ss . Dadurch ist ein Initialisierungsprozess
-der App festgehalten.
-
-
-\section{Code-Generierung}
-2-stufiger parser
-
-antlr setup, usage
-
-
-meta parser:
- liest spielfelddatei und ermittelt metadaten, also daten das ganze spielfeld betreffend und positionsunabh\"angig
- - spieleranzahl
- - ein startfeld pro spieler
- - gleiche anzahl an home und goal feldern pro spieler
- - h\"ohe, breite der spielfeldmatrix
- - daten werden als getter im genierten code bereitgestellt
-
-semantic parser
- - liest die einzelnen felder
- - verkn\"upft die knoten
- - generiert den erzeugungscode des spielfeldes
-
-
 \section{Fazit}
 
 knoten ansatz sehr gut geeignet f\"ur erweiterung/generalisierung der spielfeldgenerierung
@@ -731,31 +255,6 @@ verschieben von graphischen elementen hat keinen einflu\ss  auf knotenverkn\"upf
 The authors would like to thank...
 
 
-
-
-
-% trigger a \newpage just before the given reference
-% number - used to balance the columns on the last page
-% adjust value as needed - may need to be readjusted if
-% the document is modified later
-%\IEEEtriggeratref{8}
-% The "triggered" command can be changed if desired:
-%\IEEEtriggercmd{\enlargethispage{-5in}}
-
-% references section
-
-% can use a bibliography generated by BibTeX as a .bbl file
-% BibTeX documentation can be easily obtained at:
-% http://www.ctan.org/tex-archive/biblio/bibtex/contrib/doc/
-% The IEEEtran BibTeX style support page is at:
-% http://www.michaelshell.org/tex/ieeetran/bibtex/
-%\bibliographystyle{IEEEtran}
-% argument is your BibTeX string definitions and bibliography database(s)
-%\bibliography{IEEEabrv,../bib/paper}
-%
-% <OR> manually copy in the resultant .bbl file
-% set second argument of \begin to the number of references
-% (used to reserve space for the reference number labels box)
 \begin{thebibliography}{1}
 
 \bibitem{IEEEhowto:kopka}
