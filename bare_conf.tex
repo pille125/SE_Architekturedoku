@@ -125,7 +125,7 @@ Die Applikation wurde in einem 2er-Team entwickelt. Als erstes wurde die Grammat
 ein Grundger\"ust der Applikation $MenschAergerDichNicht$ entworfen und der Generator $MADPlayfieldGenerator$ geschrieben werden konnte. Nachdem beide Projekte minimal lauff\"ahig waren, haben sich die Entwicklungsrollen iterativ vermischt, bis der Prototyp ausreichend angereichert und getestet
 war.
 
-F\"ur die einfache und konfigurationslose Verkn\"ufpung der beiden Projekte wurde ein relativer Pfad, welcher lediglich verlangt, dass sich beide Projekte nebeneinander in einem Ordner befinden und ein fester Name $GEN\_PlayfieldCreator.java$ f\"ur die erzeugte Quellcodedatei gew\"ahlt. Dadurch konnte die Code-Generierung mit einem einzigen Befehl permanent angewendet werden.
+F\"ur die einfache und konfigurationslose Verkn\"ufpung der beiden Projekte wurde ein relativer Pfad, welcher lediglich verlangt, dass sich beide Projekte nebeneinander in einem Ordner befinden und ein fester Name $GEN\_PlayfieldCreator.java$ f\"ur die erzeugte Quellcodedatei gew\"ahlt. Dadurch konnte die Code-Generierung mit einem einzigen BefehlÂ permanent angewendet werden.
 
 \subsection{Grammatik/DSL}
   Die Grammatik des Spiels enth\"alt Symbole f\"ur alle m\"oglichen Spielfeldtypen und deren Verkn\"upfungen zum Nachfolgefeld.
@@ -173,7 +173,7 @@ semantic parser
  - generiert den erzeugungscode des spielfeldes
 
 Die so generierte Datei enth\"alt die Methoden \texttt{getNumRows}, \texttt{getNumColumns}, \texttt{getNumPlayers} und \texttt{getNumPiecesPerPlayer} mit den ermittelten Daten des Meta-Parsers
-sowie die Methode \texttt{createPlayfield} des Semantic-Parsers, welcher eine zu bef\"ullende \texttt{Playfield} Instanz übergeben wird.
+sowie die Methode \texttt{createPlayfield} des Semantic-Parsers, welcher eine zu bef\"ullende \texttt{Playfield} Instanz Ã¼bergeben wird.
 
 
 
@@ -194,7 +194,7 @@ werden von \texttt{rollDice} zur\"uckgegeben. F\"ur die Logik innerhalb des Spie
 
 Die zentrale Methode \texttt{tryMove} wird angesteuert, wenn eine Spielfigur von einem -gleichg\"ultig ob menschlich oder k\"unstlich- Spieler bewegt werden soll. In ihr werden die Regeln zur validen Bewegung der Spielfigur \"uberpr\"uft, der Zug wenn m\"oglich ausgef\"uhrt (wodurch sich das Model \"andert) und die Validit\"at als \texttt{boolean} Wert zur\"uckgegeben. Durch den R\"uckgabewert wird gesteuert, ob im Falle einer KI eine andere Spielfigur bewegt oder wieder auf Mauseingaben des Benutzer gewartet werden soll. War der Zug valide, wird zum n\"achsten Spieler im Spielverlauf weitergegangen. Unterfunktionen von \texttt{tryMove} sind \texttt{cantMoveOut}, welche die Zwangsregel, dass man eine Spielfigur -wenn m\"oglich- heraussetzen muss und
 \texttt{isValidTarget}, welche \"uberpr\"uft, ob das Zielfeld einer Spielfigur ein valide Position darstellt. Auf die letztgenannte Methode soll kurz genauer eingegangen werden, da sich in ihr die Vorteile des knotenbasierten Spielfeldes zeigen. Zum Ermitteln eines legales Spielzugs der Spielfigur wird zuerst das Feld, auf dem die Spielfigur sich befindet, referenziert und nachfolgende die Methode \texttt{getTargetTile} auf dem referenzierten Spielfeld aufgerufen, dessen Implementierung in Abbildung \ref{ code} zu sehen ist. Mithilfe der Nachfolgeknoteninformation wird solange der n\"achste Knoten referenziert, bis entweder kein Nachfolgeknoten existiert (im Falle des letzten Zielfeldes eines Spielers) oder die gew\"urfelte Schrittweite erreicht ist.
-Zu beachten ist, da\ss keinerlei planaren Positionsinformationen ben\"otigt werden. Dadurch ist es m\"oglich, Wege durch v\"ollig frei gestaltete Spielfelder
+Zu beachten ist, dass keinerlei planaren Positionsinformationen ben\"otigt werden. Dadurch ist es m\"oglich, Wege durch v\"ollig frei gestaltete Spielfelder
 zu suchen. Weiterhin lassen sich zwanglos neue Spielfeldtypen f\"ur exotischere Spielvarianten hinzuf\"ugen.
 
 \subsubsection{PlayerController}
@@ -202,7 +202,9 @@ zu suchen. Weiterhin lassen sich zwanglos neue Spielfeldtypen f\"ur exotischere 
 Der \texttt{PlayerController} dient lediglich der Verwaltung der Spieler. Durch diese zus\"atzliche Kapselung wird jedoch der \texttt{Game}-Controller
 nicht unn\"otig mit spielablauffremden Methoden aufgebl\"aht, wenn die Spielerverwaltung durch erweiterte Spielmodi komplizierter wird. Dazu geh\"ort beispielsweise die Anmeldung der Spieler (menschlich oder k\"unstlich) beim Spielstart und die sp\"atere Abmeldung f\"ur Spielmodi mit mehreren Siegerpl\"atzen.
 
-  View: 
+\subsubsection{View}
+Die implementierte GUI repr\"asentiert ein Mensch \"arger dich Nicht! Spielfeld. Es besteht aus einem \texttt{PlayfieldPanel}, welches f\"ur die Darstellung von JPanel erbt und f\"ur die Interaktion mit dem Nutzer den MouseListener implementiert. Das PlayfieldPanel stellt die einzelnen \texttt{tiles}, also Felder, mittels zur Laufzeit gerenderten Kreisen dar. Diese Kreise k\"onnen wei\ss   f\"ur normale Wegfelder und Farbig f\"ur Felder eines Spielers sein. 
+	Die einzelnen Figuren der Spieler 
     GUI
        -verantwortlich f\"ur den Rahmen, fenstergr\"o\ss e usw
     PlayfieldPanel
@@ -231,8 +233,7 @@ nicht unn\"otig mit spielablauffremden Methoden aufgebl\"aht, wenn die Spielerve
     Typendefinitionen: tileType
 
     beispiele zeigen:
-    if (tile.TILETYPE == START \&\& tile.hasPiece())) // cant move to start, its not free
-
+    if (tile.TILETYPE == START \&\& tile.hasPiece())) // cant move to start, its not free 
 
 \section{Fazit}
 
