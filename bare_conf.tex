@@ -157,36 +157,24 @@ Da das $.csv$-Format zeilenbasiert ist, wurde f\"ur den Prototypen entschieden, 
 
 \subsection{Generator}
 
-Um aus den $.csv$-Dateien eine $.java$-Datei zu erzeugen, musste ein zweistufiger Parser geschrieben werden. Der erste Parser \texttt{PlayFieldMetaListener} ermittelt Metadaten des Spielfeldes, die der zweite Parser \texttt{PlayFieldSemanticListener} ben\"otigt, um den spielfelderzeugenden Code generieren zu k\"onnen. Dazu wird die $.csv$-Datei einmal durchlaufen um die Metadaten zu akkumulieren. Zu diesen gehören die Anzahl der Spieler, die gleichzahligen Home- und Endpositionen der jeweiligen Spieler, das Vorhandensein genau eines Startfeldes pro Spieler sowie die Anzahl der Zeilen und Spalten der $.csv$-Definition. Etwaige Fehler werden mit einer Abbruchsmeldung quittiert. Sind alle Metadaten gesammelt, was erst nach einem vollständigem Scan garantiert ist, kann der \texttt{PlayFieldSemanticListener} gestartet werden, da dieser die Metainformationen benötigt, um den Code für die Spielfeldverknüpfungen mit den nun bekannten Indizes zu generieren.
-Die generierte Datei enthält danach die Zugriffsfunktionen 
-
+Um aus den $.csv$-Dateien eine $.java$-Datei zu erzeugen, musste ein zweistufiges Parsen geschrieben werden, welches in
+den vorgegebenen Antlr-Java-Code eingeh\"angt wurde. Der erste Parser \texttt{PlayFieldMetaListener} ermittelt Metadaten des Spielfeldes, die der zweite Parser \texttt{PlayFieldSemanticListener} ben\"otigt, um den spielfelderzeugenden Code generieren zu k\"onnen. Dazu wird die $.csv$-Datei einmal durchlaufen um die Metadaten zu akkumulieren. Zu diesen geh\"oren die Anzahl der Spieler, die gleichzahligen Home- und Endpositionen der jeweiligen Spieler, das Vorhandensein genau eines Startfeldes pro Spieler sowie die Anzahl der Zeilen und Spalten der $.csv$-Definition. Etwaige Fehler werden mit einer Abbruchsmeldung quittiert. Sind alle Metadaten gesammelt, was erst nach einem vollst\"andigem Scan garantiert ist, kann der \texttt{PlayFieldSemanticListener} gestartet und ihm die nun vorliegenden Metadaten \"ubergeben werden, um den Code f\"ur die Spielfeldverkn\"upfungen mit den nun ebenfalls bekannten Indizes zu generieren.
+Die generierte Datei enth\"alt danach die Zugriffsfunktionen 
 \texttt{getNumRows},
 \texttt{getNumColumns},
 \texttt{getNumPlayers} und
 \texttt{getNumPiecesPerPlayer}
-für die Metadaten und die spielfelderzeugende Funktion \texttt{createPlayfield}, welche wie in \ref{abschnitt playfieldklasse} benutzt werden. Wie man an einer beispielhaften Zeile \texttt{playfield.getTile(0, 6)// 
-.setType(TileType.START)//.setNext(playfield.getTile(1, 6))//.setPlayerID(2);} innerhalb dieser Methode sehen kann, werden die matrixartige Struktur der $.csv$-Datei und die gewonnenen Metadaten verwendet, um die Knotenverknüpfungen zwischen den einzelnen Spielfeldern zu erstellen. Nach dieser Zuordnung kann auf die Koordinatenwerte der Felder vollständig
-verzichtet werden.
-
-meta parser:
- liest spielfelddatei und ermittelt metadaten, also daten das ganze spielfeld betreffend und positionsunabh\"angig
- - spieleranzahl
- - ein startfeld pro spieler
- - gleiche anzahl an home und goal feldern pro spieler
- - h\"ohe, breite der spielfeldmatrix
- - daten werden als getter im genierten code bereitgestellt
-
-semantic parser
- - liest die einzelnen felder
- - verkn\"upft die knoten
- - generiert den erzeugungscode des spielfeldes
-
-Die so generierte Datei enth\"alt die Methoden \texttt{getNumRows}, \texttt{getNumColumns}, \texttt{getNumPlayers} und \texttt{getNumPiecesPerPlayer} mit den ermittelten Daten des Meta-Parsers
-sowie die Methode \texttt{createPlayfield} des Semantic-Parsers, welcher eine zu bef\"ullende \texttt{Playfield} Instanz Ã¼bergeben wird.
+f\"ur die Metadaten und die spielfelderzeugende Funktion \texttt{createPlayfield}, welche wie in \ref{abschnitt playfieldklasse} benutzt werden. Wie man an einer beispielhaften Zeile\newline
+\texttt{playfield.getTile(0, 6)}\newline
+\texttt{.setType(TileType.START)}\newline
+\texttt{.setNext(playfield.getTile(1, 6))}\newline
+\texttt{.setPlayerID(2);}\newline
+ innerhalb dieser Methode sehen kann, werden die matrixartige Struktur der $.csv$-Datei und die gewonnenen Metadaten verwendet, um die Knotenverkn\"upfungen zwischen den einzelnen Spielfeldern zu erstellen. Nach dieser Zuordnung kann auf die Koordinatenwerte der Felder vollst\"andig verzichtet werden. Die so generierte Datei enth\"alt die Methoden \texttt{getNumRows}, \texttt{getNumColumns}, \texttt{getNumPlayers} und \texttt{getNumPiecesPerPlayer} mit den ermittelten Daten des Meta-Parsers
+sowie die Methode \texttt{createPlayfield} des Semantic-Parsers, welcher eine zu bef\"ullende \texttt{Playfield} Instanz \"ubergeben wird.
 
 
 
-  \subsection{Applikation}
+\subsection{Applikation}
 
   Im folgenden werden die einzelnen Klassen der Applikation vorgestellt.
 
@@ -198,7 +186,10 @@ sowie die Methode \texttt{createPlayfield} des Semantic-Parsers, welcher eine zu
 \end{figure}
 
 
-Die Klasse \texttt{Game} ist das Herz der Applikation. Als Hauptcontroller h\"alt er Referenzen zum Subcontroller \texttt{PlayerController}, zur View \texttt{GUI} zum Model \texttt{Playfield}. In der \texttt{Main}-Methode wird die Applikation \"uber \texttt{ Game game = Game.getInstance(); game.init(playerController, playfield, gui);} zusammengesetzt. Im \texttt{Game}-Controller finden sich Methoden zur Eingabebehandlung: mit \texttt{onStartButtonClicked} kann ein neues Spiel begonnen werden. Mit \texttt{onRollDiceButtonClicked} wird W\"urfeln der menschlichen Spieler verarbeitet und mit \texttt{onMouseClicked} werden Klicks auf das Spielfeld verarbeitet. Dabei handelt es sich um Spielfigurbewegungen der menschlichen Spieler.
+Die Klasse \texttt{Game} ist das Herz der Applikation. Als Hauptcontroller h\"alt er Referenzen zum Subcontroller \texttt{PlayerController}, zur View \texttt{GUI} zum Model \texttt{Playfield}. In der \texttt{Main}-Methode wird die Applikation \"uber\newline
+\texttt{Game game = Game.getInstance();}\newline
+\texttt{game.init(playerController, playfield, gui);}\newline
+zusammengesetzt. Im \texttt{Game}-Controller finden sich Methoden zur Eingabebehandlung: mit \texttt{onStartButtonClicked} kann ein neues Spiel begonnen werden. Mit \texttt{onRollDiceButtonClicked} wird W\"urfeln der menschlichen Spieler verarbeitet und mit \texttt{onMouseClicked} werden Klicks auf das Spielfeld verarbeitet. Dabei handelt es sich um Spielfigurbewegungen der menschlichen Spieler.
 Zum Steuern des Spielablaufs existieren die Methoden \texttt{startGame}, mit der ein neues Spiel initialisiert wird.
 \texttt{checkForWin} pr\"uft nach jedem Spielzug, ob ein Sieger feststeht und beendet gegebenenfalls das Spiel durch
 \texttt{endGame}.
@@ -253,37 +244,23 @@ player : basisklasse mit playfield-lese-methoden zur eigenen-pieces-felder initi
 humanplayer: nix, steuerung durch view/game
 kiplayer: ki methode
 
-piece: in Game-beschreibung erwähnte wichtige methode getTargetTile
-2. methode moveBy -> veränderung des models durch spielzug
+piece: in Game-beschreibung erw\"ahnte wichtige methode getTargetTile
+2. methode moveBy -> ver\"anderung des models durch spielzug
 
-playfield: im generaotr-abschnitt erwähnte verknüpfung mit generierter datei, sonst nur datastore für tile, ebenso nur datenobject
+playfield: im generaotr-abschnitt erw\"ahnte verkn\"upfung mit generierter datei, sonst nur datastore f\"ur tile, ebenso nur datenobject
 
 Tile 
   - knoteninformationen
   - referenzinformation \"uber pieces
 
 
-tiletype: die erwähnten definitionen
+tiletype: die erw\"ahnten definitionen
 
 \section{Fazit}
 
-knoten ansatz sehr gut geeignet f\"ur erweiterung/generalisierung der spielfeldgenerierung
-einsatz passender pattern an den richtigen stellen f\"ur weiterentwicklung der software
-(ki subclass, spielregeln)
-
-grammatik zeilen/spalten gebunden (keine planar frei plazierbare tiles ohne x, y beschr\"ankung)
-aber m\"oglich, tiles nur knotengebunden, dh
-zus\"atzlicher editor f\"ur graphisches design von csv-vorlagen m\"oglich
-verschieben von graphischen elementen hat keinen einflu\ss  auf knotenverkn\"upfungen
-
-% conference papers do not normally have an appendix
-
-
-% use section* for acknowledgment
-\section*{Acknowledgment}
-
-
-The authors would like to thank...
+Aufgrund der relativ kurzen Entwicklungszeit mussten beim urumf\"anglichen Architekturdesign Abstriche gemacht werden.
+Dennoch wurde darauf geachtet, dass die beschnittenen Teile so ausgelegt wurden, dass eine sp\"atere Erweiterung
+ohne grosses Refactoring m\"oglich ist, beispielsweise seien hier die direkt verkn\"upften Callbacks statt eines ausgewachenen EvenDispatcher-Pattern oder der \texttt{PlayerController} genannt. Das Ziel, einen stabilen Prototypen f\"ur dynamische Mensch-\"arger-Dich-nicht-Spielfelder zu programmieren, wurde erreicht. Die feste Schnittstelle in der \texttt{Playfield}-Klasse zum generierten Code hat sich als \"ausserst fruchtbar f\"ur den unterbrechungslosen Workflow in den Bereichen Grammatik-, Spielregel- und Grafikerweiterung herausgestellt. Die Umwandlung von zeilen- und spaltenbasierten Informationen in eine Knotenstruktur hat wesentlich zu elegantem und intuitivem Code gef\"uhrt und entkoppelt die grafische Darstellung von der Semantik des Spielfeldes. Im Verlauf der Entwicklung hat sich herauskristallisiert, dass f\"ur Spielfelder, die grafisch noch wesentlich freier gestaltbar sein sollen, so z.B. geschwungene Wege oder Felder mit mehr als 3 Knotenverkn\"upfungen, die Grammatik jedoch genauestens \"uberdacht werden sollte. Eine Kl\"arung dieser Fragestellungen ist nach den Erfahrungen dieses Prototypen der richtige Weg f\"ur Refactorings und Workflowprozesse in den verschiedenen Bereichen der Applikation. F\"ur eine komplette Worksuite zur Herstellung von Spielvarianten vorstellbar sind ein grafischer Spielfeldeditor, welcher die dann komplizierteren Grammatiken f\"ur den Designer erzeugen kann sowie weitere Code-Generatoren im Bereich von k\"unstlichen Mitspielern und abweichenden Spielregels\"atzen. Abschließend l\"asst sich sagen, das der anf\"angliche Mehraufwand, einen relativ aufw\"andigen Parser zu schreiben, in der sp\"ateren Phase des Projektes beim Testen, Debuggen und Weiterentwickeln mehr als gelohnt hat. Eine manuelle Bearbeitung von Java-Code, um neue Spielfeldkombinationen zu testen, w\"are zeitlich untragbar gewesen.
 
 
 \begin{thebibliography}{1}
