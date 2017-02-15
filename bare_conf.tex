@@ -153,11 +153,20 @@ F\"ur die einfache und konfigurationslose Verkn\"ufpung der beiden Projekte wurd
 
 Das K\"urzel $n$ steht f\"ur die Knoteninformation, welches Feld dem betreffenden folgt, dies kann eine der 4 Himmelrichtungen $N$,$S$,$W$,$E$ sein. Das andere K\"urzel $p$ hingegen enth\"alt die Spielernummer 1-4. Einen kleinen Spezialfall stellt der Typ $TOGOAL$ dar, das dies ein Spielfeldtyp ist, welcher zwei Nachfolgeknoten enth\"alt. Der zweite ist die Abzweigung in die Zielfelder des jeweils passenden Spielers. Durch die knotenbasierte Definition
 der Spielfelder ist dies jedoch problemslos implementierbar (siehe \ref{code}) und auch erweiterbar.
-Da das $.csv$-Format zeilenbasiert ist, wurde f\"ur den Prototypen entschieden, nur matrixartige Spielfelddefinitionen zuzulassen. Dies wird im sp\"ater erkl\"arten \texttt{MetaListener} \"uberpr\"uft.
+Da das $.csv$-Format zeilenbasiert ist, wurde f\"ur den Prototypen entschieden, nur matrixartige Spielfelddefinitionen zuzulassen. Dies wird im unten erkl\"arten \texttt{PlayFieldMetaListener} \"uberpr\"uft.
 
 \subsection{Generator}
 
-Um aus den $.csv$-Dateien eine $.java$-Datei zu erzeugen, musst ein zweistufiger Parser geschrieben werden. Der erste Parser \texttt{PlayFieldMetaListener} ermittelt Metadaten des Spielfeldes, die der zweite Parser \texttt{PlayFieldSemanticListener} ben\"otigt, um den spielfelderzeugenden Code generieren zu k\"onnen.
+Um aus den $.csv$-Dateien eine $.java$-Datei zu erzeugen, musste ein zweistufiger Parser geschrieben werden. Der erste Parser \texttt{PlayFieldMetaListener} ermittelt Metadaten des Spielfeldes, die der zweite Parser \texttt{PlayFieldSemanticListener} ben\"otigt, um den spielfelderzeugenden Code generieren zu k\"onnen. Dazu wird die $.csv$-Datei einmal durchlaufen um die Metadaten zu akkumulieren. Zu diesen gehören die Anzahl der Spieler, die gleichzahligen Home- und Endpositionen der jeweiligen Spieler, das Vorhandensein genau eines Startfeldes pro Spieler sowie die Anzahl der Zeilen und Spalten der $.csv$-Definition. Etwaige Fehler werden mit einer Abbruchsmeldung quittiert. Sind alle Metadaten gesammelt, was erst nach einem vollständigem Scan garantiert ist, kann der \texttt{PlayFieldSemanticListener} gestartet werden, da dieser die Metainformationen benötigt, um den Code für die Spielfeldverknüpfungen mit den nun bekannten Indizes zu generieren.
+Die generierte Datei enthält danach die Zugriffsfunktionen 
+
+\texttt{getNumRows},
+\texttt{getNumColumns},
+\texttt{getNumPlayers} und
+\texttt{getNumPiecesPerPlayer}
+für die Metadaten und die spielfelderzeugende Funktion \texttt{createPlayfield}, welche wie in \ref{abschnitt playfieldklasse} benutzt werden. Wie man an einer beispielhaften Zeile \texttt{playfield.getTile(0, 6)// 
+.setType(TileType.START)//.setNext(playfield.getTile(1, 6))//.setPlayerID(2);} innerhalb dieser Methode sehen kann, werden die matrixartige Struktur der $.csv$-Datei und die gewonnenen Metadaten verwendet, um die Knotenverknüpfungen zwischen den einzelnen Spielfeldern zu erstellen. Nach dieser Zuordnung kann auf die Koordinatenwerte der Felder vollständig
+verzichtet werden.
 
 meta parser:
  liest spielfelddatei und ermittelt metadaten, also daten das ganze spielfeld betreffend und positionsunabh\"angig
