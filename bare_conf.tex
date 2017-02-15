@@ -43,7 +43,7 @@
 % As a general rule, do not put math, special symbols or citations
 % in the abstract
 \begin{abstract}
-Die vorliegende Arbeit enth\"alt eine detaillierte Beschreibung einer Java-Applikation f\"ur des Spiels "Mensch \"argere Dich nicht",
+Die vorliegende Arbeit enth\"alt eine detaillierte Beschreibung einer Java-Applikation des Spiels "Mensch \"argere Dich nicht",
 welche f\"ur Spieleprogrammierer und Spieledesigner gleicherma\ss en geeignet ist. Ziel war es, dass der Programmierer
 sich um Erscheinungsbild und Regeln des Spiels k\"ummern kann, ohne selber Spielfelder designen zu m\"ussen, wohingegen der Designer keine
 Programmierkenntnisse ben\"otigt, um neue Spielfelder hinzuzuf\"ugen und zu testen. Zu diesem Zweck wurden eine Grammatik f\"ur die Spielfelder
@@ -58,15 +58,15 @@ Schlussendlich werden Weiterentwicklungsm\"oglichkeiten des Prototyps pr\"asenti
 
 \section{Einleitung}
 % no \IEEEPARstart
-"Mensch \"argere Dich nicht" ist ein Brettspiel f\"ur bis zu 4 Personen. Es z\"ahlt zu den Klassikern im deutschsprachigen Raum und wurde 1907/1908 von Josef Friedrich Schmidt in Anlehnung an das englische Spiel Ludo erfunden, die Urspr\"unge finden sich jedoch im indischen Spiel Pachisi. Erstmals 1910 erschienen, ging es 1904 in Serie. 
+"Mensch \"argere Dich nicht" ist ein Brettspiel f\"ur bis zu 4 Personen. Es z\"ahlt zu den Klassikern im deutschsprachigen Raum und wurde 1907/1908 von Josef Friedrich Schmidt in Anlehnung an das englische Spiel Ludo erfunden, die Urspr\"unge finden sich jedoch im indischen Spiel Pachisi. Erstmals 1910 erschienen, ging es 1914 in Serie. 
 \begin{figure}[]
     \centering
     \fbox{\includegraphics[width=0.4\textwidth]{images/pachisi.jpg}}
     \caption{Pachisi}
 \end{figure}
-Mittlerweile existieren auch viele Abk\"ommlinge und Varianten mit ver\"anderten Regeln oder Spielfeldern. Allen Varianten ist jedoch gemein, da\ss sie ein symmetrisches Spielfeld besitzen und analog entwickelt wurden. Man kann vermuten, dass mit asymmetrischen Spielfeldern experimentiert, dies jedoch
-nicht weiter verfolgt wurde, da es ungleich schwieriger ist, eine asymmetrische Konfiguration zu finden bei der die Chancengleichheit und somit der ausgewogene
-Spielspass f\"ur alle Spieler gegeben ist. Dennoch ist der Reiz dieses Szenarios nicht zu verachten, da die Freiheit bei der Gestaltung asymmetrische Spielfelder
+Mittlerweile existieren auch viele Abk\"ommlinge und Varianten mit ver\"anderten Regeln oder Spielfeldern. Allen Varianten ist jedoch gemein, dass sie ein symmetrisches Spielfeld besitzen und analog entwickelt wurden. Man kann vermuten, dass mit asymmetrischen Spielfeldern experimentiert, dies jedoch
+nicht weiter verfolgt wurde, da es ungleich schwieriger ist, eine asymmetrische Konfiguration zu finden, bei der die Chancengleichheit und somit der ausgewogene
+Spielspass f\"ur alle Spieler gegeben ist. Dennoch ist der Reiz dieses Szenarios nicht zu verachten, da die Freiheit bei der Gestaltung asymmetrischer Spielfelder
 \"au\ss erst fruchtbar f\"ur die Entwicklung interessanter Spielvarianten, welche sich nicht in das relativ starre klassische Korsett einpassen m\"ussen, ist. Die gr\"o\ss te
 H\"urde in diesem Bereich ist also die m\"uhelose Erstellung eines experimentellen Spielfeldes, um dieses unmittelbar auf seine Spielspa\ss eigenschaften zu testen.
 
@@ -84,10 +84,10 @@ des Prototypen (exemplarisch MobileApp) gut planen und umsetzen. Die verbindende
 Codegenerierungs-Tool Antlr, welches das $.csv$-Dateiformat von Haus aus beherrscht und f\"ur die programmierkenntnislose Erstellung von Spielfeldern
 geeignet ist. Diese Aufstellung des Technologiestacks erlaubt einen wechselseitigen Workflow ohne gro\ss e Unterbrechungen. Der Designer kann
 mit der aktuellen Version neue Spielfelder erzeugen oder bereits designte testen und Vorschl\"age zum Regelwerk machen. Der Programmierer
-kann solche Feature-Requests umsetzen und einspielen, woraushin der Designer wieder iterieren kann. Beide kommunizieren also vorrangig
-\"uber die Grammatik des Spiels und sind nicht prim\"ar an technische Beschr\"ankungen gebunden. Weiter kann der Programmierer kann unabh\"angig vom Designer
+kann solche Feature-Requests umsetzen und einspielen, woraufhin der Designer wieder iterieren kann. Beide kommunizieren also vorrangig
+\"uber die Grammatik des Spiels und sind nicht prim\"ar an technische Beschr\"ankungen gebunden. Weiter kann der Programmierer unabh\"angig vom Designer
 an der graphischen Erscheinung der View und dem Verhalten der k\"unstlichen Spieler arbeiten. F\"ur den Designer ist eine einfache Bedienung
-wichtig, d.h. es wird nur von ihm verlangt mit der View zu kommunizieren und neue Spielfelder zu erzeugen, aber keine weiteren Deploy-Prozesse zu beachten.
+wichtig, d.h. es wird nur von ihm verlangt mit der View zu kommunizieren um neue Spielfelder zu erzeugen. Weitere Deploy-Prozesse muss er nicht beachten.
 
 
 - os unabh\"angig lauff\"ahig
@@ -113,7 +113,7 @@ wichtig, d.h. es wird nur von ihm verlangt mit der View zu kommunizieren und neu
 
   Dabei ist zu beachten, das die Dreieckbeziehung im MVC nicht symmetrisch, sondern hierarchisch implementiert wird, da sonst die Verantwortlichkeiten
   von Model, View und Controller aufgeweicht werden und feste Kopplungen sowie Spaghetti-Code beg\"unstigt werden. Konkret bedeutet das, das der Controller das Model und die View kennt, die View jedoch nur, um seine Callbacks auf asynchrone Events (z.B. Benutzereingaben) der View anzumelden. Als Controller darf er im Zuge des Spielablaufs im Model Ver\"anderungen vornehmen. Die View kennt das Model, darf aber nur daraus lesen, um sich selbst, d.h. die grafische Darstellung der Applikation auf dem aktuellsten Stand zu halten. Das Model als Datenhalter kennt niemanden, stellt aber Lese- und Schreibfunktionen zur Verf\"ugung. Diese Aufteilung ist noch weiter ausbauf\"ahig, bei zunehmender Komplexit\"at w\"are es sinnvoll f\"ur die
-  Einhaltung der Verantwortlichkeiten EventDispatcher-Pattern hinzuzuf\"ugen. Dadurch k\"onnen das Model und die View Events bei Eingabeereignissen oder Datenver\"anderungen senden, ohne dass die lose Kopplung verlorengeht. Im Prototypen wurde sich dagegen entschieden, da ein einzelner Aufruf f\"ur die GUI-Aktualisierung pro Spielzug und die Anmeldung zweier Callbacks den Mehraufwand nicht rechtfertigten.
+  Einhaltung der Verantwortlichkeiten das EventDispatcher-Pattern hinzuzuf\"ugen. Dadurch k\"onnen das Model und die View Events bei Eingabeereignissen oder Datenver\"anderungen senden, ohne dass die lose Kopplung verlorengeht. Im Prototypen wurde sich dagegen entschieden, da ein einzelner Aufruf f\"ur die GUI-Aktualisierung pro Spielzug und die Anmeldung zweier Callbacks den Mehraufwand nicht rechtfertigten.
 
 \subsection{Singleton}
 
@@ -204,7 +204,7 @@ nicht unn\"otig mit spielablauffremden Methoden aufgebl\"aht, wenn die Spielerve
 
 \subsubsection{View}
 Die implementierte GUI repr\"asentiert ein Mensch \"arger dich Nicht! Spielfeld. Es besteht aus einem \texttt{PlayfieldPanel}, welches f\"ur die Darstellung von JPanel erbt und f\"ur die Interaktion mit dem Nutzer den MouseListener implementiert. Das PlayfieldPanel stellt die einzelnen \texttt{tiles}, also Felder, mittels zur Laufzeit gerenderten Kreisen dar. Diese Kreise k\"onnen wei\ss   f\"ur normale Wegfelder und Farbig f\"ur Felder eines Spielers sein. 
-	Die einzelnen Figuren der Spieler 
+	Die einzelnen Figuren der Spieler werden als kleinere Kreise innerhalb des Feldes 
     GUI
        -verantwortlich f\"ur den Rahmen, fenstergr\"o\ss e usw
     PlayfieldPanel
