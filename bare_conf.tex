@@ -225,7 +225,7 @@ nicht unn\"otig mit spielablauffremden Methoden aufgebl\"aht, wenn die Spielerve
 \end{figure}
 
 Die implementierte GUI repr\"asentiert ein Mensch \"arger dich Nicht! Spielfeld. Es besteht aus einem \texttt{PlayfieldPanel}, welches f\"ur die Darstellung von JPanel erbt und f\"ur die Interaktion mit dem Nutzer den MouseListener implementiert. Das PlayfieldPanel stellt die einzelnen \texttt{tiles}, also Felder, mittels zur Laufzeit gerenderten Kreisen dar. Diese Kreise k\"onnen wei\ss   f\"ur normale Wegfelder und Farbig f\"ur Felder eines Spielers sein. 
-	Die einzelnen Figuren der Spieler werden als kleinere Kreise innerhalb des Feldes 
+  Die einzelnen Figuren der Spieler werden als kleinere Kreise innerhalb des Feldes 
     GUI
        -verantwortlich f\"ur den Rahmen, fenstergr\"o\ss e usw
     PlayfieldPanel
@@ -238,30 +238,32 @@ Die implementierte GUI repr\"asentiert ein Mensch \"arger dich Nicht! Spielfeld.
     \caption{Model Klassendiagramm}
 \end{figure}
 
-  Model:
-    Playfield
-      - alle tiles
-    Tile 
-      - knoteninformationen
-      - referenzinformation \"uber pieces
-    Player
-      - enth\"alt seine pieces
-      Ableitungen: KIPlayer/HumanPlayer
-
-
-
-  implementierungsvorteile durch knotenbasierte spielfeldelemente
-
-
     -erzeugt eleganten regel code durch tiletypen und lookahead function
     -einfache erweiterung neuer tiletypen und regeln
     -nat\"urlich abbildung der regeln in code
 
-
-    Typendefinitionen: tileType
-
     beispiele zeigen:
-    if (tile.TILETYPE == START \&\& tile.hasPiece())) // cant move to start, its not free 
+    if (tile.TILETYPE == 
+
+
+player : basisklasse mit playfield-lese-methoden zur eigenen-pieces-felder initialisierung
+      - enth\"alt seine pieces
+      Ableitungen: KIPlayer/HumanPlayer
+
+humanplayer: nix, steuerung durch view/game
+kiplayer: ki methode
+
+piece: in Game-beschreibung erwähnte wichtige methode getTargetTile
+2. methode moveBy -> veränderung des models durch spielzug
+
+playfield: im generaotr-abschnitt erwähnte verknüpfung mit generierter datei, sonst nur datastore für tile, ebenso nur datenobject
+
+Tile 
+  - knoteninformationen
+  - referenzinformation \"uber pieces
+
+
+tiletype: die erwähnten definitionen
 
 \section{Fazit}
 
