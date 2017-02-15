@@ -154,7 +154,7 @@ F\"ur die einfache und konfigurationslose Verkn\"ufpung der beiden Projekte wurd
 Das K\"urzel $n$ steht f\"ur die Knoteninformation, welches Feld dem betreffenden folgt, dies kann eine der 4 Himmelrichtungen $N$,$S$,$W$,$E$ sein. Das andere K\"urzel $p$ hingegen enth\"alt die Spielernummer 1-4. Einen kleinen Spezialfall stellt der Typ $TOGOAL$ dar, das dies ein Spielfeldtyp ist, welcher zwei Nachfolgeknoten enth\"alt. Der zweite ist die Abzweigung in die Zielfelder des jeweils passenden Spielers. Durch die knotenbasierte Definition
 der Spielfelder ist dies jedoch problemslos implementierbar (siehe \ref{code}) und auch erweiterbar.
 Da das $.csv$-Format zeilenbasiert ist, wurde f\"ur den Prototypen entschieden, nur matrixartige Spielfelddefinitionen zuzulassen. Dies wird im unten erkl\"arten \texttt{PlayFieldMetaListener} \"uberpr\"uft.
-Die EBNF der Grammatik ist in Abbildung 2 dargestellt.
+Die EBNF der Grammatik ist in Abbildung 2 dargestellt. Sie beschreibt die zul\"assigen Symbole innerhalb der $.csv$-Datei und den dazugeh\"origen Separierer, der in diesem Fall ein Semicolon ist. 
 
 \begin{figure}[]
     \centering
@@ -224,8 +224,14 @@ nicht unn\"otig mit spielablauffremden Methoden aufgebl\"aht, wenn die Spielerve
     \caption{View Klassendiagramm}
 \end{figure}
 
+\begin{figure}[]
+    \centering
+    \fbox{\includegraphics[width=0.47\textwidth]{images/gui.jpg}}
+    \caption{GUI}
+\end{figure}
+
 Die implementierte GUI repr\"asentiert ein Mensch \"arger dich Nicht! Spielfeld. Es besteht aus einem \texttt{PlayfieldPanel}, welches f\"ur die Darstellung von JPanel erbt und f\"ur die Interaktion mit dem Nutzer den MouseListener implementiert. Das PlayfieldPanel stellt die einzelnen \texttt{tiles}, also Felder, mittels zur Laufzeit gerenderten Kreisen dar. Diese Kreise k\"onnen wei{\ss}   f\"ur normale Wegfelder und Farbig f\"ur Felder eines Spielers sein. 
-  Die einzelnen Figuren der Spieler werden als kleinere Kreise innerhalb des Feldes dargestellt und durch die Nutzung von \texttt{.darker()} als separate Spielfigur visualisiert. f\"ur die Steuerung des Spiels stehen Buttons zum ausl\"osen des Wurfs und zum Starten des Spiels zur Verf\"ugung. Außerdem kann durch Klick auf eine der eigenen Spielfiguren eine Bewegung um die Gew\"urfelte Augenanzahl ausgel\"ost werden. 
+  Die einzelnen Figuren der Spieler werden als kleinere Kreise innerhalb des Feldes dargestellt und durch die Nutzung von \texttt{.darker()} als separate Spielfigur visualisiert. f\"ur die Steuerung des Spiels stehen Buttons zum ausl\"osen des Wurfs und zum Starten des Spiels zur Verf\"ugung. Au{\ss}erdem kann durch Klick auf eine der eigenen Spielfiguren eine Bewegung um die Gew\"urfelte Augenanzahl ausgel\"ost werden. 
   Die Klasse GUI stellt das Fenster und diverse Methoden zur Steuerung des Playfields zur Verf\"ogung. 
 
 \subsubsection{Model}
@@ -237,18 +243,20 @@ Die implementierte GUI repr\"asentiert ein Mensch \"arger dich Nicht! Spielfeld.
     \caption{Model Klassendiagramm}
 \end{figure}
 
-Das Modell hinter dem Spiel beschreibt sowohl die Repr\"asentation des Spielfelds, als auch die beiden Spielertypen \texttt{HumanPlayer} und \texttt{KIPlayer} und die Spielfiguren. Das Spielfeld besteht aus beliebig vielen \texttt{tiles}, die die einzelnen Spielfelder repr\"asentieren. Da die \texttt{tiles} eine Typ-Eigenschaft besitzen, kann ein eleganter Regel-Code implementiert werden, der eine variable Spielfeld-Beschaffenheit und eine einfache Erweiterung der Regeln erm\"oglicht. (CODE Hier?  if (tile.TILETYPE == ) 
+Das Modell hinter dem Spiel beschreibt sowohl die Repr\"asentation des Spielfelds, als auch die beiden Spielertypen \texttt{HumanPlayer} und \texttt{KIPlayer} und die Spielfiguren. Das Spielfeld besteht aus beliebig vielen \texttt{tiles}, die die einzelnen Spielfelder repr\"asentieren. Da die \texttt{tiles} eine Typ-Eigenschaft besitzen, kann ein eleganter Regel-Code implementiert werden, der eine variable Spielfeld-Beschaffenheit und eine einfache Erweiterung der Regeln erm\"oglicht. Ein Beispiel hierf\"ur ist z.B. \newline
+\texttt{if (tile.getType() == TileType.TOGOAL)}
+ 
 Im folgenden wird genauer auf die einzelnen Modell-Klassen eingegangen.
 
-Player: Die Klasse Player ist die Basisklasse aller Spieler und besitzt Grundinformationen wie z.B. die \texttt{playerID} und den Spielernamen. Außerdem kennt die Player-Klasse die Spielfiguren und somit auch die Information, auf welcher \texttt{tile} des Spielfeldes sich die Spielfigur befindet. Anhand des im Konstruktor \"ubergebenen Playfields findet eine Auswertung der Start- und Home-Felder statt. Die Klassen KIPlayer und HumanPlayer erben von Player und differenzieren so, ob der Zug Automatisch ausgef\"uhrt werden soll, oder ob auf die Reaktion des Spielers gewartet werden muss. 
+\texttt{Player}: Die Klasse \texttt{Player} ist die Basisklasse aller Spieler und besitzt Grundinformationen wie z.B. die \texttt{playerID} und den Spielernamen. Au{\ss}erdem kennt die Player-Klasse die Spielfiguren und somit auch die Information, auf welcher \texttt{tile} des Spielfeldes sich die Spielfigur befindet. Anhand des im Konstruktor \"ubergebenen Playfields findet eine Auswertung der Start- und Home-Felder statt. Die Klassen KIPlayer und HumanPlayer erben von Player und differenzieren so, ob der Zug Automatisch ausgef\"uhrt werden soll, oder ob auf die Reaktion des Spielers gewartet werden muss. 
 
-Piece: Die Klasse Piece repr\"asentiert eine Spielfigur eines Spielers. Ein Piece geh\"ort immer zu einem Player und steht auf einem \texttt{tile}. Mittels der Methode getTargetTile, die bereits in der Klasse \texttt{Game} beschrieben ist und der Methode \texttt{moveBy} kann die Spielfigur um die gew\"urfelte Anzahl eines Spielzuges bewegt werden. Au{\ss}erdem kann durch die Methode \texttt{isCloseToFinish} ermittelt werden, ob sich die Spielfigur in der Reichweite des Ziels befindet. 
+\texttt{Piece}: Die Klasse \texttt{Piece} repr\"asentiert eine Spielfigur eines Spielers. Ein \texttt{Piece} geh\"ort immer zu einem \texttt{Player} und steht auf einem \texttt{tile}. Mittels der Methode \texttt{getTargetTile}, die bereits in der Klasse \texttt{Game} beschrieben ist und der Methode \texttt{moveBy} kann die Spielfigur um die gew\"urfelte Anzahl eines Spielzuges bewegt werden. Au{\ss}erdem kann durch die Methode \texttt{isCloseToFinish} ermittelt werden, ob sich die Spielfigur in der Reichweite des Ziels befindet. 
 
-Playfield: Die Klasse Playfield dient der Verkn\"upfung der durch die Codegenierten Spielfelder und der GUI und h\"alt die \texttt{tile}-Objekte des Spielfelds. Au{\ss}erdem kennt sie die Anzahl der Reihen, Spalten, Spieler und Spielfiguren pro Spieler.
+\texttt{Playfield}: Die Klasse \texttt{Playfield} dient der Verkn\"upfung der Codegenierten Spielfelder und der \texttt{GUI} und h\"alt die \texttt{tile}-Objekte des Spielfelds. Au{\ss}erdem kennt sie die Anzahl der Reihen, Spalten, Spieler und Spielfiguren pro Spieler.
 
-Tile: Die Klasse Tile speichert die Knoten- und Referenz-Informationen der Spielfiguren des Spielfelds. Eine Instanz der Klasse Tile besitzt Informationen \"uber den TileTyp, die Spielfigur die eventuell mit ihr assoziiert ist und die PlayerID. Des weiteren verf\"ugt sie \"uber die Information, welche tile ihr Nachfolger ist und ggf. ob es eine tile ist, die sich vor einer Ziel-tile befindet. 
+\texttt{Tile}: Die Klasse \texttt{Tile} speichert die Knoten- und Referenz-Informationen der Spielfiguren des Spielfelds. Eine Instanz der Klasse \texttt{Tile} besitzt Informationen \"uber den \texttt{TileTyp}, die Spielfigur die eventuell mit ihr assoziiert ist und die \texttt{PlayerID}. Des weiteren verf\"ugt sie \"uber die Information, welche \texttt{Tile} ihr Nachfolger ist und ggf. ob es eine \texttt{Tile} ist, die sich vor einer Ziel-tile befindet. 
 
-TileType: Das enum TileType beschreibt den Typ eines Tile-Objekts. Die m\"oglichen Typen sind: Home f\"ur ein Hausfeld, Start f\"ur ein Startfeld, Goal f\"ur ein Zielfeld, Way f\"ur ein Wegfeld, ToGoal f\"ur ein Feld, das sich vor einem Zielfeld befindet f\"ur eine nicht Spielrelevante Tile. 
+\texttt{TileType}: Das enum \texttt{TileType} beschreibt den Typ eines \texttt{Tile}-Objekts. Die m\"oglichen Typen sind: Home f\"ur ein Hausfeld, Start f\"ur ein Startfeld, Goal f\"ur ein Zielfeld, Way f\"ur ein Wegfeld, ToGoal f\"ur ein Feld, das sich vor einem Zielfeld befindet f\"ur eine nicht Spielrelevante \texttt{Tile}. 
 
 player : basisklasse mit playfield-lese-methoden zur eigenen-pieces-felder initialisierung
       - enth\"alt seine pieces
