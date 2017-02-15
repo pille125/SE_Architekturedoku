@@ -225,7 +225,8 @@ nicht unn\"otig mit spielablauffremden Methoden aufgebl\"aht, wenn die Spielerve
 \end{figure}
 
 Die implementierte GUI repr\"asentiert ein Mensch \"arger dich Nicht! Spielfeld. Es besteht aus einem \texttt{PlayfieldPanel}, welches f\"ur die Darstellung von JPanel erbt und f\"ur die Interaktion mit dem Nutzer den MouseListener implementiert. Das PlayfieldPanel stellt die einzelnen \texttt{tiles}, also Felder, mittels zur Laufzeit gerenderten Kreisen dar. Diese Kreise k\"onnen wei{\ss}   f\"ur normale Wegfelder und Farbig f\"ur Felder eines Spielers sein. 
-  Die einzelnen Figuren der Spieler werden als kleinere Kreise innerhalb des Feldes dargestellt und durch die Nutzung von \texttt{.darker()} als separate Spielfigur Visualisiert. Die Klasse GUI stellt das Fenster f\"ur das PlayFieldPanel zur Verfügung und stellt diverse Methoden zur Steuerung des Playfields zur Verf\"ugung.
+  Die einzelnen Figuren der Spieler werden als kleinere Kreise innerhalb des Feldes dargestellt und durch die Nutzung von \texttt{.darker()} als separate Spielfigur visualisiert. Für die Steuerung des Spiels stehen Buttons zum auslösen des Wurfs und zum Starten des Spiels zur Verfügung. Außerdem kann durch Klick auf eine der eigenen Spielfiguren eine Bewegung um die Gewürfelte Augenanzahl ausgelöst werden. 
+  Die Klasse GUI stellt das Fenster f\"ur das PlayFieldPanel zur Verfügung und stellt diverse Methoden zur Steuerung des Playfields zur Verf\"ugung. 
 
 \subsubsection{Model}
 
@@ -239,8 +240,9 @@ Die implementierte GUI repr\"asentiert ein Mensch \"arger dich Nicht! Spielfeld.
 Das Modell hinter dem Spiel beschreibt sowohl die Repr\"asentation des Spielfelds, als auch die beiden Spielertypen \texttt{HumanPlayer} und \texttt{KIPlayer} und die Spielfiguren. Das Spielfeld besteht aus beliebig vielen \texttt{tiles}, die die einzelnen Spielfelder repr\"asentieren. Da die \texttt{tiles} eine Typ-Eigenschaft besitzen, kann ein eleganter Regel-Code implementiert werden, der eine variable Spielfeld-Beschaffenheit und eine einfache Erweiterung der Regeln erm\"oglicht. (CODE Hier?  if (tile.TILETYPE == ) 
 Im folgenden wird genauer auf die einzelnen Modell-Klassen eingegangen.
 
-Player: Die Klasse Player ist die Basisklasse aller Spieler und besitzt Grundinformationen wie z.B. die \texttt{playerID} und den Spielernamen. Außerdem kennt die Player-Klasse die Spielfiguren und die Start- und Home Spielfelder des jeweiligen Spielers. 
+Player: Die Klasse Player ist die Basisklasse aller Spieler und besitzt Grundinformationen wie z.B. die \texttt{playerID} und den Spielernamen. Außerdem kennt die Player-Klasse die Spielfiguren und somit auch die Information, auf welcher \texttt{tile} des Spielfeldes sich die Spielfigur befindet. Anhand des im Konstruktor übergebenen Playfields findet eine Auswertung der Start- und Home-Felder statt. Die Klassen KIPlayer und HumanPlayer erben von Player und differenzieren so, ob der Zug Automatisch ausgeführt werden soll, oder ob auf die Reaktion des Spielers gewartet werden muss. 
 
+Piece:  
 
 player : basisklasse mit playfield-lese-methoden zur eigenen-pieces-felder initialisierung
       - enth\"alt seine pieces
