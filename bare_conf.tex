@@ -125,7 +125,7 @@ Die Applikation wurde in einem 2er-Team entwickelt. Als erstes wurde die Grammat
 ein Grundger\"ust der Applikation $MenschAergerDichNicht$ entworfen und der Generator $MADPlayfieldGenerator$ geschrieben werden konnte. Nachdem beide Projekte minimal lauff\"ahig waren, haben sich die Entwicklungsrollen iterativ vermischt, bis der Prototyp ausreichend angereichert und getestet
 war.
 
-F\"ur die einfache und konfigurationslose Verkn\"ufpung der beiden Projekte wurde ein relativer Pfad, welcher lediglich verlangt, dass sich beide Projekte nebeneinander in einem Ordner befinden und ein fester Name $GEN\_PlayfieldCreator.java$ f\"ur die erzeugte Quellcodedatei gew\"ahlt. Dadurch konnte die Code-Generierung mit einem einzigen BefehlÂ permanent angewendet werden.
+F\"ur die einfache und konfigurationslose Verkn\"ufpung der beiden Projekte wurde ein relativer Pfad, welcher lediglich verlangt, dass sich beide Projekte nebeneinander in einem Ordner befinden und ein fester Name $GEN\_PlayfieldCreator.java$ f\"ur die erzeugte Quellcodedatei gew\"ahlt. Dadurch konnte die Code-Generierung mit einem einzigen BefehlÃ‚Â permanent angewendet werden.
 
 \subsection{Grammatik/DSL}
   Die Grammatik des Spiels enth\"alt Symbole f\"ur alle m\"oglichen Spielfeldtypen und deren Verkn\"upfungen zum Nachfolgefeld.
@@ -157,15 +157,15 @@ Da das $.csv$-Format zeilenbasiert ist, wurde f\"ur den Prototypen entschieden, 
 
 \subsection{Generator}
 
-Um aus den $.csv$-Dateien eine $.java$-Datei zu erzeugen, musste ein zweistufiger Parser geschrieben werden. Der erste Parser \texttt{PlayFieldMetaListener} ermittelt Metadaten des Spielfeldes, die der zweite Parser \texttt{PlayFieldSemanticListener} ben\"otigt, um den spielfelderzeugenden Code generieren zu k\"onnen. Dazu wird die $.csv$-Datei einmal durchlaufen um die Metadaten zu akkumulieren. Zu diesen gehören die Anzahl der Spieler, die gleichzahligen Home- und Endpositionen der jeweiligen Spieler, das Vorhandensein genau eines Startfeldes pro Spieler sowie die Anzahl der Zeilen und Spalten der $.csv$-Definition. Etwaige Fehler werden mit einer Abbruchsmeldung quittiert. Sind alle Metadaten gesammelt, was erst nach einem vollständigem Scan garantiert ist, kann der \texttt{PlayFieldSemanticListener} gestartet werden, da dieser die Metainformationen benötigt, um den Code für die Spielfeldverknüpfungen mit den nun bekannten Indizes zu generieren.
-Die generierte Datei enthält danach die Zugriffsfunktionen 
+Um aus den $.csv$-Dateien eine $.java$-Datei zu erzeugen, musste ein zweistufiger Parser geschrieben werden. Der erste Parser \texttt{PlayFieldMetaListener} ermittelt Metadaten des Spielfeldes, die der zweite Parser \texttt{PlayFieldSemanticListener} ben\"otigt, um den spielfelderzeugenden Code generieren zu k\"onnen. Dazu wird die $.csv$-Datei einmal durchlaufen um die Metadaten zu akkumulieren. Zu diesen gehÃ¶ren die Anzahl der Spieler, die gleichzahligen Home- und Endpositionen der jeweiligen Spieler, das Vorhandensein genau eines Startfeldes pro Spieler sowie die Anzahl der Zeilen und Spalten der $.csv$-Definition. Etwaige Fehler werden mit einer Abbruchsmeldung quittiert. Sind alle Metadaten gesammelt, was erst nach einem vollstÃ¤ndigem Scan garantiert ist, kann der \texttt{PlayFieldSemanticListener} gestartet werden, da dieser die Metainformationen benÃ¶tigt, um den Code fÃ¼r die SpielfeldverknÃ¼pfungen mit den nun bekannten Indizes zu generieren.
+Die generierte Datei enthÃ¤lt danach die Zugriffsfunktionen 
 
 \texttt{getNumRows},
 \texttt{getNumColumns},
 \texttt{getNumPlayers} und
 \texttt{getNumPiecesPerPlayer}
-für die Metadaten und die spielfelderzeugende Funktion \texttt{createPlayfield}, welche wie in \ref{abschnitt playfieldklasse} benutzt werden. Wie man an einer beispielhaften Zeile \texttt{playfield.getTile(0, 6)// 
-.setType(TileType.START)//.setNext(playfield.getTile(1, 6))//.setPlayerID(2);} innerhalb dieser Methode sehen kann, werden die matrixartige Struktur der $.csv$-Datei und die gewonnenen Metadaten verwendet, um die Knotenverknüpfungen zwischen den einzelnen Spielfeldern zu erstellen. Nach dieser Zuordnung kann auf die Koordinatenwerte der Felder vollständig
+fÃ¼r die Metadaten und die spielfelderzeugende Funktion \texttt{createPlayfield}, welche wie in \ref{abschnitt playfieldklasse} benutzt werden. Wie man an einer beispielhaften Zeile \texttt{playfield.getTile(0, 6)// 
+.setType(TileType.START)//.setNext(playfield.getTile(1, 6))//.setPlayerID(2);} innerhalb dieser Methode sehen kann, werden die matrixartige Struktur der $.csv$-Datei und die gewonnenen Metadaten verwendet, um die KnotenverknÃ¼pfungen zwischen den einzelnen Spielfeldern zu erstellen. Nach dieser Zuordnung kann auf die Koordinatenwerte der Felder vollstÃ¤ndig
 verzichtet werden.
 
 meta parser:
@@ -182,7 +182,7 @@ semantic parser
  - generiert den erzeugungscode des spielfeldes
 
 Die so generierte Datei enth\"alt die Methoden \texttt{getNumRows}, \texttt{getNumColumns}, \texttt{getNumPlayers} und \texttt{getNumPiecesPerPlayer} mit den ermittelten Daten des Meta-Parsers
-sowie die Methode \texttt{createPlayfield} des Semantic-Parsers, welcher eine zu bef\"ullende \texttt{Playfield} Instanz Ã¼bergeben wird.
+sowie die Methode \texttt{createPlayfield} des Semantic-Parsers, welcher eine zu bef\"ullende \texttt{Playfield} Instanz ÃƒÂ¼bergeben wird.
 
 
 
@@ -191,6 +191,12 @@ sowie die Methode \texttt{createPlayfield} des Semantic-Parsers, welcher eine zu
   Im folgenden werden die einzelnen Klassen der Applikation vorgestellt.
 
 \subsubsection{Game}
+\begin{figure}[]
+    \centering
+    \fbox{\includegraphics[width=0.47\textwidth]{images/controllerClassDiagram.jpg}}
+    \caption{Controller Klassendiagramm}
+\end{figure}
+
 
 Die Klasse \texttt{Game} ist das Herz der Applikation. Als Hauptcontroller h\"alt er Referenzen zum Subcontroller \texttt{PlayerController}, zur View \texttt{GUI} zum Model \texttt{Playfield}. In der \texttt{Main}-Methode wird die Applikation \"uber \texttt{ Game game = Game.getInstance(); game.init(playerController, playfield, gui);} zusammengesetzt. Im \texttt{Game}-Controller finden sich Methoden zur Eingabebehandlung: mit \texttt{onStartButtonClicked} kann ein neues Spiel begonnen werden. Mit \texttt{onRollDiceButtonClicked} wird W\"urfeln der menschlichen Spieler verarbeitet und mit \texttt{onMouseClicked} werden Klicks auf das Spielfeld verarbeitet. Dabei handelt es sich um Spielfigurbewegungen der menschlichen Spieler.
 Zum Steuern des Spielablaufs existieren die Methoden \texttt{startGame}, mit der ein neues Spiel initialisiert wird.
@@ -212,12 +218,25 @@ Der \texttt{PlayerController} dient lediglich der Verwaltung der Spieler. Durch 
 nicht unn\"otig mit spielablauffremden Methoden aufgebl\"aht, wenn die Spielerverwaltung durch erweiterte Spielmodi komplizierter wird. Dazu geh\"ort beispielsweise die Anmeldung der Spieler (menschlich oder k\"unstlich) beim Spielstart und die sp\"atere Abmeldung f\"ur Spielmodi mit mehreren Siegerpl\"atzen.
 
 \subsubsection{View}
+\begin{figure}[]
+    \centering
+    \fbox{\includegraphics[width=0.47\textwidth]{images/viewClassDiagram.jpg}}
+    \caption{View Klassendiagramm}
+\end{figure}
+
 Die implementierte GUI repr\"asentiert ein Mensch \"arger dich Nicht! Spielfeld. Es besteht aus einem \texttt{PlayfieldPanel}, welches f\"ur die Darstellung von JPanel erbt und f\"ur die Interaktion mit dem Nutzer den MouseListener implementiert. Das PlayfieldPanel stellt die einzelnen \texttt{tiles}, also Felder, mittels zur Laufzeit gerenderten Kreisen dar. Diese Kreise k\"onnen wei\ss   f\"ur normale Wegfelder und Farbig f\"ur Felder eines Spielers sein. 
 	Die einzelnen Figuren der Spieler werden als kleinere Kreise innerhalb des Feldes 
     GUI
        -verantwortlich f\"ur den Rahmen, fenstergr\"o\ss e usw
     PlayfieldPanel
         - rendering des spielfeldes (tiles, pieces)
+
+\subsubsection{Model}
+\begin{figure}[]
+    \centering
+    \fbox{\includegraphics[width=0.47\textwidth]{images/modelClassDiagram.jpg}}
+    \caption{Model Klassendiagramm}
+\end{figure}
 
   Model:
     Playfield
