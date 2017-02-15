@@ -190,15 +190,16 @@ Die Klasse \texttt{Game} ist das Herz der Applikation. Als Hauptcontroller h\"al
 \texttt{Game game = Game.getInstance();}\newline
 \texttt{game.init(playerController, playfield, gui);}\newline
 zusammengesetzt. Im \texttt{Game}-Controller finden sich Methoden zur Eingabebehandlung: mit \texttt{onStartButtonClicked} kann ein neues Spiel begonnen werden. Mit \texttt{onRollDiceButtonClicked} wird W\"urfeln der menschlichen Spieler verarbeitet und mit \texttt{onMouseClicked} werden Klicks auf das Spielfeld verarbeitet. Dabei handelt es sich um Spielfigurbewegungen der menschlichen Spieler.
+
 Zum Steuern des Spielablaufs existieren die Methoden \texttt{startGame}, mit der ein neues Spiel initialisiert wird.
-\texttt{checkForWin} pr\"uft nach jedem Spielzug, ob ein Sieger feststeht und beendet gegebenenfalls das Spiel durch
+Die Methode \texttt{checkForWin} pr\"uft nach jedem Spielzug, ob ein Sieger feststeht und beendet gegebenenfalls das Spiel durch
 \texttt{endGame}.
-\texttt{turn} leitet einen Spielzug ein. Im Falle eines menschlichen Spielers wird anschlie\ss end auf Eingaben gewartet, bei einem k\"unstlichen Spieler wird das W\"urfeln automatisch ausgef\"uhrt und die KI \"uber \texttt{turnKI} zur Spielfigurenbewegung angesteuert. Die zufallsgenerierten W\"urfelwerte
+Die Methode \texttt{turn} leitet einen Spielzug ein. Im Falle eines menschlichen Spielers wird anschlie\ss end auf Eingaben gewartet, bei einem k\"unstlichen Spieler wird das W\"urfeln automatisch ausgef\"uhrt und die KI \"uber \texttt{turnKI} zur Spielfigurenbewegung angesteuert. Die zufallsgenerierten W\"urfelwerte
 werden von \texttt{rollDice} zur\"uckgegeben. F\"ur die Logik innerhalb des Spielablaufs existieren die Methoden
 \texttt{prepareBonusRoll}, welche gesondert nach einer gew\"urfelten 6 angesteuert wird und im Falle einer anderen gew\"urfelten Zahl
 \texttt{prepareNextPlayer}, wenn der entsprechende Spieler seinen Zug abgeschlossen hat.
 
-Die zentrale Methode \texttt{tryMove} wird angesteuert, wenn eine Spielfigur von einem -gleichg\"ultig ob menschlich oder k\"unstlich- Spieler bewegt werden soll. In ihr werden die Regeln zur validen Bewegung der Spielfigur \"uberpr\"uft, der Zug wenn m\"oglich ausgef\"uhrt (wodurch sich das Model \"andert) und die Validit\"at als \texttt{boolean} Wert zur\"uckgegeben. Durch den R\"uckgabewert wird gesteuert, ob im Falle einer KI eine andere Spielfigur bewegt oder wieder auf Mauseingaben des Benutzer gewartet werden soll. War der Zug valide, wird zum n\"achsten Spieler im Spielverlauf weitergegangen. Unterfunktionen von \texttt{tryMove} sind \texttt{cantMoveOut}, welche die Zwangsregel, dass man eine Spielfigur -wenn m\"oglich- heraussetzen muss und
+Die zentrale Methode \texttt{tryMove} wird ausgef\"uhrt, wenn eine Spielfigur von einem Spieler, gleichg\"ultig ob menschlich oder nicht, bewegt werden soll. In ihr werden die Regeln zur validen Bewegung der Spielfigur \"uberpr\"uft, der Zug wenn m\"oglich ausgef\"uhrt (wodurch sich das Model \"andert) und die Validit\"at als \texttt{boolean} Wert zur\"uckgegeben. Durch den R\"uckgabewert wird gesteuert, ob im Falle einer KI eine andere Spielfigur bewegt oder wieder auf Mauseingaben des Benutzer gewartet werden soll. War der Zug valide, wird zum n\"achsten Spieler im Spielverlauf weitergegangen. Unterfunktionen von \texttt{tryMove} sind \texttt{cantMoveOut}, welche die Zwangsregel, dass man eine Spielfigur -wenn m\"oglich- heraussetzen muss und
 \texttt{isValidTarget}, welche \"uberpr\"uft, ob das Zielfeld einer Spielfigur ein valide Position darstellt. Auf die letztgenannte Methode soll kurz genauer eingegangen werden, da sich in ihr die Vorteile des knotenbasierten Spielfeldes zeigen. Zum Ermitteln eines legales Spielzugs der Spielfigur wird zuerst das Feld, auf dem die Spielfigur sich befindet, referenziert und nachfolgende die Methode \texttt{getTargetTile} auf dem referenzierten Spielfeld aufgerufen, dessen Implementierung in Abbildung \ref{ code} zu sehen ist. Mithilfe der Nachfolgeknoteninformation wird solange der n\"achste Knoten referenziert, bis entweder kein Nachfolgeknoten existiert (im Falle des letzten Zielfeldes eines Spielers) oder die gew\"urfelte Schrittweite erreicht ist.
 Zu beachten ist, dass keinerlei planaren Positionsinformationen ben\"otigt werden. Dadurch ist es m\"oglich, Wege durch v\"ollig frei gestaltete Spielfelder
 zu suchen. Weiterhin lassen sich zwanglos neue Spielfeldtypen f\"ur exotischere Spielvarianten hinzuf\"ugen.
@@ -215,27 +216,25 @@ nicht unn\"otig mit spielablauffremden Methoden aufgebl\"aht, wenn die Spielerve
     \caption{View Klassendiagramm}
 \end{figure}
 
-Die implementierte GUI repr\"asentiert ein Mensch \"arger dich Nicht! Spielfeld. Es besteht aus einem \texttt{PlayfieldPanel}, welches f\"ur die Darstellung von JPanel erbt und f\"ur die Interaktion mit dem Nutzer den MouseListener implementiert. Das PlayfieldPanel stellt die einzelnen \texttt{tiles}, also Felder, mittels zur Laufzeit gerenderten Kreisen dar. Diese Kreise k\"onnen wei\ss   f\"ur normale Wegfelder und Farbig f\"ur Felder eines Spielers sein. 
-  Die einzelnen Figuren der Spieler werden als kleinere Kreise innerhalb des Feldes 
-    GUI
-       -verantwortlich f\"ur den Rahmen, fenstergr\"o\ss e usw
-    PlayfieldPanel
-        - rendering des spielfeldes (tiles, pieces)
+Die implementierte GUI repr\"asentiert ein Mensch \"arger dich Nicht! Spielfeld. Es besteht aus einem \texttt{PlayfieldPanel}, welches f\"ur die Darstellung von JPanel erbt und f\"ur die Interaktion mit dem Nutzer den MouseListener implementiert. Das PlayfieldPanel stellt die einzelnen \texttt{tiles}, also Felder, mittels zur Laufzeit gerenderten Kreisen dar. Diese Kreise k\"onnen wei{\ss}   f\"ur normale Wegfelder und Farbig f\"ur Felder eines Spielers sein. 
+  Die einzelnen Figuren der Spieler werden als kleinere Kreise innerhalb des Feldes dargestellt und durch die Nutzung von \texttt{.darker()} als separate Spielfigur visualisiert. Für die Steuerung des Spiels stehen Buttons zum auslösen des Wurfs und zum Starten des Spiels zur Verfügung. Außerdem kann durch Klick auf eine der eigenen Spielfiguren eine Bewegung um die Gewürfelte Augenanzahl ausgelöst werden. 
+  Die Klasse GUI stellt das Fenster f\"ur das PlayFieldPanel zur Verfügung und stellt diverse Methoden zur Steuerung des Playfields zur Verf\"ugung. 
 
 \subsubsection{Model}
+
+
 \begin{figure}[]
     \centering
     \fbox{\includegraphics[width=0.47\textwidth]{images/modelClassDiagram.jpg}}
     \caption{Model Klassendiagramm}
 \end{figure}
 
-    -erzeugt eleganten regel code durch tiletypen und lookahead function
-    -einfache erweiterung neuer tiletypen und regeln
-    -nat\"urlich abbildung der regeln in code
+Das Modell hinter dem Spiel beschreibt sowohl die Repr\"asentation des Spielfelds, als auch die beiden Spielertypen \texttt{HumanPlayer} und \texttt{KIPlayer} und die Spielfiguren. Das Spielfeld besteht aus beliebig vielen \texttt{tiles}, die die einzelnen Spielfelder repr\"asentieren. Da die \texttt{tiles} eine Typ-Eigenschaft besitzen, kann ein eleganter Regel-Code implementiert werden, der eine variable Spielfeld-Beschaffenheit und eine einfache Erweiterung der Regeln erm\"oglicht. (CODE Hier?  if (tile.TILETYPE == ) 
+Im folgenden wird genauer auf die einzelnen Modell-Klassen eingegangen.
 
-    beispiele zeigen:
-    if (tile.TILETYPE == 
+Player: Die Klasse Player ist die Basisklasse aller Spieler und besitzt Grundinformationen wie z.B. die \texttt{playerID} und den Spielernamen. Außerdem kennt die Player-Klasse die Spielfiguren und somit auch die Information, auf welcher \texttt{tile} des Spielfeldes sich die Spielfigur befindet. Anhand des im Konstruktor übergebenen Playfields findet eine Auswertung der Start- und Home-Felder statt. Die Klassen KIPlayer und HumanPlayer erben von Player und differenzieren so, ob der Zug Automatisch ausgeführt werden soll, oder ob auf die Reaktion des Spielers gewartet werden muss. 
 
+Piece:  
 
 player : basisklasse mit playfield-lese-methoden zur eigenen-pieces-felder initialisierung
       - enth\"alt seine pieces
