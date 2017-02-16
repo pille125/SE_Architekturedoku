@@ -58,13 +58,13 @@ Schlussendlich werden Weiterentwicklungsm\"oglichkeiten des Prototyps pr\"asenti
 
 \section{Einleitung}
 % no \IEEEPARstart
-"Mensch \"argere Dich nicht" ist ein Brettspiel f\"ur bis zu 4 Personen. Es z\"ahlt zu den Klassikern im deutschsprachigen Raum und wurde 1907/1908 von Josef Friedrich Schmidt in Anlehnung an das englische Spiel Ludo erfunden, die Urspr\"unge finden sich jedoch im indischen Spiel Pachisi. Erstmals 1910 erschienen, ging es 1914 in Serie. 
+"Mensch \"argere Dich nicht" ist ein Brettspiel f\"ur bis zu 4 Personen. Es z\"ahlt zu den Klassikern im deutschsprachigen Raum und wurde 1907/1908 von Josef Friedrich Schmidt in Anlehnung an das englische Spiel Ludo erfunden, die Urspr\"unge finden sich jedoch im indischen Spiel Pachisi. Erstmals 1910 erschienen ging es 1914 in Serie. 
 \begin{figure}[]
     \centering
     \fbox{\includegraphics[width=0.4\textwidth]{images/pachisi.jpg}}
     \caption{Pachisi}
 \end{figure}
-Mittlerweile existieren auch viele Abk\"ommlinge und Varianten mit ver\"anderten Regeln oder Spielfeldern. Allen Varianten ist jedoch gemein, dass sie ein symmetrisches Spielfeld besitzen und analog entwickelt wurden. Man kann vermuten, dass mit asymmetrischen Spielfeldern experimentiert, dies jedoch
+Mittlerweile existieren auch einige Abk\"ommlinge und Varianten mit ver\"anderten Regeln oder Spielfeldern. Allen Varianten ist jedoch gemein, dass sie ein symmetrisches Spielfeld besitzen und analog entwickelt wurden. Man kann vermuten, dass mit asymmetrischen Spielfeldern experimentiert, dies jedoch
 nicht weiter verfolgt wurde, da es ungleich schwieriger ist, eine asymmetrische Konfiguration zu finden, bei der die Chancengleichheit und somit der ausgewogene
 Spielspass f\"ur alle Spieler gegeben ist. Dennoch ist der Reiz dieses Szenarios nicht zu verachten, da die Freiheit bei der Gestaltung asymmetrischer Spielfelder
 \"au\ss erst fruchtbar f\"ur die Entwicklung interessanter Spielvarianten, welche sich nicht in das relativ starre klassische Korsett einpassen m\"ussen, ist. Die gr\"o\ss te
@@ -87,25 +87,8 @@ geeignet ist. Diese Aufstellung des Technologiestacks erlaubt einen wechselseiti
 mit der aktuellen Version neue Spielfelder erzeugen oder bereits designte testen und Vorschl\"age zum Regelwerk machen. Der Programmierer
 kann solche Feature-Requests umsetzen und einspielen, woraufhin der Designer wieder iterieren kann. Beide kommunizieren also vorrangig
 \"uber die Grammatik des Spiels und sind nicht prim\"ar an technische Beschr\"ankungen gebunden. Weiter kann der Programmierer unabh\"angig vom Designer
-an der graphischen Erscheinung der View und dem Verhalten der k\"unstlichen Spieler arbeiten. F\"ur den Designer ist eine einfache Bedienung
-wichtig, d.h. es wird nur von ihm verlangt mit der View zu kommunizieren um neue Spielfelder zu erzeugen. Weitere Deploy-Prozesse muss er nicht beachten.
-
-
-- os unabh\"angig lauff\"ahig
-- trotz development dauerhaft lauff\"ahiger zustand (f\"ur designer)
-- keine programmierkenntnisse, um neue spielfelder zu erzeugen und zu testen
-- erweiterbarkeit der regeln
-- erweiterbarkeit f\"ur k\"unstliche spieler
-- einfachste bedienung (nur maus + linke maustaste)
-
-  usage f\"ur designer: entwickele spielfeld, starte generator, starte applikation,
-    vorschl\"age an den programmierer zur weiterentwicklung
-  usage f\"ur programmierer:
-    entwickele view 
-    erweitere regeln (controller: businesslogic, model: neue datenfelder)
-    erweitere generator/grammatik
-    nach implementierung designer neue version zur verf\"ugung stellen
-
+an der grafischen Erscheinung der View und dem Verhalten der k\"unstlichen Spieler arbeiten. F\"ur den Designer ist eine einfache Bedienung
+wichtig, d.h. es wird nur von ihm verlangt mit der View zu kommunizieren um neue Spielfelder zu testen. Weitere Deploy-Prozesse muss er nicht beachten.
 
 
 \section{Genutzte Design Pattern}
@@ -119,7 +102,7 @@ wichtig, d.h. es wird nur von ihm verlangt mit der View zu kommunizieren um neue
 
 \subsection{Singleton}
 
-Die Applikation soll stets ein lauff\"ahiges Mensch-\"arger-dich-nicht-Spiel repr\"asentieren, welche aufgrund des Designeraspekts ohne komplizierte Laufzeiteinstellungen auskommen oder Kommandozeilenparametern zu starten sein mu\ss. Es ist also nicht erw\"unscht, das mehrere Instanzen der Hauptklassen erzeugbar sind, da dies zu kompliziertem Initialisierungscode mit entsprechend notwendigen Konfigurationen von au\ss en in den Toplevelschichten f\"uhren w\"urde. Im Code wird dies dadurch reflektiert, dass die Hauptklassen von Model, View und Controller als Singletons implementiert sind. Dies dient au{\ss}erdem der Objektkonsistenz, da sichergestellt wird, das immer nur ein und die Selbe Instanz des Objekts existiert und eine Fehlerhafte Referenzierung ausgeschlossen ist.
+Die Applikation soll stets ein lauff\"ahiges Mensch-\"arger-dich-nicht-Spiel repr\"asentieren, welche aufgrund des Designeraspekts ohne komplizierte Laufzeiteinstellungen auskommen oder Kommandozeilenparametern zu starten sein mu\ss. Es ist also nicht erw\"unscht, das mehrere Instanzen der Hauptklassen erzeugbar sind, da dies zu kompliziertem Initialisierungscode mit entsprechend notwendigen Konfigurationen von au\ss en in den Toplevelschichten f\"uhren w\"urde. Im Code wird dies dadurch reflektiert, dass die Hauptklassen von Model, View und Controller als Singletons implementiert sind. Dies dient au{\ss}erdem der Objektkonsistenz, da sichergestellt wird, das immer nur ein und dieselbe Instanz des Objekts existiert und eine fehlerhafte Referenzierung ausgeschlossen ist.
 Die Eleganz dieser Variante zeigt sich in der \"ubersichtlichen \texttt{Main}-Klasse, in der nur noch die Singletons instanziiert und miteinander verkn\"upft werden. S\"amtliche Weiterentwicklung des Programms kann innerhalb der MVC-Komponenten erfolgen, ohne das die \texttt{Main} angepasst werden mu\ss .
 
 \section{Implementierung}
@@ -127,14 +110,12 @@ Die Applikation wurde in einem 2er-Team entwickelt. Als erstes wurde die Grammat
 ein Grundger\"ust der Applikation $MenschAergerDichNicht$ entworfen und der Generator $MADPlayfieldGenerator$ geschrieben werden konnte. Nachdem beide Projekte minimal lauff\"ahig waren, haben sich die Entwicklungsrollen iterativ vermischt, bis der Prototyp ausreichend angereichert und getestet
 war.
 \\\\
-F\"ur die einfache und konfigurationslose Verkn\"ufpung der beiden Projekte wurde ein relativer Pfad, welcher lediglich verlangt, dass sich beide Projekte nebeneinander in einem Ordner befinden und ein fester Name $GEN\_PlayfieldCreator.java$ f\"ur die erzeugte Quellcodedatei gew\"ahlt. Dadurch konnte die Code-Generierung mit einem einzigen BefehlÂ permanent angewendet werden.
+F\"ur die einfache und konfigurationslose Verkn\"ufpung der beiden Projekte wurde ein relativer Pfad, welcher lediglich verlangt, dass sich beide Projekte nebeneinander in einem Ordner befinden und ein fester Name $GEN\_PlayfieldCreator.java$ f\"ur die erzeugte Quellcodedatei gew\"ahlt. Dadurch konnte die Code-Generierung mit einem einzigen Befehl permanent angewendet werden.
 
 \subsection{Grammatik/DSL}
   Die Grammatik des Spiels enth\"alt Symbole f\"ur alle m\"oglichen Spielfeldtypen und deren Verkn\"upfungen zum Nachfolgefeld.
   Es k\"onnen Spielfelder f\"ur 2 bis 4 Spieler definiert werden. Das reichte f\"ur den Prototyp aus und kann ohne besondere
-  Schwierigkeiten erweitert werden.\\
-  
-  Die Spielfeldtypen eines klassischen Mensch-\"arger-dich-nicht-Spiels sind wie folgt im Code und in der DSL realisiert:
+  Schwierigkeiten erweitert werden. Die Spielfeldtypen eines klassischen Mensch-\"arger-dich-nicht-Spiels sind wie folgt im Code und in der DSL realisiert:
 
 \begin{table}[h!]
   \centering
@@ -168,7 +149,7 @@ Die EBNF der Grammatik ist in Abbildung 2 dargestellt. Sie beschreibt die zul\"a
 
 \subsection{Generator}
 
-Um aus den $.csv$-Dateien eine $.java$-Datei zu erzeugen, musste ein zweistufiges Parsen geschrieben werden, welches in
+Um aus den $.csv$-Dateien eine $.java$-Datei zu erzeugen, musste ein zweistufiges Parsen implementiert werden, welches in
 den vorgegebenen Antlr-Java-Code eingeh\"angt wurde. Der erste Parser \texttt{PlayFieldMetaListener} ermittelt Metadaten des Spielfeldes, die der zweite Parser \texttt{PlayFieldSemanticListener} ben\"otigt, um den spielfelderzeugenden Code generieren zu k\"onnen. Dazu wird die $.csv$-Datei einmal durchlaufen um die Metadaten zu akkumulieren. Zu diesen geh\"oren die Anzahl der Spieler, die gleichzahligen Home- und Endpositionen der jeweiligen Spieler, das Vorhandensein genau eines Startfeldes pro Spieler sowie die Anzahl der Zeilen und Spalten der $.csv$-Definition. Etwaige Fehler werden mit einer Abbruchsmeldung quittiert. Sind alle Metadaten gesammelt, was erst nach einem vollst\"andigem Scan garantiert ist, kann der \texttt{PlayFieldSemanticListener} gestartet und ihm die nun vorliegenden Metadaten \"ubergeben werden, um den Code f\"ur die Spielfeldverkn\"upfungen mit den nun ebenfalls bekannten Indizes zu generieren.
 Die generierte Datei enth\"alt danach die Zugriffsfunktionen 
 \texttt{getNumRows},
@@ -189,15 +170,14 @@ sowie die Methode \texttt{createPlayfield} des Semantic-Parsers, welcher eine zu
 
   Im folgenden werden die einzelnen Klassen der Applikation vorgestellt.\\
 
-\subsubsection{Game}
+\subsubsection{Controller}
 \begin{figure}[]
     \centering
     \fbox{\includegraphics[width=0.47\textwidth]{images/controllerClassDiagram.jpg}}
     \caption{Controller Klassendiagramm}
 \end{figure}
 
-
-Die Klasse \texttt{Game} ist das Herz der Applikation. Als Hauptcontroller h\"alt er Referenzen zum Subcontroller \texttt{PlayerController}, zur View \texttt{GUI} zum Model \texttt{Playfield}. In der \texttt{Main}-Methode wird die Applikation \"uber\newline
+Die Klasse \texttt{Game} ist das Herz der Applikation. Als Hauptcontroller h\"alt er Referenzen zum Subcontroller \texttt{PlayerController}, zur View \texttt{GUI} und zum Model \texttt{Playfield}. In der \texttt{Main}-Methode wird die Applikation \"uber\newline
 \texttt{Game game = Game.getInstance();}\newline
 \texttt{game.init(playerController, playfield, gui);}\newline
 zusammengesetzt. \\\\
@@ -212,14 +192,18 @@ werden von \texttt{rollDice} zur\"uckgegeben. F\"ur die Logik innerhalb des Spie
 \texttt{prepareNextPlayer}, wenn der entsprechende Spieler seinen Zug abgeschlossen hat.\\
 
 Die zentrale Methode \texttt{tryMove} wird ausgef\"uhrt, wenn eine Spielfigur von einem Spieler, gleichg\"ultig ob menschlich oder nicht, bewegt werden soll. In ihr werden die Regeln zur validen Bewegung der Spielfigur \"uberpr\"uft, der Zug wenn m\"oglich ausgef\"uhrt (wodurch sich das Model \"andert) und die Validit\"at als \texttt{boolean} Wert zur\"uckgegeben. Durch den R\"uckgabewert wird gesteuert, ob im Falle einer KI eine andere Spielfigur bewegt oder wieder auf Mauseingaben des Benutzer gewartet werden soll. War der Zug valide, wird zum n\"achsten Spieler im Spielverlauf weitergegangen. Unterfunktionen von \texttt{tryMove} sind \texttt{cantMoveOut}, welche die Zwangsregel, dass man eine Spielfigur -wenn m\"oglich- heraussetzen muss und
-\texttt{isValidTarget}, welche \"uberpr\"uft, ob das Zielfeld einer Spielfigur ein valide Position darstellt. Auf die letztgenannte Methode soll kurz genauer eingegangen werden, da sich in ihr die Vorteile des knotenbasierten Spielfeldes zeigen. Zum Ermitteln eines legales Spielzugs der Spielfigur wird zuerst das Feld, auf dem die Spielfigur sich befindet, referenziert und nachfolgende die Methode \texttt{getTargetTile} auf dem referenzierten Spielfeld aufgerufen, dessen Implementierung in Abbildung \ref{ code} zu sehen ist. Mithilfe der Nachfolgeknoteninformation wird solange der n\"achste Knoten referenziert, bis entweder kein Nachfolgeknoten existiert (im Falle des letzten Zielfeldes eines Spielers) oder die gew\"urfelte Schrittweite erreicht ist.
+\texttt{isValidTarget}, welche \"uberpr\"uft, ob das Zielfeld einer Spielfigur ein valide Position darstellt.
+
+Auf die letztgenannte Methode soll kurz genauer eingegangen werden, da sich in ihr die Vorteile des knotenbasierten Spielfeldes zeigen. Zum Ermitteln eines legales Spielzugs der Spielfigur wird zuerst das Feld, auf dem die Spielfigur sich befindet, referenziert und nachfolgende die Methode \texttt{getTargetTile} auf dem referenzierten Spielfeld aufgerufen, dessen Implementierung in Abbildung \ref{ code} zu sehen ist. Mithilfe der Nachfolgeknoteninformation wird solange der n\"achste Knoten referenziert, bis entweder kein Nachfolgeknoten existiert (im Falle des letzten Zielfeldes eines Spielers) oder die gew\"urfelte Schrittweite erreicht ist.
 Zu beachten ist, dass keinerlei planaren Positionsinformationen ben\"otigt werden. Dadurch ist es m\"oglich, Wege durch v\"ollig frei gestaltete Spielfelder
 zu suchen. Weiterhin lassen sich zwanglos neue Spielfeldtypen f\"ur exotischere Spielvarianten hinzuf\"ugen.\\\\
-
-\subsubsection{PlayerController}
-     
+\begin{figure}[]
+    \centering
+    \fbox{\includegraphics[width=0.47\textwidth]{images/dev.png}}
+    \caption{View Klassendiagramm}
+\end{figure}
 Der \texttt{PlayerController} dient lediglich der Verwaltung der Spieler. Durch diese zus\"atzliche Kapselung wird jedoch der \texttt{Game}-Controller
-nicht unn\"otig mit spielablauffremden Methoden aufgebl\"aht, wenn die Spielerverwaltung durch erweiterte Spielmodi komplizierter wird. Dazu geh\"ort beispielsweise die Anmeldung der Spieler (menschlich oder k\"unstlich) beim Spielstart und die sp\"atere Abmeldung f\"ur Spielmodi mit mehreren Siegerpl\"atzen.\\\\
+nicht unn\"otig mit spielablauffremden Methoden aufgebl\"aht, wenn die Spielerverwaltung durch erweiterte Spielmodi komplizierter wird. Dazu geh\"ort beispielsweise die Anmeldung der Spieler (menschlich oder k\"unstlich) beim Spielstart und die sp\"atere Abmeldung f\"ur Spielmodi mit mehreren Siegerpl\"atzen.\\
 
 \subsubsection{View}
 \begin{figure}[]
@@ -228,58 +212,34 @@ nicht unn\"otig mit spielablauffremden Methoden aufgebl\"aht, wenn die Spielerve
     \caption{View Klassendiagramm}
 \end{figure}
 
-\begin{figure}[]
-    \centering
-    \fbox{\includegraphics[width=0.47\textwidth]{images/gui.jpg}}
-    \caption{GUI}
-\end{figure}
-
-Die implementierte GUI repr\"asentiert ein Mensch \"arger dich Nicht! Spielfeld. Es besteht aus einem \texttt{PlayfieldPanel}, welches f\"ur die Darstellung von JPanel erbt und f\"ur die Interaktion mit dem Nutzer den MouseListener implementiert. Das PlayfieldPanel stellt die einzelnen \texttt{tiles}, also Felder, mittels zur Laufzeit gerenderten Kreisen dar. Diese Kreise k\"onnen wei{\ss}   f\"ur normale Wegfelder und Farbig f\"ur Felder eines Spielers sein. \\
-  Die einzelnen Figuren der Spieler werden als kleinere Kreise innerhalb des Feldes dargestellt und durch die Nutzung von \texttt{.darker()} als separate Spielfigur visualisiert. f\"ur die Steuerung des Spiels stehen Buttons zum ausl\"osen des Wurfs und zum Starten des Spiels zur Verf\"ugung. Au{\ss}erdem kann durch Klick auf eine der eigenen Spielfiguren eine Bewegung um die Gew\"urfelte Augenanzahl ausgel\"ost werden. 
-  Die Klasse GUI stellt das Fenster und diverse Methoden zur Steuerung des Playfields zur Verf\"ogung. \\
+Der implementierte Singleton \texttt{GUI} repr\"asentiert das generierte Mensch \"arger dich Nicht! Spielfeld. Es besteht aus einem \texttt{PlayfieldPanel}, welches f\"ur die Darstellung von \texttt{JPanel} erbt und f\"ur die Interaktion mit dem Nutzer den MouseListener implementiert. Das \texttt{PlayfieldPanel} stellt die einzelnen \texttt{Tile}s, also Felder, mittels zur Laufzeit gerenderten Kreisen dar. Diese Kreise k\"onnen wei{\ss} f\"ur normale Wegfelder und farbig f\"ur Felder eines Spielers sein. \\
+  Die einzelnen Figuren der Spieler werden als kleinere Kreise innerhalb des Feldes dargestellt und durch die Nutzung von \texttt{.darker()} als separate Spielfigur visualisiert. f\"ur die Steuerung des Spiels stehen Buttons zum ausl\"osen des Wurfs und zum Starten des Spiels zur Verf\"ugung. Au{\ss}erdem kann durch Klick auf eine der eigenen Spielfiguren eine Bewegung um die gew\"urfelte Augenanzahl ausgel\"ost werden. Auf alle diese asynchronen Aktionen sind die vorher beschriebenen Callbacks des \texttt{Game}-Controllers angemeldet. Die Klasse \texttt{GUI} stellt das Fenster und alle nötigen Delegationsmethoden zur Steuerung des \texttt{PlayfieldPanel} zur Verf\"ugung. \\
 
 \subsubsection{Model}
-
-
 \begin{figure}[]
     \centering
     \fbox{\includegraphics[width=0.47\textwidth]{images/modelClassDiagram.jpg}}
     \caption{Model Klassendiagramm}
 \end{figure}
 
-Das Modell hinter dem Spiel beschreibt sowohl die Repr\"asentation des Spielfelds, als auch die beiden Spielertypen \texttt{HumanPlayer} und \texttt{KIPlayer} und die Spielfiguren. Das Spielfeld besteht aus beliebig vielen \texttt{tiles}, die die einzelnen Spielfelder repr\"asentieren. Da die \texttt{tiles} eine Typ-Eigenschaft besitzen, kann ein eleganter Regel-Code implementiert werden, der eine variable Spielfeld-Beschaffenheit und eine einfache Erweiterung der Regeln erm\"oglicht. Ein Beispiel hierf\"ur ist z.B. \newline
-\texttt{if (tile.getType() == TileType.TOGOAL)}
- 
+Das Modell hinter dem Spiel beschreibt sowohl die Repr\"asentation des Spielfelds, als auch die beiden Spielertypen \texttt{HumanPlayer} und \texttt{KIPlayer} sowie die Spielfiguren. Das Spielfeld besteht aus beliebig vielen \texttt{Tile}s, die die einzelnen Spielfelder repr\"asentieren. Da die \texttt{Tile}s eine Typ-Eigenschaft besitzen, kann ein eleganter Regelwerk-Code implementiert werden, der eine variable Spielfeldbeschaffenheit und eine einfache Erweiterung der Regeln erm\"oglicht.
 Im folgenden wird genauer auf die einzelnen Modell-Klassen eingegangen.\\
 
-\texttt{Player}: Die Klasse \texttt{Player} ist die Basisklasse aller Spieler und besitzt Grundinformationen wie z.B. die \texttt{playerID} und den Spielernamen. Au{\ss}erdem kennt die Player-Klasse die Spielfiguren und somit auch die Information, auf welcher \texttt{tile} des Spielfeldes sich die Spielfigur befindet. Anhand des im Konstruktor \"ubergebenen Playfields findet eine Auswertung der Start- und Home-Felder statt. Die Klassen KIPlayer und HumanPlayer erben von Player und differenzieren so, ob der Zug Automatisch ausgef\"uhrt werden soll, oder ob auf die Reaktion des Spielers gewartet werden muss. \\
+\texttt{Player}: Die Klasse \texttt{Player} ist die Basisklasse aller Spieler und besitzt Grundinformationen wie z.B. die \texttt{playerID} und den Spielernamen. Au{\ss}erdem kennt die \texttt{Player}-Klasse die Spielfiguren und somit auch die Information, auf welcher \texttt{Tile} des Spielfeldes sich die Spielfigur befindet. Anhand des im Konstruktor \"ubergebenen \texttt{Playfield}s findet eine Auswertung der Start- und Home-Felder statt. Die Klassen \texttt{KIPlayer} und \texttt{HumanPlayer} erben von \texttt{Player} und differenzieren, ob der Zug automatisch ausgef\"uhrt werden soll, oder ob auf die Reaktion des Spielers gewartet werden muss. \\
 
-\texttt{Piece}: Die Klasse \texttt{Piece} repr\"asentiert eine Spielfigur eines Spielers. Ein \texttt{Piece} geh\"ort immer zu einem \texttt{Player} und steht auf einem \texttt{tile}. Mittels der Methode \texttt{getTargetTile}, die bereits in der Klasse \texttt{Game} beschrieben ist und der Methode \texttt{moveBy} kann die Spielfigur um die gew\"urfelte Anzahl eines Spielzuges bewegt werden. Au{\ss}erdem kann durch die Methode \texttt{isCloseToFinish} ermittelt werden, ob sich die Spielfigur in der Reichweite des Ziels befindet. \\
+\texttt{Piece}: Die Klasse \texttt{Piece} repr\"asentiert eine Spielfigur eines Spielers. Ein \texttt{Piece} geh\"ort immer zu einem \texttt{Player} und steht auf einem \texttt{Tile}. Mittels der Methode \texttt{getTargetTile}, die bereits in der Klasse \texttt{Game} beschrieben ist und der Methode \texttt{moveBy} kann die Spielfigur um die gew\"urfelte Anzahl eines Spielzuges bewegt werden. Au{\ss}erdem kann durch die Methode \texttt{isCloseToFinish} ermittelt werden, ob sich die Spielfigur in der Reichweite des Ziels befindet. \\
 
-\texttt{Playfield}: Die Klasse \texttt{Playfield} dient der Verkn\"upfung der Codegenierten Spielfelder und der \texttt{GUI} und h\"alt die \texttt{tile}-Objekte des Spielfelds. Au{\ss}erdem kennt sie die Anzahl der Reihen, Spalten, Spieler und Spielfiguren pro Spieler.\\
+\texttt{Playfield}: Die Klasse \texttt{Playfield} dient der Verkn\"upfung der codegenierten Spielfelder und der \texttt{GUI} und h\"alt die \texttt{Tile}-Objekte des Spielfelds. Au{\ss}erdem kennt sie durch die generierte Klasse \texttt{MAD\_PlayfieldCreator} die Anzahl der Reihen, Spalten, Spieler und Spielfiguren pro Spieler.\\
 
-\texttt{Tile}: Die Klasse \texttt{Tile} speichert die Knoten- und Referenz-Informationen der Spielfiguren des Spielfelds. Eine Instanz der Klasse \texttt{Tile} besitzt Informationen \"uber den \texttt{TileTyp}, die Spielfigur die eventuell mit ihr assoziiert ist und die \texttt{PlayerID}. Des weiteren verf\"ugt sie \"uber die Information, welche \texttt{Tile} ihr Nachfolger ist und ggf. ob es eine \texttt{Tile} ist, die sich vor einer Ziel-Tile befindet. \\
+\texttt{Tile}: Die Klasse \texttt{Tile} speichert die Knoten- und Referenzinformationen der Spielfiguren des Spielfelds. Eine Instanz der Klasse \texttt{Tile} besitzt Informationen \"uber den \texttt{TileType}, die Spielfigur die eventuell mit ihr assoziiert ist und die \texttt{playerID}. Des weiteren verf\"ugt sie \"uber die Information, welche \texttt{Tile} ihr Nachfolger ist und ggf. ob es eine \texttt{Tile} ist, die sich vor einer Ziel-\texttt{Tile} befindet. \\
 
-\texttt{TileType}: Das enum \texttt{TileType} beschreibt den Typ eines \texttt{Tile}-Objekts. Die m\"oglichen Typen sind: Home f\"ur ein Hausfeld, Start f\"ur ein Startfeld, Goal f\"ur ein Zielfeld, Way f\"ur ein Wegfeld, ToGoal f\"ur ein Feld, das sich vor einem Zielfeld befindet f\"ur eine nicht Spielrelevante \texttt{Tile}. \\
+\texttt{TileType}: Die Enumeration \texttt{TileType} beschreibt den Typ eines \texttt{Tile}-Objekts. Die m\"oglichen Typen sind: Home f\"ur ein Hausfeld, Start f\"ur ein Startfeld, Goal f\"ur ein Zielfeld, Way f\"ur ein Wegfeld, ToGoal f\"ur ein Feld, das sich vor einem Zielfeld befindet f\"ur eine nicht spielrelevante \texttt{Tile}. \\
 
-player : basisklasse mit playfield-lese-methoden zur eigenen-pieces-felder initialisierung
-      - enth\"alt seine pieces
-      Ableitungen: KIPlayer/HumanPlayer
-
-humanplayer: nix, steuerung durch view/game
-kiplayer: ki methode
-
-piece: in Game-beschreibung erw\"ahnte wichtige methode getTargetTile
-2. methode moveBy -> ver\"anderung des models durch spielzug
-
-playfield: im generaotr-abschnitt erw\"ahnte verkn\"upfung mit generierter datei, sonst nur datastore f\"ur tile, ebenso nur datenobject
-
-Tile 
-  - knoteninformationen
-  - referenzinformation \"uber pieces
-
-
-tiletype: die erw\"ahnten definitionen
+\begin{figure}[]
+    \centering
+    \fbox{\includegraphics[width=0.47\textwidth]{images/gui.jpg}}
+    \caption{GUI}
+\end{figure}
 
 \section{Fazit}
 
