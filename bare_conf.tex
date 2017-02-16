@@ -43,17 +43,15 @@
 % As a general rule, do not put math, special symbols or citations
 % in the abstract
 \begin{abstract}
-Die vorliegende Arbeit enth\"alt eine detaillierte Beschreibung einer Java-Applikation des Spiels "Mensch \"argere Dich nicht",
+Die vorliegende Arbeit enth\"alt eine detaillierte Beschreibung eines Prototypen einer Java-Applikation des Spiels "Mensch \"argere Dich nicht",
 welche f\"ur Spieleprogrammierer und Spieledesigner gleicherma\ss en geeignet ist. Ziel war es, dass der Programmierer
-sich um Erscheinungsbild und Regeln des Spiels k\"ummern kann, ohne selber Spielfelder designen zu m\"ussen, wohingegen der Designer keine
+sich um Erscheinungsbild und Regelumsetzung des Spiels k\"ummern kann, ohne selber Spielfelder designen zu m\"ussen, wohingegen der Designer keine
 Programmierkenntnisse ben\"otigt, um neue Spielfelder hinzuzuf\"ugen und zu testen.\\ Zu diesem Zweck wurden eine Grammatik f\"ur die Spielfelder
 und ein Generator, welcher die Grammatiken verarbeitet und automatisiert Code erzeugt, erstellt. Die dahinterliegende Idee, die Spielfelder
-nicht auf Positions-, sondern Knoteninformationen zu basieren, wird ausf\"uhrlich dargestellt.
-Schlussendlich werden Weiterentwicklungsm\"oglichkeiten des Prototyps pr\"asentiert.
+nicht auf Positions-, sondern Knoteninformationen zu basieren, wird ausf\"uhrlich dargestellt. Schlussendlich wird noch ein Abriss aller Komponenten der Architektur gegeben und erlangte Erkenntnisse dargelegt.
 \end{abstract}
 
 \IEEEpeerreviewmaketitle
-
 
 
 \section{Einleitung}
@@ -190,7 +188,6 @@ Die Methode \texttt{turn} leitet einen Spielzug ein. Im Falle eines menschlichen
 werden von \texttt{rollDice} zur\"uckgegeben. F\"ur die Logik innerhalb des Spielablaufs existieren die Methoden
 \texttt{prepareBonusRoll}, welche gesondert nach einer gew\"urfelten 6 angesteuert wird und im Falle einer anderen gew\"urfelten Zahl
 \texttt{prepareNextPlayer}, wenn der entsprechende Spieler seinen Zug abgeschlossen hat.\\
-
 Die zentrale Methode \texttt{tryMove} wird ausgef\"uhrt, wenn eine Spielfigur von einem Spieler, gleichg\"ultig ob menschlich oder nicht, bewegt werden soll. In ihr werden die Regeln zur validen Bewegung der Spielfigur \"uberpr\"uft, der Zug wenn m\"oglich ausgef\"uhrt (wodurch sich das Model \"andert) und die Validit\"at als \texttt{boolean} Wert zur\"uckgegeben. Durch den R\"uckgabewert wird gesteuert, ob im Falle einer KI eine andere Spielfigur bewegt oder wieder auf Mauseingaben des Benutzer gewartet werden soll. War der Zug valide, wird zum n\"achsten Spieler im Spielverlauf weitergegangen. Unterfunktionen von \texttt{tryMove} sind \texttt{cantMoveOut}, welche die Zwangsregel, dass man eine Spielfigur -wenn m\"oglich- heraussetzen muss und
 \texttt{isValidTarget}, welche \"uberpr\"uft, ob das Zielfeld einer Spielfigur ein valide Position darstellt.
 
@@ -235,32 +232,18 @@ Im folgenden wird genauer auf die einzelnen Modell-Klassen eingegangen.\\
 $GOAL$-Feldern zu verkn\"upfen. Au{\ss}erdem kennt sie durch die generierte Klasse die Anzahl der Reihen, Spalten, Spieler und Spielfiguren pro Spieler und bietet f\"ur die Controller Delegationsmethoden an.\\
 
 \texttt{Tile}: Die Klasse \texttt{Tile} speichert die Knoten- und Referenzinformationen der Spielfiguren des Spielfelds. Eine Instanz der Klasse \texttt{Tile} besitzt Informationen \"uber den \texttt{TileType}, die Spielfigur die eventuell mit ihr assoziiert ist und die \texttt{playerID}. Des weiteren verf\"ugt sie \"uber die Information, welche \texttt{Tile} ihr Nachfolger ist und ggf. ob es eine \texttt{Tile} ist, die sich vor einer Ziel-\texttt{Tile} befindet. \\
-
-\texttt{TileType}: Die Enumeration \texttt{TileType} beschreibt den Typ eines \texttt{Tile}-Objekts. Die m\"oglichen Typen sind: $HOME$ f\"ur ein Hausfeld, $START$ f\"ur ein Startfeld, $GOAL$ f\"ur ein Zielfeld, $WAY$ f\"ur ein Wegfeld, $TOGOAL$ f\"ur ein Feld, das sich vor einem Zielfeld befindet und $NONE$ f\"ur eine nicht spielrelevante \texttt{Tile}. \\
-
 \begin{figure}[]
     \centering
     \fbox{\includegraphics[width=0.47\textwidth]{images/gui.jpg}}
     \caption{GUI}
 \end{figure}
+\texttt{TileType}: Die Enumeration \texttt{TileType} beschreibt den Typ eines \texttt{Tile}-Objekts. Die m\"oglichen Typen sind: $HOME$ f\"ur ein Hausfeld, $START$ f\"ur ein Startfeld, $GOAL$ f\"ur ein Zielfeld, $WAY$ f\"ur ein Wegfeld, $TOGOAL$ f\"ur ein Feld, das sich vor einem Zielfeld befindet und $NONE$ f\"ur eine nicht spielrelevante \texttt{Tile}. \\
 
 \section{Fazit}
 
 Aufgrund der relativ kurzen Entwicklungszeit mussten beim urumf\"anglichen Architekturdesign Abstriche gemacht werden.
 Dennoch wurde darauf geachtet, dass die beschnittenen Teile so ausgelegt wurden, dass eine sp\"atere Erweiterung
 ohne grosses Refactoring m\"oglich ist, beispielsweise seien hier die direkt verkn\"upften Callbacks statt eines ausgewachenen EvenDispatcher-Pattern oder der \texttt{PlayerController} genannt. Das Ziel, einen stabilen Prototypen f\"ur dynamische Mensch-\"arger-Dich-nicht-Spielfelder zu programmieren, wurde erreicht. Die feste Schnittstelle in der \texttt{Playfield}-Klasse zum generierten Code hat sich als \"ausserst fruchtbar f\"ur den unterbrechungslosen Workflow in den Bereichen Grammatik-, Spielregel- und Grafikerweiterung herausgestellt. Die Umwandlung von zeilen- und spaltenbasierten Informationen in eine Knotenstruktur hat wesentlich zu elegantem und intuitivem Code gef\"uhrt und entkoppelt die grafische Darstellung von der Semantik des Spielfeldes. Im Verlauf der Entwicklung hat sich herauskristallisiert, dass f\"ur Spielfelder, die grafisch noch wesentlich freier gestaltbar sein sollen, so z.B. geschwungene Wege oder Felder mit mehr als 3 Knotenverkn\"upfungen, die Grammatik jedoch genauestens \"uberdacht werden sollte. Eine Kl\"arung dieser Fragestellungen ist nach den Erfahrungen dieses Prototypen der richtige Weg f\"ur Refactorings und Workflowprozesse in den verschiedenen Bereichen der Applikation. F\"ur eine komplette Worksuite zur Herstellung von Spielvarianten vorstellbar sind ein grafischer Spielfeldeditor, welcher die dann komplizierteren Grammatiken f\"ur den Designer erzeugen kann sowie weitere Code-Generatoren im Bereich von k\"unstlichen Mitspielern und abweichenden Spielregels\"atzen. Abschlie{\ss}end l\"asst sich sagen, das der anf\"angliche Mehraufwand, einen relativ aufw\"andigen Parser zu schreiben, in der sp\"ateren Phase des Projektes beim Testen, Debuggen und Weiterentwickeln mehr als gelohnt hat. Eine manuelle Bearbeitung von Java-Code, um neue Spielfeldkombinationen zu testen, w\"are zeitlich untragbar gewesen.
-
-
-\begin{thebibliography}{1}
-
-\bibitem{IEEEhowto:kopka}
-H.~Kopka and P.~W. Daly, \emph{A Guide to \LaTeX}, 3rd~ed.\hskip 1em plus
-  0.5em minus 0.4em\relax Harlow, England: Addison-Wesley, 1999.
-
-\end{thebibliography}
-
-
-
 
 % that's all folks
 \end{document}
