@@ -100,7 +100,7 @@ wichtig, d.h. es wird nur von ihm verlangt mit der View zu kommunizieren um neue
 
 \subsection{Singleton}
 
-Die Applikation soll stets ein lauff\"ahiges Mensch-\"arger-dich-nicht-Spiel repr\"asentieren, welche aufgrund des Designeraspekts ohne komplizierte Laufzeiteinstellungen auskommen oder Kommandozeilenparametern zu starten sein mu\ss. Es ist also nicht erw\"unscht, das mehrere Instanzen der Hauptklassen erzeugbar sind, da dies zu kompliziertem Initialisierungscode mit entsprechend notwendigen Konfigurationen von au\ss en in den Toplevelschichten f\"uhren w\"urde. Im Code wird dies dadurch reflektiert, dass die Hauptklassen von Model, View und Controller als Singletons implementiert sind. Dies dient au{\ss}erdem der Objektkonsistenz, da sichergestellt wird, das immer nur ein und dieselbe Instanz des Objekts existiert und eine fehlerhafte Referenzierung ausgeschlossen ist.
+Die Applikation soll stets ein lauff\"ahiges Mensch-\"arger-Dich-nicht-Spiel repr\"asentieren, welche aufgrund des Designeraspekts ohne komplizierte Laufzeiteinstellungen auskommen oder Kommandozeilenparametern zu starten sein mu\ss. Es ist also nicht erw\"unscht, das mehrere Instanzen der Hauptklassen erzeugbar sind, da dies zu kompliziertem Initialisierungscode mit entsprechend notwendigen Konfigurationen von au\ss en in den Toplevelschichten f\"uhren w\"urde. Im Code wird dies dadurch reflektiert, dass die Hauptklassen von Model, View und Controller als Singletons implementiert sind. Dies dient au{\ss}erdem der Objektkonsistenz, da sichergestellt wird, das immer nur ein und dieselbe Instanz des Objekts existiert und eine fehlerhafte Referenzierung ausgeschlossen ist.
 Die Eleganz dieser Variante zeigt sich in der \"ubersichtlichen \texttt{Main}-Klasse, in der nur noch die Singletons instanziiert und miteinander verkn\"upft werden. S\"amtliche Weiterentwicklung des Programms kann innerhalb der MVC-Komponenten erfolgen, ohne das die \texttt{Main} angepasst werden mu\ss .
 
 \section{Implementierung}
@@ -114,7 +114,7 @@ Dadurch konnte die Code-Generierung mit einem einzigen Befehl permanent angewend
 \subsection{Grammatik/DSL}
   Die Grammatik des Spiels enth\"alt Symbole f\"ur alle m\"oglichen Spielfeldtypen und deren Verkn\"upfungen zum Nachfolgefeld.
   Es k\"onnen Spielfelder f\"ur 2 bis 4 Spieler definiert werden. Das reichte f\"ur den Prototyp aus und kann ohne besondere
-  Schwierigkeiten erweitert werden. Die Spielfeldtypen eines klassischen Mensch-\"arger-dich-nicht-Spiels sind wie folgt im Code und in der DSL realisiert:
+  Schwierigkeiten erweitert werden. Die Spielfeldtypen eines klassischen Mensch-\"arger-Dich-nicht-Spiels sind wie folgt im Code und in der DSL realisiert:
 
 \begin{table}[h!]
   \centering
@@ -219,8 +219,8 @@ Der implementierte Singleton \texttt{GUI} repr\"asentiert das generierte Mensch-
     \caption{Model Klassendiagramm}
 \end{figure}
 
-Das Modell hinter dem Spiel beschreibt sowohl die Repr\"asentation des Spielfelds, als auch die beiden Spielertypen \texttt{HumanPlayer} und \texttt{KIPlayer} sowie die Spielfiguren. Das Spielfeld besteht aus beliebig vielen \texttt{Tile}s, die die einzelnen Spielfelder repr\"asentieren. Da die \texttt{Tile}s eine Typ-Eigenschaft besitzen, kann ein eleganter Regelwerk-Code implementiert werden, der eine variable Spielfeldbeschaffenheit und eine einfache Erweiterung der Regeln erm\"oglicht.
-Im folgenden wird genauer auf die einzelnen Modell-Klassen eingegangen.\\
+Das Modell hinter dem Spiel beschreibt sowohl die Repr\"asentation des Spielfelds, als auch die beiden Spielertypen \texttt{HumanPlayer} und \texttt{KIPlayer} sowie die Spielfiguren. Das Spielfeld besteht aus beliebig vielen \texttt{Tile}s, die die einzelnen Spielfelder repr\"asentieren. Da die \texttt{Tile}s eine Typeigenschaft besitzen, kann ein eleganter Regelwerk-Code implementiert werden, der eine variable Spielfeldbeschaffenheit und eine einfache Erweiterung der Regeln erm\"oglicht.
+Im folgenden wird genauer auf die einzelnen Modellklassen eingegangen.\\
 
 \texttt{Player}: Die Klasse \texttt{Player} ist die Basisklasse aller Spieler und besitzt Grundinformationen wie z.B. die \texttt{playerID} und den Spielernamen. Au{\ss}erdem kennt die \texttt{Player}-Klasse die Spielfiguren und somit auch die Information, auf welcher \texttt{Tile} des Spielfeldes sich die Spielfigur befindet. Anhand des im Konstruktor \"ubergebenen \texttt{Playfield}s findet eine Auswertung der Start- und Home-Felder statt. Die Klassen \texttt{KIPlayer} und \texttt{HumanPlayer} erben von \texttt{Player} und differenzieren, ob der Zug automatisch ausgef\"uhrt werden soll, oder ob auf die Reaktion des Spielers gewartet werden muss. \\
 
